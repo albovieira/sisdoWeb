@@ -15,7 +15,7 @@ return array(
         //'ZfcRbac',
         //'ZfcUserDoctrineORM',
         'TwbBundle',
-        'GerenciaEstoque',
+        'Sisdo',
         'Application',
     ),
 

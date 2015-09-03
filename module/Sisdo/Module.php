@@ -7,7 +7,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace GerenciaEstoque;
+namespace Sisdo;
 
 use Zend\Mvc\I18n\Translator;
 use Zend\Mvc\ModuleRouteListener;

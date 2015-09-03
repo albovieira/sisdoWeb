@@ -7,7 +7,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace GerenciaEstoque;
+namespace Sisdo;
 
 return array(
     'doctrine' => array(
@@ -32,77 +32,29 @@ return array(
                 'options' => array(
                     'route'    => '/',
                     'defaults' => array(
-                        'controller' => 'GerenciaEstoque\Controller\Index',
+                        'controller' => 'Sisdo\Controller\Index',
                         'action'     => 'index',
                     ),
                 ),
             ),
 
-            'produto' => array(
+            'exemplo' => array(
                 'type' => 'Segment',
                 'options' => array(
-                    'route' => '/produto[/][:action][/:id]',
+                    'route' => '/exemplo[/][:action][/:id]',
                     'constraints' => array(
                         'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
                         'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                         'id' => '[0-9]+',
                     ),
                     'defaults' => array(
-                        '__NAMESPACE__' => 'GerenciaEstoque\Controller',
-                        'controller' => 'Produto',
-                        'action' => 'index',
-                    ),
-                ),
-            ),
-            'estoque' => array(
-                'type' => 'Segment',
-                'options' => array(
-                    'route' => '/estoque[/][:action][/:id]',
-                    'constraints' => array(
-                        'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                        'id' => '[0-9]+',
-                    ),
-                    'defaults' => array(
-                        '__NAMESPACE__' => 'GerenciaEstoque\Controller',
-                        'controller' => 'Estoque',
-                        'action' => 'index',
-                    ),
-                ),
-            ),
-            'fornecedor' => array(
-                'type' => 'Segment',
-                'options' => array(
-                    'route' => '/fornecedor[/][:action][/:id]',
-                    'constraints' => array(
-                        'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                        'id' => '[0-9]+',
-                    ),
-                    'defaults' => array(
-                        '__NAMESPACE__' => 'GerenciaEstoque\Controller',
-                        'controller' => 'Fornecedor',
+                        '__NAMESPACE__' => 'Sisdo\Controller',
+                        'controller' => 'Exemplo',
                         'action' => 'index',
                     ),
                 ),
             ),
 
-            'pedido' => array(
-                'type' => 'Segment',
-                'options' => array(
-                    'route' => '/pedido[/][:action][/:id]',
-                    'constraints' => array(
-                        'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                        'id' => '[0-9]+',
-                    ),
-                    'defaults' => array(
-                        '__NAMESPACE__' => 'GerenciaEstoque\Controller',
-                        'controller' => 'Pedido',
-                        'action' => 'index',
-                    ),
-                ),
-            ),
 
             // The following is a route to simplify getting started creating
             // new controllers and actions without needing to create a new
@@ -113,7 +65,7 @@ return array(
                 'options' => array(
                     'route'    => '/application',
                     'defaults' => array(
-                        '__NAMESPACE__' => 'GerenciaEstoque\Controller',
+                        '__NAMESPACE__' => 'Sisdo\Controller',
                         'controller'    => 'Index',
                         'action'        => 'index',
                     ),
@@ -145,37 +97,14 @@ return array(
             'translator' => 'Zend\Mvc\Service\TranslatorServiceFactory',
 
             //Daos
-            'ProdutoDao' => function ($sm) {
-                return new \GerenciaEstoque\Dao\ProdutoDao($sm->get('Doctrine\ORM\EntityManager'), $sm);
-            },
-            'EstoqueDao' => function ($sm) {
-                return new \GerenciaEstoque\Dao\EstoqueDao($sm->get('Doctrine\ORM\EntityManager'), $sm);
-            },
-            'FornecedorDao' => function ($sm) {
-                return new \GerenciaEstoque\Dao\FornecedorDao($sm->get('Doctrine\ORM\EntityManager'), $sm);
-            },
-            'PedidoDao' => function ($sm) {
-                return new \GerenciaEstoque\Dao\PedidoDao($sm->get('Doctrine\ORM\EntityManager'), $sm);
-            },
-            'ItemPedidoDao' => function ($sm) {
-                return new \GerenciaEstoque\Dao\ItemPedidoDao($sm->get('Doctrine\ORM\EntityManager'), $sm);
+            /*'ProdutoDao' => function ($sm) {
+                return new \Sisdo\Dao\ProdutoDao($sm->get('Doctrine\ORM\EntityManager'), $sm);
             },
 
-            //Service
-            'ProdutoService' => function ($sm) {
-                return new \GerenciaEstoque\Service\ProdutoService($sm);
-            },
-
-            'EstoqueService' => function ($sm) {
-                return new \GerenciaEstoque\Service\EstoqueService($sm);
-            },
-
-            'FornecedorService' => function ($sm) {
-                return new \GerenciaEstoque\Service\FornecedorService($sm);
-            },
+            //Services
             'PedidoService' => function ($sm) {
-                return new \GerenciaEstoque\Service\PedidoService($sm);
-            },
+                return new \Sisdo\Service\PedidoService($sm);
+            },*/
         ),
     ),
     'translator' => array(
@@ -190,11 +119,7 @@ return array(
     ),
     'controllers' => array(
         'invokables' => array(
-            'GerenciaEstoque\Controller\Index' => 'GerenciaEstoque\Controller\IndexController',
-            'GerenciaEstoque\Controller\Produto' => 'GerenciaEstoque\Controller\ProdutoController',
-            'GerenciaEstoque\Controller\Estoque' => 'GerenciaEstoque\Controller\EstoqueController',
-            'GerenciaEstoque\Controller\Fornecedor' => 'GerenciaEstoque\Controller\FornecedorController',
-            'GerenciaEstoque\Controller\Pedido' => 'GerenciaEstoque\Controller\PedidoController'
+            'Sisdo\Controller\Index' => 'Sisdo\Controller\IndexController',
         ),
     ),
     'view_manager' => array(
