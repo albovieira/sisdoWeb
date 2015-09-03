@@ -1,0 +1,28 @@
+<?php
+
+echo $this->form(null, \TwbBundle\Form\View\Helper\TwbBundleForm::LAYOUT_HORIZONTAL)->openTag($this->form);
+$this->form->prepare();
+
+//$this->form->prepare();
+?>
+
+<div class="form-group">
+    <?php echo $this->formRow($this->form->get(\Application\Constants\FornecedorConst::FLD_ID_FORNEC)); ?>
+    <?php echo $this->formRow($this->form->get(\Application\Constants\FornecedorConst::FLD_NOME_FORNEC)); ?>
+    <?php echo $this->formRow($this->form->get(\Application\Constants\FornecedorConst::FLD_CNPJ)); ?>
+</div>
+
+<div class="row botoesacao">
+    <?php echo $this->formButton($this->form->get('btn_salvar')); ?>
+    <?php echo $this->formButton($this->form->get('btn_cancelar')); ?>
+
+</div>
+
+<?php echo $this->form()->closeTag(); ?>
+
+
+<script>
+    $(document).ready(function () {
+        $("#cnpj").mask("99.999.999/9999-99");
+    })
+</script>

@@ -1,0 +1,66 @@
+<?php
+
+echo $this->form(null, \TwbBundle\Form\View\Helper\TwbBundleForm::LAYOUT_HORIZONTAL)->openTag($this->form);
+$this->form->prepare();
+
+//$this->form->prepare();
+?>
+<div class="form-group">
+
+    <?php echo $this->formRow($this->form->get(\Application\Constants\PedidoConst::FLD_ID_PEDIDO)); ?>
+    <?php echo $this->formRow($this->form->get(\Application\Constants\PedidoConst::FLD_FORNECEDOR)); ?>
+    <?php echo $this->formRow($this->form->get(\Application\Constants\PedidoConst::FLD_DATA)); ?>
+    <?php echo $this->formRow($this->form->get(\Application\Constants\PedidoConst::FLD_VALOR_TOTAL)); ?>
+    <?php echo $this->formRow($this->form->get(\Application\Constants\PedidoConst::FLD_STATUS)); ?>
+</div>
+
+<div class="row botoesacao">
+    <?php echo $this->formButton($this->form->get('btn_salvar')); ?>
+    <?php echo $this->formButton($this->form->get('btn_cancelar')); ?>
+
+</div>
+
+<?php echo $this->form()->closeTag(); ?>
+
+
+<?php
+if ($this->formItem) {
+    echo '<hr>';
+    echo '<h3>Itens do Pedido</h3>';
+
+
+    echo $this->botoesHelper($this->botoesHelper);
+    echo $this->grid;
+
+
+echo $this->form(null, \TwbBundle\Form\View\Helper\TwbBundleForm::LAYOUT_HORIZONTAL)->openTag($this->formItem);
+$this->formItem->prepare();
+
+$modal = new \Application\Helper\ModalHelper();
+$modal->setTitle('Item Pedido');
+$modal->setContent(
+//id do pedido atual
+    $this->formRow($this->form->get(\Application\Constants\PedidoConst::FLD_ID_PEDIDO)) .
+
+    $this->formRow($this->formItem->get(\Application\Constants\ItemPedidoConst::FLD_ID_PEDIDO)) .
+    $this->formRow($this->formItem->get(\Application\Constants\ItemPedidoConst::FLD_PRODUTO)) .
+    $this->formRow($this->formItem->get(\Application\Constants\ItemPedidoConst::FLD_QTD))
+);
+$modal->setFooter(
+    $this->formButton($this->formItem->get('btn_salvar')) .
+    $this->formButton($this->formItem->get('btn_cancelar'))
+);
+$modal->setId('modal_item');
+
+echo $this->form()->closeTag();
+
+echo $modal->renderModal();
+}
+?>
+
+
+<script>
+    $(document).ready(function () {
+        $("#cnpj").mask("99.999.999/9999-99");
+    })
+</script>

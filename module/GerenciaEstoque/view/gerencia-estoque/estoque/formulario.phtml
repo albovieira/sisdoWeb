@@ -1,0 +1,31 @@
+<?php
+
+echo $this->form(null,\TwbBundle\Form\View\Helper\TwbBundleForm::LAYOUT_HORIZONTAL)->openTag($this->form);
+$this->form->prepare();
+
+//$this->form->prepare();
+?>
+
+<div class="form-group">
+    <?php echo $this->formRow($this->form->get(\Application\Constants\ProdutoConst::FLD_ID_PRODUTO)); ?>
+    <?php echo $this->formRow($this->form->get(\Application\Constants\ProdutoConst::FLD_DESC_PRODUTO)); ?>
+    <?php echo $this->formRow($this->form->get(\Application\Constants\ProdutoConst::FLD_VAL_UNITARIO)); ?>
+</div>
+
+<div class="row botoesacao">
+    <?php echo $this->formButton($this->form->get('btn_salvar')); ?>
+    <?php echo $this->formButton($this->form->get('btn_cancelar')); ?>
+
+</div>
+
+<?php echo $this->form()->closeTag(); ?>
+
+
+
+
+<script>
+    //temporario
+    $(document).ready(function () {
+        //showMessages('teste');
+    })
+</script>

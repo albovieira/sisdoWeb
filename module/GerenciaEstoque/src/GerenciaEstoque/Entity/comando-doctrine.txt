@@ -1,0 +1,7 @@
+.\vendor\doctrine\doctrine-module\bin\
+
+cd wamp\www\gerenciaEstoque\vendor\doctrine\doctrine-module\bin\
+
+php doctrine-module orm:convert-mapping --namespace="Application\\Entity\\" --force  --from-database annotation ./module/Application/src/
+
+php doctrine-module orm:generate-entities ./module/Application/src/ --generate-annotations=true
