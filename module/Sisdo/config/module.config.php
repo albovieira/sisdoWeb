@@ -27,7 +27,7 @@ return array(
 
     'router' => array(
         'routes' => array(
-            'home' => array(
+            'inicio' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
                     'route'    => '/',
@@ -38,10 +38,10 @@ return array(
                 ),
             ),
 
-            'exemplo' => array(
+            'instituicao' => array(
                 'type' => 'Segment',
                 'options' => array(
-                    'route' => '/exemplo[/][:action][/:id]',
+                    'route' => '/instituicao[/][:action][/:id]',
                     'constraints' => array(
                         'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
                         'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
@@ -49,7 +49,7 @@ return array(
                     ),
                     'defaults' => array(
                         '__NAMESPACE__' => 'Sisdo\Controller',
-                        'controller' => 'Exemplo',
+                        'controller' => 'Instituicao',
                         'action' => 'index',
                     ),
                 ),
@@ -120,6 +120,7 @@ return array(
     'controllers' => array(
         'invokables' => array(
             'Sisdo\Controller\Index' => 'Sisdo\Controller\IndexController',
+            'Sisdo\Controller\Instituicao' => 'Sisdo\Controller\InstituicaoController',
         ),
     ),
     'view_manager' => array(

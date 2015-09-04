@@ -17,11 +17,20 @@ return array(
                 'cache' => 'array',
                 'paths' => array(__DIR__ . '/../src/' . __NAMESPACE__ . '/Entity'),
             ),
+
+            // overriding zfc-user-doctrine-orm's config
+            'zfcuser_entity' => array(
+                'class' => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
+                'paths' => __DIR__ . '/../src/Application/Entity',
+            ),
+
             'orm_default' => array(
                 'drivers' => array(
                     __NAMESPACE__ . '\Entity' => __NAMESPACE__ . '_driver',
+                    'Application\Entity' => 'zfcuser_entity',
                 ),
             ),
+
         ),
     ),
 
@@ -93,6 +102,14 @@ return array(
         ),
         'factories' => array(
             'translator' => 'Zend\Mvc\Service\TranslatorServiceFactory',
+            // Override ZfcUser User Mapper factory
+            'zfcuser_user_mapper' => function ($sm) {
+                return new \Application\Mapper\User(
+                    $sm->get('zfcuser_doctrine_em'),
+                    $sm->get('zfcuser_module_options')
+                );
+            },
+
         ),
     ),
     'translator' => array(

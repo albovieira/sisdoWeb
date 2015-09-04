@@ -35,6 +35,40 @@ class Module
         //Define a tradução padrão do Validator
         AbstractValidator::setDefaultTranslator ( new Translator( $translator ) );
 
+        $em = $eventManager->getSharedManager();
+
+        $em->attach(
+            'ZfcUser\Form\Register',
+            'init',
+            function($e)
+            {
+                /* @var $form \ZfcUser\Form\Register */
+                $form = $e->getTarget();
+
+                $form->remove('email');
+                $form->get('username')->setLabel('Login');
+                $form->get('password')->setLabel('Senha');
+                $form->get('passwordVerify')->setLabel('Confirmar Senha');
+
+            }
+        );
+
+        // here's the storage bit
+
+        $zfcServiceEvents = $e->getApplication()->getServiceManager()->get('zfcuser_user_service')->getEventManager();
+
+        $zfcServiceEvents->attach('register', function($e) {
+            $form = $e->getParam('form');
+            $user = $e->getParam('user');
+            /* @var $user \Application\Entity\User */
+            $user->setUsername(  $form->get('username')->getValue() );
+        });
+
+        // you can even do stuff after it stores
+      //  $zfcServiceEvents->attach('register.post', function($e) {
+            /*$user = $e->getParam('user');*/
+       // });
+
     }
 
     public function getConfig()

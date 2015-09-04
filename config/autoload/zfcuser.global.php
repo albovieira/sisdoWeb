@@ -21,7 +21,7 @@ $settings = array(
      * instead of the default one provided. Default is ZfcUser\Entity\User.
      * The entity class should implement ZfcUser\Entity\UserInterface
      */
-    'user_entity_class' => 'Application\Entity\Usuario',
+    'user_entity_class' => 'Application\Entity\User',
 
     /**
      * Enable registration
@@ -50,8 +50,8 @@ $settings = array(
      * Default value: array containing 'ZfcUser\Authentication\Adapter\Db' with priority 100
      * Accepted values: array containing services that implement 'ZfcUser\Authentication\Adapter\ChainableAdapter'
      */
-    'auth_adapters' => array(110 => 'Custom\zfcUser\Authentication'),
-//    'auth_adapters' => array( 100 => 'ZfcUser\Authentication\Adapter\Db' ),
+    //'auth_adapters' => array(110 => 'Custom\zfcUser\Authentication'),
+    'auth_adapters' => array( 100 => 'ZfcUser\Authentication\Adapter\Db' ),
 
     /**
      * Enable Display Name
@@ -61,7 +61,7 @@ $settings = array(
      *
      * Accepted values: boolean true or false
      */
-    'enable_display_name' => true,
+    'enable_display_name' => false,
 
     /**
      * Modes for authentication identity match
@@ -72,7 +72,7 @@ $settings = array(
      * Default value: array containing 'email'
      * Accepted values: array containing one or more of: email, username
      */
-    'auth_identity_fields' => array('email', 'username'),
+    'auth_identity_fields' => array('username'),
 
     /**
      * Login form timeout
@@ -143,7 +143,7 @@ $settings = array(
      * Default value: 'zfc-user/user/login.phtml'
      * Accepted values: string path to a view script
      */
-    'user_login_widget_view_template' => 'Application/login/login.phtml',
+    //'user_login_widget_view_template' => 'Application/login/login.phtml',
 
     /**
      * Login Redirect Route
@@ -154,7 +154,7 @@ $settings = array(
      * Accepted values: A valid route name within your application
      *
      */
-    'login_redirect_route' => 'home',
+    'login_redirect_route' => 'inicio',
 
     /**
      * Logout Redirect Route
@@ -194,7 +194,7 @@ $settings = array(
      *
      * Should user's state be used in the registration/login process?
      */
-    'enable_user_state' => true,
+    'enable_user_state' => false,
 
     /**
      * Default user state upon registration
@@ -216,7 +216,7 @@ $settings = array(
     /**
      * User table name
      */
-    'table_name' => 'usuario',
+    'table_name' => 'user',
 
     /**
      * End of ZfcUser configuration
@@ -234,9 +234,9 @@ return array(
         ),
     ),
     'controllers' => array(
-        'aliases' => array(
+        /*'aliases' => array(
             'zfcuser' => 'AutenticacaoController',
-        ),
+        ),*/
     ),
 
 );

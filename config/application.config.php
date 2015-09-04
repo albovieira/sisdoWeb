@@ -10,10 +10,10 @@ return array(
     'modules' => array(
         'DoctrineModule',
         'DoctrineORMModule',
-       // 'ZfcBase',
-        //'ZfcUser',
+        'ZfcBase',
+        'ZfcUser',
         //'ZfcRbac',
-        //'ZfcUserDoctrineORM',
+        'ZfcUserDoctrineORM',
         'TwbBundle',
         'Sisdo',
         'Application',
