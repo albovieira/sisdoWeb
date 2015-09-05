@@ -1,0 +1,102 @@
+<?php
+$form = $this->changePasswordForm;
+$form->prepare();
+$form->setAttribute('id', 'changepasswordForm');
+$form->setAttribute('action', $this->url('zfcuser/changepassword') . "?userkey={$this->userKey}");
+$form->setAttribute('method', 'post');
+
+?>
+
+<div class="login-container">
+
+    <div class="space-6"></div>
+
+    <div class="position-relative">
+        <div id="login-box" class="login-box visible no-border">
+            <div class="widget-body">
+                <div class="widget-main">
+
+                    <!--<div class="widget-toolbox">-->
+
+                    <div class="col-xs-12">
+                        <h4 class="header blue lighter bigger">
+                            <i class="ace-icon fa fa-coffee green"></i>
+                            Alterar Senha do Usuário
+                        </h4>
+
+                        <div class="space-6"></div>
+
+                        <fieldset>
+                            <?php if ($this->status === true) : ?>
+                                <div
+                                    class="alert alert-success"><?php echo \Application\Util\Mensagens::getMensagem('M03'); ?></div>
+                                <hr/>
+                            <?php elseif ($this->status === false && isset($this->message)) : ?>
+                                <div class="alert alert-danger">
+                                    <?php echo isset($this->message) ? $this->message : ''; ?>
+                                </div>
+                                <hr/>
+                            <?php endif; ?>
+
+                            <?php if ($this->flashMessenger()->hasMessages('LOGIN')) : ?>
+                                <?php $msg = $this->flashMessenger()->getMessages('LOGIN'); ?>
+                                <?php if ($msg[0]) : ?>
+                                    <div class="alert alert-warning">
+                                        <?php echo $msg[0]; ?>
+                                    </div>
+                                    <hr/>
+                                <?php endif; ?>
+                            <?php endif; ?>
+
+                        </fieldset>
+                        <?php echo $this->form(null, \FormBootstrap\Form\View\Helper\BootstrapForm::LAYOUT_HORIZONTAL)->openTag($form) ?>
+                        <fieldset>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">Login</label>
+
+                                <div class="col-sm-8">
+                                    <p class="form-control-static strong"> <?php echo $this->username ?></p>
+                                </div>
+                            </div>
+                            <?php echo $this->formRow($form->get('identity')); ?>
+                            <?php if ($this->identity): ?>
+                                <?php echo $this->formRow($form->get('credential'), array('labelClassSize' => 'col-sm-4', 'fieldClassSize' => 'col-sm-8')); ?>
+                            <?php endif; ?>
+                            <?php echo $this->formRow($form->get('newCredential'), array('labelClassSize' => 'col-sm-4', 'fieldClassSize' => 'col-sm-8')); ?>
+                            <?php echo $this->formRow($form->get('newCredentialVerify')); ?>
+                            <?php echo $this->formButton($form->get('btnCancelar')); ?>
+                            <?php echo $this->formButton($form->get('btnConfirmar')); ?>
+                        </fieldset>
+
+                        <?php echo $this->form()->closeTag() ?>
+
+                    </div>
+                </div>
+                <!-- /.widget-main -->
+            </div>
+            <!-- /.widget-body -->
+        </div>
+    </div>
+</div>
+
+<script>
+
+    bootbox.setDefaults({
+        invertButtons: true
+    });
+
+    $('#btnConfirmar').click(function () {
+        bootbox.hideAll();
+        bootbox.confirm('<?php echo \Application\Util\Mensagens::getMensagem('M07')?>', function (result) {
+            if (result) {
+                $('form#changepasswordForm').submit();
+                return true;
+            }
+        });
+    });
+
+    function cancelar(e) {
+        window.location = $(e).data('href');
+    }
+
+</script>

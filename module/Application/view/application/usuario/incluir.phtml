@@ -1,0 +1,22 @@
+<?php
+
+echo $this->form(null, \TwbBundle\Form\View\Helper\TwbBundleForm::LAYOUT_HORIZONTAL)->openTag($this->registerForm);
+$this->registerForm->prepare();
+
+echo $this->formRow($this->registerForm->get(\Application\Constants\UsuarioConst::FLD_SEQ_USUARIO));
+echo $this->formRow($this->registerForm->get(\Application\Constants\UsuarioConst::FLD_LOGIN));
+echo $this->formRow($this->registerForm->get(\Application\Constants\UsuarioConst::FLD_EMAIL));
+echo $this->formRow($this->registerForm->get(\Application\Constants\UsuarioConst::FLD_SENHA));
+echo $this->formRow($this->registerForm->get(\Application\Constants\UsuarioConst::FLD_SENHA_VERIFY));
+$this->registerForm->setAttribute('action', $this->url('zfcuser/register'));
+$this->registerForm->setAttribute('method', 'post');
+
+
+//echo $this->partial('_formulario', array('form' => $this->registerForm));
+
+echo $this->formButton($this->registerForm->get('btn_salvar'));
+echo $this->formButton($this->registerForm->get('btn_cancelar'));
+//->setAttribute('onclick', 'window.location = "' . $this->url(\Application\Constants\RotasConst::USUARIO) . '"'));
+
+?>
+<?php echo $this->form()->closeTag(); ?>

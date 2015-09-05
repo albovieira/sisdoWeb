@@ -27,7 +27,7 @@ return array(
 
     'router' => array(
         'routes' => array(
-            'inicio' => array(
+            'other' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
                     'route'    => '/',
@@ -38,10 +38,21 @@ return array(
                 ),
             ),
 
-            'instituicao' => array(
+            'principal' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route'    => '/principal',
+                    'defaults' => array(
+                        'controller' => 'Sisdo\Controller\Main',
+                        'action'     => 'index',
+                    ),
+                ),
+            ),
+
+            'ex' => array(
                 'type' => 'Segment',
                 'options' => array(
-                    'route' => '/instituicao[/][:action][/:id]',
+                    'route' => '/ex[/][:action][/:id]',
                     'constraints' => array(
                         'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
                         'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
@@ -49,7 +60,24 @@ return array(
                     ),
                     'defaults' => array(
                         '__NAMESPACE__' => 'Sisdo\Controller',
-                        'controller' => 'Instituicao',
+                        'controller' => 'NomeController',
+                        'action' => 'index',
+                    ),
+                ),
+            ),
+
+            'ex' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/ex[/][:action][/:id]',
+                    'constraints' => array(
+                        'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id' => '[0-9]+',
+                    ),
+                    'defaults' => array(
+                        '__NAMESPACE__' => 'Sisdo\Controller',
+                        'controller' => 'NomeController',
                         'action' => 'index',
                     ),
                 ),
@@ -119,7 +147,7 @@ return array(
     ),
     'controllers' => array(
         'invokables' => array(
-            'Sisdo\Controller\Index' => 'Sisdo\Controller\IndexController',
+            'Sisdo\Controller\Main' => 'Sisdo\Controller\MainController',
             'Sisdo\Controller\Instituicao' => 'Sisdo\Controller\InstituicaoController',
         ),
     ),

@@ -50,8 +50,8 @@ $settings = array(
      * Default value: array containing 'ZfcUser\Authentication\Adapter\Db' with priority 100
      * Accepted values: array containing services that implement 'ZfcUser\Authentication\Adapter\ChainableAdapter'
      */
-    //'auth_adapters' => array(110 => 'Custom\zfcUser\Authentication'),
-    'auth_adapters' => array( 100 => 'ZfcUser\Authentication\Adapter\Db' ),
+    'auth_adapters' => array(110 => 'Custom\zfcUser\Authentication'),
+//    'auth_adapters' => array( 100 => 'ZfcUser\Authentication\Adapter\Db' ),
 
     /**
      * Enable Display Name
@@ -143,7 +143,7 @@ $settings = array(
      * Default value: 'zfc-user/user/login.phtml'
      * Accepted values: string path to a view script
      */
-    //'user_login_widget_view_template' => 'Application/login/login.phtml',
+    'user_login_widget_view_template' => 'Application/login/login.phtml',
 
     /**
      * Login Redirect Route
@@ -154,7 +154,7 @@ $settings = array(
      * Accepted values: A valid route name within your application
      *
      */
-    'login_redirect_route' => 'inicio',
+    'login_redirect_route' => 'home',
 
     /**
      * Logout Redirect Route
@@ -234,9 +234,9 @@ return array(
         ),
     ),
     'controllers' => array(
-        /*'aliases' => array(
+        'aliases' => array(
             'zfcuser' => 'AutenticacaoController',
-        ),*/
+        ),
     ),
 
 );

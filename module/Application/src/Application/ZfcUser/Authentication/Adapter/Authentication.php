@@ -9,7 +9,6 @@
 
 namespace Application\Custom\ZfcUser\Authentication\Adapter;
 
-use Application\Constants\UsuarioConst;
 use Application\Entity\Usuario;
 use Application\Util\Mensagens;
 use Zend\Authentication\Result as AuthenticationResult;
@@ -52,8 +51,8 @@ class Authentication extends Db
             return $this->authenticateByToken($e);
         }
 
-        $identity = $e->getRequest()->getPost()->get(UsuarioConst::FLD_IDENTITY);
-        $credential = $e->getRequest()->getPost()->get(UsuarioConst::FLD_SENHA);
+        $identity = $e->getRequest()->getPost()->get('identity');
+        $credential = $e->getRequest()->getPost()->get('senUsuario');
         $credential = $this->preProcessCredential($credential);
 
         /** @var Usuario $userObject */
@@ -75,7 +74,6 @@ class Authentication extends Db
             }
         }
 
-
         $e->setCode(AuthenticationResult::SUCCESS)
             ->setMessages(array('Authentication successful.'));
 
@@ -84,7 +82,7 @@ class Authentication extends Db
          */
         if (!$userObject) {
             $e->setCode(AuthenticationResult::FAILURE_IDENTITY_NOT_FOUND)
-                ->setMessages(array(Mensagens::getMensagem('M10')));
+                ->setMessages(array('Falha ao logar'));
             $this->setSatisfied(false);
 
             return false;
@@ -95,19 +93,17 @@ class Authentication extends Db
          * (E1)    Autenticação Inválida
          */
         $bcrypt = new Bcrypt();
-
         $bcrypt->setCost($this->getOptions()->getPasswordCost());
-
         if (!$bcrypt->verify($credential, $userObject->getPassword())) {
-
 
             // Password does not match
             $e->setCode(AuthenticationResult::FAILURE_CREDENTIAL_INVALID)
-                ->setMessages(array('Login Invalido'));
+                ->setMessages(array('Login invalido'));
             $this->setSatisfied(false);
 
             return false;
         }
+
 
         // regen the id
         $session = new SessionContainer($this->getStorage()->getNameSpace());
@@ -121,7 +117,6 @@ class Authentication extends Db
 
         $storage = $this->getStorage()->read();
         $storage['identity'] = $e->getIdentity();
-
 
         $this->getStorage()->write($storage);
     }
@@ -159,16 +154,6 @@ class Authentication extends Db
 
             return false;
         }
-
-        /* @var \Application\Entity\Usuario $userObject */
-        /*$validDate = new Carbon($userObject->getDataValidadeHash());
-        if ($validDate->diffInDays(Carbon::now(), false) > 0) {
-            $e->setCode(AuthenticationResult::FAILURE_IDENTITY_NOT_FOUND)
-                ->setMessages(array(Mensagens::getMensagem('M05')));
-            $this->setSatisfied(false);
-
-            return false;
-        }*/
 
         $this->getMapper()->resetAccessAttempts($userObject->getId());
         $this->getMapper()->setLastAccess($userObject->getId());

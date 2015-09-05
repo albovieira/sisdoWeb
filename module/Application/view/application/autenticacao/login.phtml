@@ -1,0 +1,13 @@
+<?php echo $this->form(null, \TwbBundle\Form\View\Helper\TwbBundleForm::LAYOUT_HORIZONTAL)->openTag($this->form); ?>
+<?php echo $this->formRow($this->form->get(\Application\Constants\UsuarioConst::FLD_IDENTITY)); ?>
+<?php echo $this->formRow($this->form->get(\Application\Constants\UsuarioConst::FLD_SENHA)); ?>
+
+
+<div class="form-group ">
+    <div class=" col-sm-12">
+        <?php echo $this->formButton($this->form->get(\Application\Constants\UsuarioConst::FLD_ENTRAR)); ?>
+    </div>
+</div>
+
+
+<?php echo $this->form()->closeTag(); ?>

@@ -1,0 +1,43 @@
+<div>
+
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active">
+            <a href="#dadosGerais" aria-controls="dadosGerais" role="tab" data-toggle="tab">Dados Gerais</a>
+        </li>
+        <li role="presentation"
+            class="<?php echo !$this->isGranted('acesso', \Application\Constants\AccessControlConst::ATRIBUIR_GRUPO_ALTERAR) ? 'disabled' : '' ?>">
+            <a href="#permissoes" aria-controls="permissoes" role="tab" data-toggle="tab">Permissões</a>
+        </li>
+    </ul>
+    <?php
+
+    $this->headLink()->appendStylesheet($this->basePath('/assets/bootstrap-duallistbox/bootstrap-duallistbox.min.css'));
+    $this->headScript()->appendFile($this->basePath('/assets/bootstrap-duallistbox/jquery.bootstrap-duallistbox.min.js',
+        'text/javascript'));
+
+    $this->headScript()->appendFile($this->basePath('/js/sinsp/administrativo/usuario.js'),
+        'text/javascript');
+
+    $this->form->prepare();
+
+    echo $this->form(null, \FormBootstrap\Form\View\Helper\BootstrapForm::LAYOUT_HORIZONTAL)->openTag($this->form);
+    ?>
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="dadosGerais">
+            <?php echo $this->partial('_formulario', array('form' => $this->form, 'novoUsuario' => false, 'isCorregedor' => $this->isCorregedor, 'isEditar' => true)); ?>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="permissoes">
+            <?php echo $this->formRow($this->form->get(\Application\Constants\UsuarioConst::FLD_GRUPOS), array('fieldClassSize' => 'col-sm-12')); ?>
+        </div>
+        <?php
+        echo \Application\Helper\CHtml::openTag('div', array('class' => 'row botoesacao'));
+        echo $this->formButton($this->form->get('btn_salvar'));
+        echo $this->formButton($this->form->get('btn_cancelar')
+            ->setAttribute('onclick', 'window.location = "' . $this->url(\Application\Constants\RotasConst::USUARIO) . '"'));
+        echo \Application\Helper\CHtml::closeTag('div');
+        ?>
+    </div>
+    <?php echo $this->form()->closeTag(); ?>
+</div>
