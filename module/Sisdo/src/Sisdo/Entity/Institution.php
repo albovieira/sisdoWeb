@@ -20,7 +20,7 @@ class Institution extends EntityAbstract
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
@@ -58,13 +58,9 @@ class Institution extends EntityAbstract
     private $about;
 
     /**
-     * @var \Application\Entity\User
-     *
-     * @ORM\ManyToOne(targetEntity="Application\Entity\User")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="user_id", referencedColumnName="user_id")
-     * })
-     */
+     * @ORM\OneToOne(targetEntity="Application\Entity\User", inversedBy="institution")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="user_id")
+     **/
     private $user;
 
     /**

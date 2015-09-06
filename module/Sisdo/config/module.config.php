@@ -40,10 +40,10 @@ return array(
                 ),
             ),
 
-            'ex' => array(
+            'produto' => array(
                 'type' => 'Segment',
                 'options' => array(
-                    'route' => '/ex[/][:action][/:id]',
+                    'route' => '/produto[/][:action][/:id]',
                     'constraints' => array(
                         'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
                         'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
@@ -51,7 +51,7 @@ return array(
                     ),
                     'defaults' => array(
                         '__NAMESPACE__' => 'Sisdo\Controller',
-                        'controller' => 'NomeController',
+                        'controller' => 'Produto',
                         'action' => 'index',
                     ),
                 ),
@@ -116,14 +116,14 @@ return array(
             'translator' => 'Zend\Mvc\Service\TranslatorServiceFactory',
 
             //Daos
-            /*'ProdutoDao' => function ($sm) {
+            'ProdutoDao' => function ($sm) {
                 return new \Sisdo\Dao\ProdutoDao($sm->get('Doctrine\ORM\EntityManager'), $sm);
             },
 
             //Services
-            'PedidoService' => function ($sm) {
-                return new \Sisdo\Service\PedidoService($sm);
-            },*/
+            'ProdutoService' => function ($sm) {
+                return new \Sisdo\Service\ProdutoService($sm);
+            },
         ),
     ),
     'translator' => array(
@@ -140,6 +140,7 @@ return array(
         'invokables' => array(
             'Sisdo\Controller\Main' => 'Sisdo\Controller\MainController',
             'Sisdo\Controller\Instituicao' => 'Sisdo\Controller\InstituicaoController',
+            'Sisdo\Controller\Produto' => 'Sisdo\Controller\ProdutoController',
         ),
     ),
     'view_manager' => array(

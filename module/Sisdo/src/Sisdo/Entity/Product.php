@@ -19,7 +19,7 @@ class Product extends EntityAbstract
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $id;
+    private $idProduto;
 
     /**
      * @var string
@@ -29,40 +29,41 @@ class Product extends EntityAbstract
     private $title;
 
     /**
-     * @var string
+     * @var float
      *
-     * @ORM\Column(name="quantity", type="string", length=45, nullable=false)
+     * @ORM\Column(name="quantity", type="float", nullable=false)
      */
     private $quantity;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="string", length=250, nullable=false)
+     * @ORM\Column(name="description", type="string", length=500, nullable=false)
      */
     private $description;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date", type="date", nullable=true)
+     * @ORM\Column(name="date", type="datetime", nullable=true)
      */
     private $date;
 
     /**
-     * @var \Application\Entity\Institution
+     * @var \Application\Entity\User
      *
-     * @ORM\ManyToOne(targetEntity="Application\Entity\Institution")
+     * @ORM\ManyToOne(targetEntity="Application\Entity\User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="institution_user_id", referencedColumnName="user_id")
      * })
      */
     private $institutionUser;
 
+
     /**
-     * @var \Application\Entity\ProductType
+     * @var \Sisdo\Entity\ProductType
      *
-     * @ORM\ManyToOne(targetEntity="Application\Entity\ProductType")
+     * @ORM\ManyToOne(targetEntity="Sisdo\Entity\ProductType")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="product_type_id", referencedColumnName="id")
      * })
@@ -72,17 +73,17 @@ class Product extends EntityAbstract
     /**
      * @return int
      */
-    public function getId()
+    public function getIdProduto()
     {
-        return $this->id;
+        return $this->idProduto;
     }
 
     /**
      * @param int $id
      */
-    public function setId($id)
+    public function setIdProduto($idProduto)
     {
-        $this->id = $id;
+        $this->idProduto = $idProduto;
     }
 
     /**
@@ -150,7 +151,7 @@ class Product extends EntityAbstract
     }
 
     /**
-     * @return \Application\Entity\Institution
+     * @return \Sisdo\Entity\Institution
      */
     public function getInstitutionUser()
     {
@@ -158,7 +159,7 @@ class Product extends EntityAbstract
     }
 
     /**
-     * @param \Application\Entity\Institution $institutionUser
+     * @param \Sisdo\Entity\Institution $institutionUser
      */
     public function setInstitutionUser($institutionUser)
     {
@@ -166,7 +167,7 @@ class Product extends EntityAbstract
     }
 
     /**
-     * @return \Application\Entity\ProductType
+     * @return \Sisdo\Entity\ProductType
      */
     public function getProductType()
     {
@@ -174,7 +175,7 @@ class Product extends EntityAbstract
     }
 
     /**
-     * @param \Application\Entity\ProductType $productType
+     * @param \Sisdo\Entity\ProductType $productType
      */
     public function setProductType($productType)
     {

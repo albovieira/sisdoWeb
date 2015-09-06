@@ -20,7 +20,7 @@ class Person extends EntityAbstract
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
@@ -44,14 +44,12 @@ class Person extends EntityAbstract
     private $birthDate;
 
     /**
-     * @var \Application\Entity\User
-     *
-     * @ORM\ManyToOne(targetEntity="Application\Entity\User")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="user_id", referencedColumnName="user_id")
-     * })
-     */
+     * @ORM\OneToOne(targetEntity="Application\Entity\User", inversedBy="person")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="user_id")
+     **/
     private $user;
+
+
 
     /**
      * @return int

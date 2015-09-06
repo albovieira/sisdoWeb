@@ -1,29 +1,28 @@
 <?php
 
-namespace GerenciaEstoque\Service;
+namespace Sisdo\Service;
 /**
  * Created by PhpStorm.
  * User: albov
  * Date: 20/08/2015
  * Time: 00:11
  */
+
 use Application\Constants\JqGridConst;
-use Application\Constants\ProdutoConst;
 use Application\Custom\ServiceAbstract;
 use Application\Util\JqGridButton;
 use Application\Util\JqGridTable;
-use GerenciaEstoque\Dao\ProdutoDao;
-use GerenciaEstoque\Entity\Produto;
-
-//use Application\Util\JqGridTable;
+use Sisdo\Constants\ProdutoConst;
+use Sisdo\Dao\ProdutoDao;
+use Sisdo\Entity\Product;
 
 class ProdutoService extends ServiceAbstract
 {
     const URL_GET_DADOS = '/produto/getDados';
 
-    public function salvar(Produto $produto){
+    public function salvar(Product $produto){
 
-        /** @var ProdutoDao $dao */
+        /** @var \Sisdo\Dao\ProdutoDao $dao */
         $dao = $this->getFromServiceLocator(ProdutoConst::DAO);
         $dao->save($produto);
 
@@ -32,7 +31,7 @@ class ProdutoService extends ServiceAbstract
 
     public function excluir($produtoid)
     {
-        /** @var ProdutoDao $dao */
+        /** @var \Sisdo\Dao\ProdutoDao $dao */
         $dao = $this->getFromServiceLocator(ProdutoConst::DAO);
         $produto = $dao->getEntity($produtoid);
         return $dao->remove($produto);
@@ -48,17 +47,22 @@ class ProdutoService extends ServiceAbstract
     public function getGrid(){
 
         $jqgrid = new JqGridTable();
-        $jqgrid->addColunas(array(JqGridConst::LABEL =>
-            ProdutoConst::LBL_ID_PRODUTO,JqGridConst::NAME => ProdutoConst::FLD_ID_PRODUTO, JqGridConst::WIDTH => 200));
         $jqgrid->addColunas(array(JqGridConst::LABEL  =>
-            ProdutoConst::LBL_DESC_PRODUTO,JqGridConst::NAME  => ProdutoConst::FLD_DESC_PRODUTO,JqGridConst::WIDTH => 400));
+            ProdutoConst::LBL_TITLE,JqGridConst::NAME => ProdutoConst::FLD_TITLE, JqGridConst::WIDTH => 150));
         $jqgrid->addColunas(array(JqGridConst::LABEL  =>
-            ProdutoConst::LBL_VAL_UNITARIO,JqGridConst::NAME => ProdutoConst::FLD_VAL_UNITARIO, JqGridConst::WIDTH => 150));
+            ProdutoConst::LBL_DESC,JqGridConst::NAME  => ProdutoConst::FLD_DESC,JqGridConst::WIDTH => 300));
         $jqgrid->addColunas(array(JqGridConst::LABEL  =>
-            'Acao',JqGridConst::NAME => 'acao', JqGridConst::WIDTH => 60, JqGridConst::CLASSCSS => 'text-center'));
+            ProdutoConst::LBL_QTD,JqGridConst::NAME => ProdutoConst::FLD_QTD, JqGridConst::WIDTH => 150));
+        $jqgrid->addColunas(array(JqGridConst::LABEL  =>
+            ProdutoConst::LBL_TIPO,JqGridConst::NAME => ProdutoConst::FLD_TIPO, JqGridConst::WIDTH => 150));
+        $jqgrid->addColunas(array(JqGridConst::LABEL  =>
+            ProdutoConst::LBL_DATE,JqGridConst::NAME => ProdutoConst::FLD_DATE, JqGridConst::WIDTH => 150));
+
+        $jqgrid->addColunas(array(JqGridConst::LABEL  =>
+            'Acao',JqGridConst::NAME => 'acao', JqGridConst::WIDTH => 80, JqGridConst::CLASSCSS => 'text-center'));
 
         $jqgrid->setUrl(self::URL_GET_DADOS);
-        $jqgrid->setTitle('Produto');
+        $jqgrid->setTitle('Doacoes cadastradas');
 
         return $jqgrid->renderJs();
     }
@@ -79,11 +83,15 @@ class ProdutoService extends ServiceAbstract
 
         $dados = [];
         foreach($rows[JqGridConst::PARAM_REGISTROS] as $row){
-            /** @var Produto $produto */
+            /** @var Product $produto */
             $produto = $row;
-            $temp[ProdutoConst::FLD_ID_PRODUTO] = (string) $produto->getIdProduto();
-            $temp[ProdutoConst::FLD_DESC_PRODUTO] = $produto->getDescricaoProduto();
-            $temp[ProdutoConst::FLD_VAL_UNITARIO] = (string) $produto->getValorUnitario();
+
+            $data = $produto->getDate();
+            $temp[ProdutoConst::FLD_QTD] = $produto->getQuantity();
+            $temp[ProdutoConst::FLD_TITLE] =  $produto->getTitle();
+            $temp[ProdutoConst::FLD_DATE] = $data->format('d/m/Y');
+            $temp[ProdutoConst::FLD_TIPO] = $produto->getProductType()->getDescription();
+            $temp[ProdutoConst::FLD_DESC] = $produto->getDescription();
 
             $botaoEditar = new JqGridButton();
             $botaoEditar->setTitle('Editar');
@@ -97,6 +105,7 @@ class ProdutoService extends ServiceAbstract
             $botaoExcluir->setUrl('/produto/excluir/' . $produto->getIdProduto());
             $botaoExcluir->setIcon('glyphicon glyphicon-trash');
             //$botaoExcluir->getOnClick();
+
 
             $temp[JqGridConst::ACAO] = "<div class='agrupa-botoes'>" . $botaoEditar->render() . $botaoExcluir->render() .
                 "</div>";

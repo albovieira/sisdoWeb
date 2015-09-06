@@ -7,14 +7,11 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace GerenciaEstoque\Controller;
+namespace Sisdo\Controller;
 
-use Application\Constants\MensagemConst;
-use Application\Constants\ProdutoConst;
 use Application\Custom\ActionControllerAbstract;
-use GerenciaEstoque\Filter\ProdutoFilter;
-use GerenciaEstoque\Form\ProdutoForm;
-use GerenciaEstoque\Service\ProdutoService;
+use Sisdo\Constants\ProdutoConst;
+use Sisdo\Service\ProdutoService;
 use Zend\View\Model\JsonModel;
 use Zend\View\Model\ViewModel;
 

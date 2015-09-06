@@ -58,7 +58,52 @@ class User extends EntityAbstract implements UserInterface
      */
     private $email;
 
-     /**
+
+    /**
+     * @ORM\OneToOne(targetEntity="Sisdo\Entity\Institution", mappedBy="user")
+     **/
+    private $instituicao;
+
+    /**
+     * @ORM\OneToOne(targetEntity="Sisdo\Entity\Person", mappedBy="user")
+     **/
+    private $person;
+
+    /**
+     * @return mixed
+     */
+    public function getPerson()
+    {
+        return $this->person;
+    }
+
+    /**
+     * @param mixed $person
+     */
+    public function setPerson($person)
+    {
+        $this->person = $person;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getInstituicao()
+    {
+        return $this->instituicao;
+    }
+
+    /**
+     * @param mixed $instituicao
+     */
+    public function setInstituicao($instituicao)
+    {
+        $this->instituicao = $instituicao;
+    }
+
+
+
+    /**
      * Get id.
      *
      * @return int

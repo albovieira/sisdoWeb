@@ -7,13 +7,13 @@
  * Time: 23:35
  */
 
-namespace GerenciaEstoque\Dao;
+namespace Sisdo\Dao;
 
 use Application\Custom\DaoAbstract;
 
 class ProdutoDao extends DaoAbstract
 {
-    protected $entityName = 'GerenciaEstoque\\Entity\\Produto';
+    protected $entityName = 'Sisdo\\Entity\\Product';
 
     public function findAll()
     {
