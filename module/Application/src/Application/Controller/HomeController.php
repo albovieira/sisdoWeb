@@ -11,6 +11,7 @@
 
 namespace Application\Controller;
 
+use Application\Constants\UsuarioConst;
 use Application\Custom\ActionControllerAbstract;
 use Zend\View\Model\ViewModel;
 
@@ -27,7 +28,11 @@ class HomeController extends ActionControllerAbstract
     {
 
         //validar se o usuario é instituicao, por enquanto vamos fazer so a parte de instituicao.
-        $this->redirect()->toRoute('principal');
+        $usuarioLogado = $this->getFromServiceLocator(UsuarioConst::ZFCUSER_AUTH_SERVICE)->getIdentity();
+
+        if($usuarioLogado){
+            $this->redirect()->toRoute('principal');
+        }
 
         return new ViewModel();
     }

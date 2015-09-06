@@ -27,16 +27,7 @@ return array(
 
     'router' => array(
         'routes' => array(
-            'other' => array(
-                'type' => 'Zend\Mvc\Router\Http\Literal',
-                'options' => array(
-                    'route'    => '/',
-                    'defaults' => array(
-                        'controller' => 'Sisdo\Controller\Index',
-                        'action'     => 'index',
-                    ),
-                ),
-            ),
+
 
             'principal' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
@@ -158,7 +149,7 @@ return array(
         'not_found_template'       => 'error/404',
         'exception_template'       => 'error/index',
         'template_map' => array(
-            'layout/layout'           => __DIR__ . '/../view/layout/layout.phtml',
+            'layout/layout'           => __DIR__ . '/../view/layout/sisdo.phtml',
             'application/index/index' => __DIR__ . '/../view/application/index/index.phtml',
             'error/404'               => __DIR__ . '/../view/error/404.phtml',
             'error/index'             => __DIR__ . '/../view/error/index.phtml',
