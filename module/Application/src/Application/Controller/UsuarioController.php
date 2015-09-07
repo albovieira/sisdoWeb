@@ -4,8 +4,8 @@ namespace Application\Controller;
 
 use Application\Constants\AccessControlConst as Acl;
 use Application\Constants\MensagensConst;
-use Application\Constants\RotasConst as Rotas;
 use Application\Constants\RotasConst;
+use Application\Constants\RotasConst as Rotas;
 use Application\Constants\UsuarioConst as Usuario;
 use Application\Custom\ActionControllerAbstract;
 use Application\Form\UsuarioForm;
@@ -15,7 +15,6 @@ use Zend\Crypt\Password\Bcrypt;
 use Zend\Http\Response;
 use Zend\View\Model\JsonModel;
 use Zend\View\Model\ViewModel;
-use ZfcRbac\Exception\UnauthorizedException;
 
 /**
  * Class ModeloController.
@@ -45,10 +44,6 @@ class UsuarioController extends ActionControllerAbstract
      */
     public function indexAction()
     {
-        if (!$this->isGranted('acesso', Acl::USUARIO_LISTAR)) {
-            throw new UnauthorizedException();
-        }
-
         /** @var UsuarioService $usuarioService */
         $usuarioService = $this->getFromServiceLocator(Usuario::SERVICE);
 
@@ -124,7 +119,7 @@ class UsuarioController extends ActionControllerAbstract
             ));
         }
 
-      //  try {
+        try {
             $user = $service->incluir($post);
 
             if (!$user) {
@@ -139,7 +134,7 @@ class UsuarioController extends ActionControllerAbstract
             }else{
                 $this->flashMessenger()->addSuccessMessage('Cadastrado com sucesso');
             }
-       /* } catch (\Exception $e) {
+        } catch (\Exception $e) {
 
             $this->flashMessenger()->addErrorMessage('ERROOO');
             return $view->setVariables(array(
@@ -147,7 +142,7 @@ class UsuarioController extends ActionControllerAbstract
                 'enableRegistration' => true,
                 'redirect' => $redirect,
             ));
-        }*/
+        }
 
         return $this->redirect()->toUrl($this->url()->fromRoute(static::ROUTE_LOGIN) . ($redirect ? '?redirect=' . rawurlencode($redirect) : ''));
     }
@@ -159,21 +154,17 @@ class UsuarioController extends ActionControllerAbstract
      */
     public function editarAction()
     {
-        if (!$this->isGranted('acesso', Acl::USUARIO_ALTERAR)) {
-            throw new UnauthorizedException();
-        }
-        
         $login = $this->params()->fromRoute('id', null);
 
         /** @var UsuarioService $service */
         $service = $this->getFromServiceLocator(Usuario::SERVICE);
-        /** @var \Application\Entity\Usuario $usuario */
+        /** @var \Application\Entity\User $usuario */
         $usuario = $service->findByLogin($login);
         if (!$usuario) {
             return $this->redirect()->toRoute(Rotas::USUARIO);
         }
 
-        /** @var \Application\Entity\Usuario $usuarioLogado */
+        /** @var \Application\Entity\User $usuarioLogado */
         $usuarioLogado = $this->getFromServiceLocator(Usuario::ZFCUSER_AUTH_SERVICE)->getIdentity();
 
         /** @var  UsuarioForm $form */
@@ -200,9 +191,6 @@ class UsuarioController extends ActionControllerAbstract
             );
         }
 
-        if (!$this->zfcUserAuthentication()->getIdentity()->isCorregedorGeral()) {
-            $prg[Usuario::FLD_CARGO] = $usuario->getSigCargo();
-        }
 
         $form->setData($prg);
 
@@ -253,37 +241,7 @@ class UsuarioController extends ActionControllerAbstract
     }
 
 
-    /**
-     * Retorna json com as unidades do orgão selecionado.
-     *
-     * @return JsonModel
-     */
-    public function getUnidadesAction(){
-        $seqOrgao = $this->params()->fromPost();
-        $unidades = $this->createSelectUnidades($seqOrgao);
-        return new JsonModel($unidades);
-    }
 
-    /**
-     * Retorna uma lista com as unidades conforme orgão passado.
-     *
-     * @param $seqOrgao
-     * @return array
-     */
-    public function createSelectUnidades($seqOrgao){
-        /** @var UsuarioService $service */
-        $service = $this->getFromServiceLocator(Usuario::SERVICE);
-
-        if(!empty($seqOrgao)) {
-            $seqOrgao = is_array($seqOrgao) ? reset($seqOrgao) : $seqOrgao;
-            $unidadesDoOrgao = $service->getUnidadesList($seqOrgao);
-            return $unidades = $service->montarArrayNomeadoSelect(
-                    $unidadesDoOrgao,
-                    Usuario::FLD_SEQ_UNIDADE,
-                    Usuario::FLD_NOME_UNIDADE
-            );
-        }
-    }
 
     /**
      * Excluir usuario
@@ -292,10 +250,7 @@ class UsuarioController extends ActionControllerAbstract
      */
     public function excluirAction()
     {
-        if (!$this->isGranted('acesso', Acl::USUARIO_EXCLUIR)) {
-            throw new UnauthorizedException();
-        }
-        
+
         $login = $this->params()->fromRoute('id', null);
 
         /** @var UsuarioService $service */
@@ -308,12 +263,12 @@ class UsuarioController extends ActionControllerAbstract
 
         try {
             if ($service->excluir($usuario)) {
-                $this->flashMessenger()->addSuccessMessage(Mensagens::getMensagem('M02'));
+                $this->flashMessenger()->addSuccessMessage('sucesso');
             } else {
-                $this->flashMessenger()->addErrorMessage(Mensagens::getMensagem('MERRO'));
+                $this->flashMessenger()->addErrorMessage('errooo');
             }
         } catch (\Exception $e) {
-            $this->flashMessenger()->addErrorMessage(Mensagens::getMensagem('MERRO'));
+            $this->flashMessenger()->addErrorMessage('errooo');
         }
 
         return $this->redirect()->toRoute(Rotas::USUARIO);
@@ -329,7 +284,7 @@ class UsuarioController extends ActionControllerAbstract
     public function getBotoesListagem()
     {
         return array(
-            $this->addBotaoListagem('btn-incluir-unidade btn-success', 'fa-file-text', '', 'Incluir',
+            $this->addBotaoHelper('btn-incluir-unidade btn-success', 'fa-file-text', '', 'Incluir',
                 $this->url()->fromRoute(RotasConst::USUARIO, array('action' => 'incluir')), true),
 
         );

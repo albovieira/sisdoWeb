@@ -9,8 +9,6 @@
 
 namespace Application\Custom\ZfcUser\Authentication\Adapter;
 
-use Application\Entity\Usuario;
-use Application\Util\Mensagens;
 use Zend\Authentication\Result as AuthenticationResult;
 use Zend\Crypt\Password\Bcrypt;
 use Zend\Session\Container as SessionContainer;
@@ -149,7 +147,7 @@ class Authentication extends Db
 
         if (!$userObject) {
             $e->setCode(AuthenticationResult::FAILURE_IDENTITY_NOT_FOUND)
-                ->setMessages(array(Mensagens::getMensagem('M05')));
+                ->setMessages(array('ssMensagens'));
             $this->setSatisfied(false);
 
             return false;
