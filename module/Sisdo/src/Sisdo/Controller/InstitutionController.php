@@ -12,7 +12,7 @@ namespace Sisdo\Controller;
 use Application\Custom\ActionControllerAbstract;
 use Zend\View\Model\ViewModel;
 
-class InstituicaoController extends ActionControllerAbstract
+class InstitutionController extends ActionControllerAbstract
 {
     public function indexAction()
     {
