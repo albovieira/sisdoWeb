@@ -5,10 +5,10 @@ namespace Sisdo\Constants;
 /**
  * Interface FormConst.
  */
-interface ProdutoConst
+interface ProductConst
 {
-    const DAO = 'ProdutoDao';
-    const SERVICE = 'ProdutoService';
+    const DAO = 'ProductDao';
+    const SERVICE = 'ProductService';
 
     const FLD_ID_PRODUTO = 'idProduto';
     const LBL_ID_PRODUTO = 'Id';

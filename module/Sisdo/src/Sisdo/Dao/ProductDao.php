@@ -11,7 +11,7 @@ namespace Sisdo\Dao;
 
 use Application\Custom\DaoAbstract;
 
-class ProdutoDao extends DaoAbstract
+class ProductDao extends DaoAbstract
 {
     protected $entityName = 'Sisdo\\Entity\\Product';
 

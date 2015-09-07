@@ -10,17 +10,17 @@
 namespace Sisdo\Controller;
 
 use Application\Custom\ActionControllerAbstract;
-use Sisdo\Constants\ProdutoConst;
-use Sisdo\Service\ProdutoService;
+use Sisdo\Constants\ProductConst;
+use Sisdo\Service\ProductService;
 use Zend\View\Model\JsonModel;
 use Zend\View\Model\ViewModel;
 
-class ProdutoController extends ActionControllerAbstract
+class ProductController extends ActionControllerAbstract
 {
     public function indexAction()
     {
-        /** @var ProdutoService $service */
-        $service = $this->getFromServiceLocator(ProdutoConst::SERVICE);
+        /** @var ProductService $service */
+        $service = $this->getFromServiceLocator(ProductConst::SERVICE);
         $grid = $service->getGrid();
         return new ViewModel(
             array(
@@ -32,8 +32,8 @@ class ProdutoController extends ActionControllerAbstract
 
     public function getDadosAction(){
 
-        /** @var ProdutoService $service */
-        $service = $this->getFromServiceLocator(ProdutoConst::SERVICE);
+        /** @var ProductService $service */
+        $service = $this->getFromServiceLocator(ProductConst::SERVICE);
         $grid = $service->getGridDados();
 
         return new JsonModel($grid);
@@ -41,8 +41,8 @@ class ProdutoController extends ActionControllerAbstract
 
     public function incluirAction(){
 
-        /** @var ProdutoService $service */
-        $service = $this->getFromServiceLocator(ProdutoConst::SERVICE);
+        /** @var ProductService $service */
+        $service = $this->getFromServiceLocator(ProductConst::SERVICE);
 
         $form = new ProdutoForm();
         $filter = new ProdutoFilter();
@@ -80,8 +80,8 @@ class ProdutoController extends ActionControllerAbstract
 
     public function editarAction(){
 
-        /** @var ProdutoService $service */
-        $service = $this->getFromServiceLocator(ProdutoConst::SERVICE);
+        /** @var ProductService $service */
+        $service = $this->getFromServiceLocator(ProductConst::SERVICE);
 
         $form = new ProdutoForm();
         $filter = new ProdutoFilter();
@@ -121,8 +121,8 @@ class ProdutoController extends ActionControllerAbstract
     }
 
     public function excluirAction(){
-        /** @var ProdutoService $service */
-        $service = $this->getFromServiceLocator(ProdutoConst::SERVICE);
+        /** @var ProductService $service */
+        $service = $this->getFromServiceLocator(ProductConst::SERVICE);
 
         $id = $this->params()->fromRoute('id');
         try {

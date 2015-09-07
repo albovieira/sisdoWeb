@@ -43,7 +43,7 @@ return array(
             'produto' => array(
                 'type' => 'Segment',
                 'options' => array(
-                    'route' => '/produto[/][:action][/:id]',
+                    'route' => '/product[/][:action][/:id]',
                     'constraints' => array(
                         'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
                         'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
@@ -51,7 +51,7 @@ return array(
                     ),
                     'defaults' => array(
                         '__NAMESPACE__' => 'Sisdo\Controller',
-                        'controller' => 'Produto',
+                        'controller' => 'Product',
                         'action' => 'index',
                     ),
                 ),
@@ -116,13 +116,13 @@ return array(
             'translator' => 'Zend\Mvc\Service\TranslatorServiceFactory',
 
             //Daos
-            'ProdutoDao' => function ($sm) {
-                return new \Sisdo\Dao\ProdutoDao($sm->get('Doctrine\ORM\EntityManager'), $sm);
+            'ProductDao' => function ($sm) {
+                return new \Sisdo\Dao\ProductDao($sm->get('Doctrine\ORM\EntityManager'), $sm);
             },
 
             //Services
-            'ProdutoService' => function ($sm) {
-                return new \Sisdo\Service\ProdutoService($sm);
+            'ProductService' => function ($sm) {
+                return new \Sisdo\Service\ProductService($sm);
             },
         ),
     ),
@@ -139,8 +139,8 @@ return array(
     'controllers' => array(
         'invokables' => array(
             'Sisdo\Controller\Main' => 'Sisdo\Controller\MainController',
-            'Sisdo\Controller\Instituicao' => 'Sisdo\Controller\InstituicaoController',
-            'Sisdo\Controller\Produto' => 'Sisdo\Controller\ProdutoController',
+            'Sisdo\Controller\Institution' => 'Sisdo\Controller\InstitutionController',
+            'Sisdo\Controller\Product' => 'Sisdo\Controller\ProductController',
         ),
     ),
     'view_manager' => array(
