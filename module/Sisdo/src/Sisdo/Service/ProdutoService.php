@@ -64,6 +64,7 @@ class ProdutoService extends ServiceAbstract
         $jqgrid->setUrl(self::URL_GET_DADOS);
         $jqgrid->setTitle('Doacoes cadastradas');
 
+        $jqgrid->setCollapse(true);
         return $jqgrid->renderJs();
     }
 

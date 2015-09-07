@@ -20,6 +20,7 @@ class JqGridTable
 
     private $queryBuilder;
     private $alias;
+    private $collapse = false;
 
     /**
      * @param mixed $title
@@ -105,9 +106,29 @@ class JqGridTable
         */
     }
 
+    /**
+     * @return mixed
+     */
+    public function getCollapse()
+    {
+        return $this->collapse;
+    }
+
+    /**
+     * @param mixed $collapse
+     */
+    public function setCollapse($collapse)
+    {
+        $this->collapse = $collapse;
+    }
+
+
+
     public function renderJs(){
 
         $colunas = $this->getColunas();
+        $collapse = $this->collapse ? 'true' : 'false';
+
         return <<<EOF
 
         <div style="margin-left:20px">
@@ -133,6 +154,7 @@ class JqGridTable
                 caption: "<h4><b>$this->title</b></h4>",
                 jsonReader: {repeatitems: false},
                 autoWidth:true,
+                hiddengrid: $collapse
                 //shrink:true
             });
         });
