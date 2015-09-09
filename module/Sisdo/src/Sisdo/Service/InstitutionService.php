@@ -40,7 +40,6 @@ class InstitutionService extends ServiceAbstract
             return $institution;
         }
         $dao->save($institution);
-
         return $institution;
     }
 

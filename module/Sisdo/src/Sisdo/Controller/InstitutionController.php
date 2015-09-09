@@ -24,17 +24,15 @@ class InstitutionController extends ActionControllerAbstract
 {
     public function indexAction()
     {
-        /** @var InstitutionService $service */
-        $service = $this->getFromServiceLocator(InstitutionConst::SERVICE);
 
         /** @var \Application\Entity\User $instituicaoLogado */
         $instituicaoLogado = $this->getFromServiceLocator(UsuarioConst::ZFCUSER_AUTH_SERVICE)->getIdentity();
 
-        $formInstitution = new InstitutionForm('instituicao/salvar',$instituicaoLogado);
+        $formInstitution = new InstitutionForm('/instituicao/salvar',$instituicaoLogado);
         $formInstitution->bind($instituicaoLogado->getInstituicao());
 
-        $formContact = new ContactForm('instituicao/salvarContato',$instituicaoLogado);
-        $formAdress = new AdressForm('instituicao/salvarEndereco',$instituicaoLogado);
+        $formContact = new ContactForm('/instituicao/salvarContato',$instituicaoLogado);
+        $formAdress = new AdressForm('/instituicao/salvarEndereco',$instituicaoLogado);
 
 
         return new ViewModel(
@@ -61,7 +59,6 @@ class InstitutionController extends ActionControllerAbstract
                 try {
                      if($service->salvar($formInstitution->getData())){
                          $this->flashMessenger()->addSuccessMessage(MensagemConst::OPERACAO_SUCESSO);
-                         return $this->redirect()->toRoute('/instituicao');
                      }
                 } catch (\Exception $e) {
                     $this->flashMessenger()->addErrorMessage(MensagemConst::OCORREU_UM_ERRO);
@@ -69,10 +66,7 @@ class InstitutionController extends ActionControllerAbstract
             }
         }
 
-        $view = new ViewModel();
-        $view->setTerminal(true);
-
-        return $view;
+        return $this->redirect()->toRoute('instituicao');
 
     }
 
