@@ -26,27 +26,33 @@ class InstitutionService extends ServiceAbstract
 
     public function salvar(Institution $institution){
 
-        /** @var \Sisdo\Dao\ProductDao $dao */
+        /** @var \Sisdo\Dao\InstitutionDao $dao */
         $dao = $this->getFromServiceLocator(InstitutionConst::DAO);
+
+        /** @var \Application\Entity\User $instituicaoLogado */
+        $instituicaoLogado = $this->getUserLogado();
+        $institution->setUserId($instituicaoLogado);
+
+        if($institution->getId()){
+            $em = $dao->getEntityManager();
+            $em->merge($institution);
+            $em->flush();
+            return $institution;
+        }
         $dao->save($institution);
 
         return $institution;
     }
 
-    public function excluir($produtoid)
+    public function excluir($institutionId)
     {
         /** @var \Sisdo\Dao\ProductDao $dao */
         $dao = $this->getFromServiceLocator(ProductConst::DAO);
-        $produto = $dao->getEntity($produtoid);
-        return $dao->remove($produto);
+        $institution = $dao->getEntity($institutionId);
+        return $dao->remove($institution);
     }
 
-    public function getProduto($id)
-    {
-        /** @var ProductDao $dao */
-        $dao = $this->getFromServiceLocator(ProductConst::DAO);
-        return $dao->getEntity($id);
-    }
+
 
     public function getGrid(){
 

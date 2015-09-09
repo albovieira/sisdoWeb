@@ -60,12 +60,12 @@ class User extends EntityAbstract implements UserInterface
 
 
     /**
-     * @ORM\OneToOne(targetEntity="Sisdo\Entity\Institution", mappedBy="user")
+     * @ORM\OneToOne(targetEntity="Sisdo\Entity\Institution", mappedBy="userId")
      **/
     private $instituicao;
 
     /**
-     * @ORM\OneToOne(targetEntity="Sisdo\Entity\Person", mappedBy="user")
+     * @ORM\OneToOne(targetEntity="Sisdo\Entity\Person", mappedBy="userId")
      **/
     private $person;
 

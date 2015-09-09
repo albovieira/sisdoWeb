@@ -3,6 +3,7 @@
 namespace Application\Custom;
 
 use Application\Constants\FormConst;
+use Application\Constants\UsuarioConst;
 use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\View\Helper\Url;
@@ -125,5 +126,7 @@ abstract class ServiceAbstract implements ServiceLocatorAwareInterface
         return $options;
     }
 
-
+    public function getUserLogado(){
+        return $this->getFromServiceLocator(UsuarioConst::ZFCUSER_AUTH_SERVICE)->getIdentity();
+    }
 }

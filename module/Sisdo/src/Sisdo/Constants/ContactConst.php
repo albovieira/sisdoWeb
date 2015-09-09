@@ -19,7 +19,7 @@ interface ContactConst
     const FLD_EMAIL = 'email';
     const LBL_EMAIL = 'Email';
 
-    const FLD_USER_ID = 'user';
+    const FLD_USER_ID = 'userId';
     const LBL_USER_ID = 'id user';
 
 }

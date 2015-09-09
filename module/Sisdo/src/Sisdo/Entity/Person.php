@@ -47,9 +47,7 @@ class Person extends EntityAbstract
      * @ORM\OneToOne(targetEntity="Application\Entity\User", inversedBy="person")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="user_id")
      **/
-    private $user;
-
-
+    private $userId;
 
     /**
      * @return int
@@ -118,17 +116,17 @@ class Person extends EntityAbstract
     /**
      * @return \Application\Entity\User
      */
-    public function getUser()
+    public function getUserId()
     {
-        return $this->user;
+        return $this->userId;
     }
 
     /**
-     * @param \Application\Entity\User $user
+     * @param \Application\Entity\User $userId
      */
-    public function setUser($user)
+    public function setUserId($userId)
     {
-        $this->user = $user;
+        $this->userId = $userId;
     }
 
 

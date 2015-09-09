@@ -7,6 +7,7 @@ use Application\Constants\ProdutoConst;
 use GerenciaEstoque\Entity\Produto;
 use Sisdo\Constants\InstitutionConst;
 use Sisdo\Entity\Institution;
+use Sisdo\Entity\RamoInstituicao;
 use Zend\Form\Form;
 use Zend\Stdlib\Hydrator\ClassMethods as ClassMethodsHydrator;
 
@@ -18,7 +19,7 @@ class InstitutionForm extends Form
     /**
      * Cria o formulario para instituicao.
      */
-    public function __construct($url = null, $instituicaoLogado)
+    public function __construct($url = null, $instituicaoLogado = null)
     {
 
         parent::__construct('institution_form');
@@ -37,7 +38,7 @@ class InstitutionForm extends Form
             'attributes' => array(
                 'type' => 'hidden',
                 'class' => '',
-                'value' => $instituicaoLogado->getInstituicao()->getId(),
+                'value' => !is_null($instituicaoLogado) ? $instituicaoLogado->getInstituicao()->getId() : '',
             ),
             'options' => array(
                 'label' => '',
@@ -49,7 +50,7 @@ class InstitutionForm extends Form
             'attributes' => array(
                 'type' => 'hidden',
                 'class' => '',
-                'value' => $instituicaoLogado->getId(),
+                'value' => !is_null($instituicaoLogado) ? $instituicaoLogado->getId() : '',
             ),
             'options' => array(
                 'label' => '',
@@ -72,14 +73,15 @@ class InstitutionForm extends Form
 
         $this->add(array(
             'name' => InstitutionConst::FLD_BRANCH,
-            'attributes' => array(
-                'type' => 'text',
-                'class' => '',
-            ),
+            'type' => '\Zend\Form\Element\Select',
             'options' => array(
                 'label' => InstitutionConst::LBL_BRANCH,
+                'empty_option' => '-- Selecione --',
+                'value_options' => RamoInstituicao::getArray(),
             ),
         ));
+
+
 
         $this->add(array(
             'name' => InstitutionConst::FLD_CNPJ,

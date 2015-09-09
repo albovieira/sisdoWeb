@@ -9,9 +9,11 @@
 
 namespace Sisdo\Controller;
 
+use Application\Constants\MensagemConst;
 use Application\Constants\UsuarioConst;
 use Application\Custom\ActionControllerAbstract;
 use Sisdo\Constants\InstitutionConst;
+use Sisdo\Filter\InstitutionFilter;
 use Sisdo\Form\AdressForm;
 use Sisdo\Form\ContactForm;
 use Sisdo\Form\InstitutionForm;
@@ -27,9 +29,12 @@ class InstitutionController extends ActionControllerAbstract
 
         /** @var \Application\Entity\User $instituicaoLogado */
         $instituicaoLogado = $this->getFromServiceLocator(UsuarioConst::ZFCUSER_AUTH_SERVICE)->getIdentity();
-        $formInstitution = new InstitutionForm(null,$instituicaoLogado);
-        $formContact = new ContactForm(null,$instituicaoLogado);
-        $formAdress = new AdressForm(null,$instituicaoLogado);
+
+        $formInstitution = new InstitutionForm('instituicao/salvar',$instituicaoLogado);
+        $formInstitution->bind($instituicaoLogado->getInstituicao());
+
+        $formContact = new ContactForm('instituicao/salvarContato',$instituicaoLogado);
+        $formAdress = new AdressForm('instituicao/salvarEndereco',$instituicaoLogado);
 
 
         return new ViewModel(
@@ -39,6 +44,36 @@ class InstitutionController extends ActionControllerAbstract
                 'formAdress' => $formAdress
             )
         );
+    }
+
+    public function salvarAction(){
+        /** @var InstitutionService $service */
+        $service = $this->getFromServiceLocator(InstitutionConst::SERVICE);
+
+        $post = $this->getRequest()->getPost();
+
+        $formInstitution = new InstitutionForm();
+        $formInstitution->setInputFilter(new InstitutionFilter());
+        if ($this->isPost()) {
+            $formInstitution->setData($post);
+            if ($formInstitution->isValid()) {
+
+                try {
+                     if($service->salvar($formInstitution->getData())){
+                         $this->flashMessenger()->addSuccessMessage(MensagemConst::OPERACAO_SUCESSO);
+                         return $this->redirect()->toRoute('/instituicao');
+                     }
+                } catch (\Exception $e) {
+                    $this->flashMessenger()->addErrorMessage(MensagemConst::OCORREU_UM_ERRO);
+                }
+            }
+        }
+
+        $view = new ViewModel();
+        $view->setTerminal(true);
+
+        return $view;
+
     }
 
     /**
