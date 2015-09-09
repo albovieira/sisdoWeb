@@ -71,6 +71,20 @@ class Product extends EntityAbstract
     private $productType;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="status", type="string")
+     */
+    private $status;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="unity", type="string")
+     */
+    private $unity;
+
+    /**
      * @return int
      */
     public function getIdProduto()
@@ -182,8 +196,37 @@ class Product extends EntityAbstract
         $this->productType = $productType;
     }
 
+    /**
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
 
+    /**
+     * @param string $status
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    }
 
+    /**
+     * @return string
+     */
+    public function getUnity()
+    {
+        return $this->unity;
+    }
+
+    /**
+     * @param string $unity
+     */
+    public function setUnity($unity)
+    {
+        $this->unity = $unity;
+    }
 
 }
 

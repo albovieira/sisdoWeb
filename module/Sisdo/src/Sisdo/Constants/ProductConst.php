@@ -31,4 +31,10 @@ interface ProductConst
     const FLD_INSTITUICAO = 'institutionUser';
     const LBL_INSTITUICAO = 'Instituicao';
 
+    const FLD_UNITY =  'unity';
+    const LBL_UNITY =  'Unidade';
+
+    const FLD_STATUS =  'status';
+    const LBL_STATUS =  'Status';
+
 }

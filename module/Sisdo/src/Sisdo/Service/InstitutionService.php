@@ -13,22 +13,24 @@ use Application\Constants\UsuarioConst;
 use Application\Custom\ServiceAbstract;
 use Application\Util\JqGridButton;
 use Application\Util\JqGridTable;
+use Sisdo\Constants\InstitutionConst;
 use Sisdo\Constants\ProductConst;
 use Sisdo\Dao\ProductDao;
+use Sisdo\Entity\Institution;
 use Sisdo\Entity\Product;
 use Sisdo\Entity\Unidade;
 
-class ProductService extends ServiceAbstract
+class InstitutionService extends ServiceAbstract
 {
-    const URL_GET_DADOS = '/produto/getDados';
+    const URL_GET_DADOS = '/instituicao/getDados';
 
-    public function salvar(Product $produto){
+    public function salvar(Institution $institution){
 
         /** @var \Sisdo\Dao\ProductDao $dao */
-        $dao = $this->getFromServiceLocator(ProductConst::DAO);
-        $dao->save($produto);
+        $dao = $this->getFromServiceLocator(InstitutionConst::DAO);
+        $dao->save($institution);
 
-        return $produto;
+        return $institution;
     }
 
     public function excluir($produtoid)

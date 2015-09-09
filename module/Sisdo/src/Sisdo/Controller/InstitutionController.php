@@ -9,14 +9,36 @@
 
 namespace Sisdo\Controller;
 
+use Application\Constants\UsuarioConst;
 use Application\Custom\ActionControllerAbstract;
+use Sisdo\Constants\InstitutionConst;
+use Sisdo\Form\AdressForm;
+use Sisdo\Form\ContactForm;
+use Sisdo\Form\InstitutionForm;
+use Sisdo\Service\InstitutionService;
 use Zend\View\Model\ViewModel;
 
 class InstitutionController extends ActionControllerAbstract
 {
     public function indexAction()
     {
-        return new ViewModel();
+        /** @var InstitutionService $service */
+        $service = $this->getFromServiceLocator(InstitutionConst::SERVICE);
+
+        /** @var \Application\Entity\User $instituicaoLogado */
+        $instituicaoLogado = $this->getFromServiceLocator(UsuarioConst::ZFCUSER_AUTH_SERVICE)->getIdentity();
+        $formInstitution = new InstitutionForm(null,$instituicaoLogado);
+        $formContact = new ContactForm(null,$instituicaoLogado);
+        $formAdress = new AdressForm(null,$instituicaoLogado);
+
+
+        return new ViewModel(
+            array(
+                'formInstitution' => $formInstitution,
+                'formContact' => $formContact,
+                'formAdress' => $formAdress
+            )
+        );
     }
 
     /**

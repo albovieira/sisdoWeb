@@ -9,6 +9,7 @@
 
 namespace Application\Custom\ZfcUser\Authentication\Adapter;
 
+
 use Application\Constants\UsuarioConst;
 use Zend\Authentication\Result as AuthenticationResult;
 use Zend\Crypt\Password\Bcrypt;
@@ -54,7 +55,7 @@ class Authentication extends Db
         $credential = $e->getRequest()->getPost()->get(UsuarioConst::FLD_SENHA);
         $credential = $this->preProcessCredential($credential);
 
-        /** @var Usuario $userObject */
+        /** @var \Application\Entity\User $userObject */
         $userObject = null;
 
         // Cycle through the configured identity sources and test each

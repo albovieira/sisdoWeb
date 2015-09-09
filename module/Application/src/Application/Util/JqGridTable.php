@@ -21,6 +21,7 @@ class JqGridTable
     private $queryBuilder;
     private $alias;
     private $collapse = false;
+    private $height;
 
     /**
      * @param mixed $title
@@ -37,6 +38,24 @@ class JqGridTable
     public function setWidth($width){
         $this->widthTable = $width;
     }
+
+    /**
+     * @return string
+     */
+    public function getHeight()
+    {
+        return $this->height;
+    }
+
+    /**
+     * @param string $height
+     */
+    public function setHeight($height)
+    {
+        $this->height = $height;
+    }
+
+
 
     public function setUrl($url){
         $this->url = $url;
@@ -128,6 +147,7 @@ class JqGridTable
 
         $colunas = $this->getColunas();
         $collapse = $this->collapse ? 'true' : 'false';
+        $height = $this->height ? $this->height : 'auto';
 
         return <<<EOF
 
@@ -148,13 +168,13 @@ class JqGridTable
                 datatype: "json",
                 colModel: $colunas,
                 viewrecords: true,
-                height: 250,
                 rowNum: 10,
                 pager: "#jqGridPager",
                 caption: "<h4><b>$this->title</b></h4>",
                 jsonReader: {repeatitems: false},
                 autoWidth:true,
-                hiddengrid: $collapse
+                height: '$height' ,
+                hiddengrid: $collapse ,
                 //shrink:true
             });
         });

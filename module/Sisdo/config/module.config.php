@@ -40,10 +40,10 @@ return array(
                 ),
             ),
 
-            'produto' => array(
+            'instituicao' => array(
                 'type' => 'Segment',
                 'options' => array(
-                    'route' => '/product[/][:action][/:id]',
+                    'route' => '/instituicao[/][:action][/:id]',
                     'constraints' => array(
                         'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
                         'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
@@ -51,7 +51,41 @@ return array(
                     ),
                     'defaults' => array(
                         '__NAMESPACE__' => 'Sisdo\Controller',
-                        'controller' => 'Product',
+                        'controller' => 'Instituicao',
+                        'action' => 'index',
+                    ),
+                ),
+            ),
+
+            'transacao' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/transacao[/][:action][/:id]',
+                    'constraints' => array(
+                        'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id' => '[0-9]+',
+                    ),
+                    'defaults' => array(
+                        '__NAMESPACE__' => 'Sisdo\Controller',
+                        'controller' => 'Transacao',
+                        'action' => 'index',
+                    ),
+                ),
+            ),
+
+            'produto' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/produto[/][:action][/:id]',
+                    'constraints' => array(
+                        'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id' => '[0-9]+',
+                    ),
+                    'defaults' => array(
+                        '__NAMESPACE__' => 'Sisdo\Controller',
+                        'controller' => 'Produto',
                         'action' => 'index',
                     ),
                 ),
@@ -119,10 +153,16 @@ return array(
             'ProductDao' => function ($sm) {
                 return new \Sisdo\Dao\ProductDao($sm->get('Doctrine\ORM\EntityManager'), $sm);
             },
+            'InstitutionDao' => function ($sm) {
+                return new \Sisdo\Dao\InstitutionDao($sm->get('Doctrine\ORM\EntityManager'), $sm);
+            },
 
             //Services
             'ProductService' => function ($sm) {
                 return new \Sisdo\Service\ProductService($sm);
+            },
+            'InstitutionService' => function ($sm) {
+                return new \Sisdo\Service\InstitutionService($sm);
             },
         ),
     ),
@@ -139,8 +179,9 @@ return array(
     'controllers' => array(
         'invokables' => array(
             'Sisdo\Controller\Main' => 'Sisdo\Controller\MainController',
-            'Sisdo\Controller\Institution' => 'Sisdo\Controller\InstitutionController',
-            'Sisdo\Controller\Product' => 'Sisdo\Controller\ProductController',
+            'Sisdo\Controller\Instituicao' => 'Sisdo\Controller\InstitutionController',
+            'Sisdo\Controller\Produto' => 'Sisdo\Controller\ProductController',
+            'Sisdo\Controller\Transacao' => 'Sisdo\Controller\TransactionController',
         ),
     ),
     'view_manager' => array(

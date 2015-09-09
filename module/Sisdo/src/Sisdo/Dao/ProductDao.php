@@ -10,15 +10,26 @@
 namespace Sisdo\Dao;
 
 use Application\Custom\DaoAbstract;
+use Sisdo\Constants\StatusProdutoConst;
 
 class ProductDao extends DaoAbstract
 {
     protected $entityName = 'Sisdo\\Entity\\Product';
 
-    public function findAll()
-    {
-        $qb = $this->getCompleteQueryBuilder();
-        return $qb->getQuery()->getArrayResult();
+    public function findProductsByUser($userId){
+        $qb = $this->getQueryBuilder();
+        $qb->where($this->alias.DaoAbstract::TABLE_COLUMN_SEPARATOR. 'institutionUser = :id')
+        ->andWhere($this->alias.DaoAbstract::TABLE_COLUMN_SEPARATOR. 'status = :status')
+        ->setParameters(
+            array(
+                'id' => $userId,
+                'status' => StatusProdutoConst::FLAG_ATIVO
+            )
+        );
+
+        return $qb;
     }
+
+
 
 }
