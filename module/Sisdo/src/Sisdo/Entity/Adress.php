@@ -67,19 +67,16 @@ class Adress extends EntityAbstract
     /**
      * @var integer
      *
-     * @ORM\Column(name="country", type="integer", nullable=true)
+     * @ORM\Column(name="country", type="string", nullable=true)
      */
     private $country;
 
     /**
-     * @var \Application\Entity\User
-     *
-     * @ORM\ManyToOne(targetEntity="Application\Entity\User")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="user_id", referencedColumnName="user_id")
-     * })
-     */
+     * @ORM\OneToOne(targetEntity="Application\Entity\User", inversedBy="contact")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="user_id")
+     **/
     private $userId;
+
 
     /**
      * @return int
@@ -194,7 +191,7 @@ class Adress extends EntityAbstract
     }
 
     /**
-     * @return int
+     * @return string
      */
     public function getCountry()
     {
@@ -202,7 +199,7 @@ class Adress extends EntityAbstract
     }
 
     /**
-     * @param int $country
+     * @param string $country
      */
     public function setCountry($country)
     {

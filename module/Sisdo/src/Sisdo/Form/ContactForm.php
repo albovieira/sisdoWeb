@@ -18,7 +18,7 @@ class ContactForm extends Form
     /**
      * Cria o formulario para instituicao.
      */
-    public function __construct($url = null, $userLogado)
+    public function __construct($url = null, $userLogado = null)
     {
 
         parent::__construct('contact_form');
@@ -48,7 +48,7 @@ class ContactForm extends Form
             'attributes' => array(
                 'type' => 'hidden',
                 'class' => '',
-                'value' => $userLogado->getId(),
+                'value' => !is_null($userLogado) ? $userLogado->getId() : '',
             ),
             'options' => array(
                 'label' => '',
@@ -60,7 +60,7 @@ class ContactForm extends Form
             'attributes' => array(
                 'type' => 'email',
                 'class' => '',
-                'value' => $userLogado->getEmail(),
+                'value' => !is_null($userLogado) ? $userLogado->getEmail() : '',
             ),
             'options' => array(
                 'label' => ContactConst::LBL_EMAIL,

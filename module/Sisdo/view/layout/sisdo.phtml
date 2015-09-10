@@ -1,6 +1,6 @@
 <?php echo $this->doctype(); ?>
 
-<html lang="pt-br">
+<html lang="eu-br">
 <head>
     <meta charset="utf-8">
     <?php echo $this->headTitle($this->translate('Sisdo'))->setSeparator(' - ')->setAutoEscape(false) ?>
@@ -56,12 +56,8 @@
     <div class="main-content">
         <div class="row">
             <div class="menu col-xs-3">
-
-
-
                 <?php
-
-                echo $this->menuLateralHelper()->getMenu();
+                    echo $this->menuLateralHelper()->getMenu();
                 ?>
 
             </div>
@@ -84,7 +80,6 @@
         if (type == undefined) {
             type = 'info';
         }
-
         $.notify({message: text}, {type: type, z_index: 2050});
     }
 

@@ -37,14 +37,11 @@ class Contact extends EntityAbstract
     private $email;
 
     /**
-     * @var \Application\Entity\User
-     *
-     * @ORM\ManyToOne(targetEntity="Application\Entity\User")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="user_id", referencedColumnName="user_id")
-     * })
-     */
+     * @ORM\OneToOne(targetEntity="Application\Entity\User", inversedBy="contact")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="user_id")
+     **/
     private $userId;
+
 
     /**
      * @return \Application\Entity\User

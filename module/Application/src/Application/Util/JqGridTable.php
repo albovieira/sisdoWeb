@@ -104,7 +104,7 @@ class JqGridTable
         $qb = clone $this->queryBuilder;
 
         $results = $qb
-            ->select('COUNT('.$this->alias.')')
+            ->select("COUNT('$this->alias')")
             ->getQuery()
             ->getSingleScalarResult();
 

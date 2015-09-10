@@ -66,7 +66,7 @@ class ProductService extends ServiceAbstract
             'Acao',JqGridConst::NAME => 'acao', JqGridConst::WIDTH => 80, JqGridConst::CLASSCSS => 'text-center'));
 
         $jqgrid->setUrl(self::URL_GET_DADOS);
-        $jqgrid->setTitle('Doacoes cadastradas');
+        $jqgrid->setTitle('Doacoes Ativas');
 
         $jqgrid->setCollapse(true);
         return $jqgrid->renderJs();

@@ -10,12 +10,16 @@ namespace Sisdo\Service;
 
 use Application\Constants\JqGridConst;
 use Application\Constants\UsuarioConst;
+use Application\Custom\EntityAbstract;
 use Application\Custom\ServiceAbstract;
 use Application\Util\JqGridButton;
 use Application\Util\JqGridTable;
+use Sisdo\Constants\ContactConst;
 use Sisdo\Constants\InstitutionConst;
 use Sisdo\Constants\ProductConst;
 use Sisdo\Dao\ProductDao;
+use Sisdo\Entity\Adress;
+use Sisdo\Entity\Contact;
 use Sisdo\Entity\Institution;
 use Sisdo\Entity\Product;
 use Sisdo\Entity\Unidade;
@@ -24,23 +28,36 @@ class InstitutionService extends ServiceAbstract
 {
     const URL_GET_DADOS = '/instituicao/getDados';
 
-    public function salvar(Institution $institution){
+    public function salvar(EntityAbstract $obj){
 
-        /** @var \Sisdo\Dao\InstitutionDao $dao */
-        $dao = $this->getFromServiceLocator(InstitutionConst::DAO);
-
-        /** @var \Application\Entity\User $instituicaoLogado */
-        $instituicaoLogado = $this->getUserLogado();
-        $institution->setUserId($instituicaoLogado);
-
-        if($institution->getId()){
-            $em = $dao->getEntityManager();
-            $em->merge($institution);
-            $em->flush();
-            return $institution;
+        $dao = '';
+        if ($obj instanceof Institution) {
+            /** @var \Sisdo\Dao\InstitutionDao $dao */
+            $dao = $this->getFromServiceLocator(InstitutionConst::DAO);
         }
-        $dao->save($institution);
-        return $institution;
+        else if($obj instanceof Adress){
+            /** @var \Sisdo\Dao\AdressDao $dao */
+            $dao = $this->getFromServiceLocator(InstitutionConst::DAO);
+        }
+        else if($obj instanceof Contact){
+            /** @var \Sisdo\Dao\ContactDao $dao */
+            $dao = $this->getFromServiceLocator(ContactConst::DAO);
+        }
+        else{
+            return false;
+        }
+
+        $userLogado = $this->getUserLogado();
+        $obj->setUserId($userLogado);
+
+        if($obj->getId()){
+            $em = $dao->getEntityManager();
+            $em->merge($obj);
+            $em->flush();
+            return $obj;
+        }
+        $dao->save($obj);
+        return $obj;
     }
 
     public function excluir($institutionId)

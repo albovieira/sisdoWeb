@@ -25,7 +25,7 @@ class RamoInstituicao
     }
 
     static function getRamoById($id){
-        $ramos = StatusProduto::getArray();
+        $ramos = RamoInstituicao::getArray();
 
         if (array_key_exists($id, $ramos)) {
             return $ramos[$id];

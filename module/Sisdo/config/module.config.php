@@ -57,6 +57,26 @@ return array(
                 ),
             ),
 
+
+            'relacionamento' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/relacionamento[/][:action][/:id]',
+                    'constraints' => array(
+                        'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id' => '[0-9]+',
+                    ),
+                    'defaults' => array(
+                        '__NAMESPACE__' => 'Sisdo\Controller',
+                        'controller' => 'Relacionamento',
+                        'action' => 'index',
+                    ),
+                ),
+            ),
+
+
+
             'transacao' => array(
                 'type' => 'Segment',
                 'options' => array(
@@ -86,6 +106,23 @@ return array(
                     'defaults' => array(
                         '__NAMESPACE__' => 'Sisdo\Controller',
                         'controller' => 'Produto',
+                        'action' => 'index',
+                    ),
+                ),
+            ),
+
+            'modeloemail' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/modeloemail[/][:action][/:id]',
+                    'constraints' => array(
+                        'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id' => '[0-9]+',
+                    ),
+                    'defaults' => array(
+                        '__NAMESPACE__' => 'Sisdo\Controller',
+                        'controller' => 'ModeloEmail',
                         'action' => 'index',
                     ),
                 ),
@@ -156,6 +193,15 @@ return array(
             'InstitutionDao' => function ($sm) {
                 return new \Sisdo\Dao\InstitutionDao($sm->get('Doctrine\ORM\EntityManager'), $sm);
             },
+            'ContactDao' => function ($sm) {
+                return new \Sisdo\Dao\ContactDao($sm->get('Doctrine\ORM\EntityManager'), $sm);
+            },
+            'AdressDao' => function ($sm) {
+                return new \Sisdo\Dao\AdressDao($sm->get('Doctrine\ORM\EntityManager'), $sm);
+            },
+            'RelationshipDao' => function ($sm) {
+                return new \Sisdo\Dao\RelationshipDao($sm->get('Doctrine\ORM\EntityManager'), $sm);
+            },
 
             //Services
             'ProductService' => function ($sm) {
@@ -163,6 +209,9 @@ return array(
             },
             'InstitutionService' => function ($sm) {
                 return new \Sisdo\Service\InstitutionService($sm);
+            },
+            'RelationshipService' => function ($sm) {
+                return new \Sisdo\Service\RelationshipService($sm);
             },
         ),
     ),
@@ -182,6 +231,8 @@ return array(
             'Sisdo\Controller\Instituicao' => 'Sisdo\Controller\InstitutionController',
             'Sisdo\Controller\Produto' => 'Sisdo\Controller\ProductController',
             'Sisdo\Controller\Transacao' => 'Sisdo\Controller\TransactionController',
+            'Sisdo\Controller\Relacionamento' => 'Sisdo\Controller\RelationshipController',
+            'Sisdo\Controller\ModeloEmail' => 'Sisdo\Controller\EmailModelController',
         ),
     ),
     'view_manager' => array(

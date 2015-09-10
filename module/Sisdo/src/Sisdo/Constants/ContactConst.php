@@ -13,7 +13,7 @@ interface ContactConst
     const FLD_ID_CONTACT = 'id';
     const LBL_ID_CONTACT = 'id contato';
 
-    const FLD_TEL = 'telefone';
+    const FLD_TEL = 'tel';
     const LBL_TEL = 'Telefone';
 
     const FLD_EMAIL = 'email';

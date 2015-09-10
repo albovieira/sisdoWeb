@@ -18,7 +18,7 @@ class AdressForm extends Form
     /**
      * Cria o formulario para instituicao.
      */
-    public function __construct($url = null, $userLogado)
+    public function __construct($url = null, $userLogado = null)
     {
 
         parent::__construct('adress_form');
@@ -48,7 +48,7 @@ class AdressForm extends Form
             'attributes' => array(
                 'type' => 'hidden',
                 'class' => '',
-                'value' => $userLogado->getId(),
+                'value' => !is_null($userLogado) ? $userLogado->getId() : '',
             ),
             'options' => array(
                 'label' => '',
@@ -76,6 +76,18 @@ class AdressForm extends Form
                 'label' => AdressConst::LBL_NEIGHBORHOOD,
             ),
         ));
+
+        $this->add(array(
+            'name' => AdressConst::FLD_COUNTRY,
+            'attributes' => array(
+                'type' => 'text',
+                'class' => '',
+            ),
+            'options' => array(
+                'label' => AdressConst::LBL_COUNTRY,
+            ),
+        ));
+
 
         $this->add(array(
             'name' => AdressConst::FLD_STREET,

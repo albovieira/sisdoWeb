@@ -13,6 +13,8 @@ use Application\Constants\MensagemConst;
 use Application\Constants\UsuarioConst;
 use Application\Custom\ActionControllerAbstract;
 use Sisdo\Constants\InstitutionConst;
+use Sisdo\Filter\AdressFilter;
+use Sisdo\Filter\ContactFilter;
 use Sisdo\Filter\InstitutionFilter;
 use Sisdo\Form\AdressForm;
 use Sisdo\Form\ContactForm;
@@ -29,11 +31,19 @@ class InstitutionController extends ActionControllerAbstract
         $instituicaoLogado = $this->getFromServiceLocator(UsuarioConst::ZFCUSER_AUTH_SERVICE)->getIdentity();
 
         $formInstitution = new InstitutionForm('/instituicao/salvar',$instituicaoLogado);
-        $formInstitution->bind($instituicaoLogado->getInstituicao());
+        if($instituicaoLogado->getInstituicao()){
+            $formInstitution->bind($instituicaoLogado->getInstituicao());
+        }
 
         $formContact = new ContactForm('/instituicao/salvarContato',$instituicaoLogado);
-        $formAdress = new AdressForm('/instituicao/salvarEndereco',$instituicaoLogado);
+        if($instituicaoLogado->getContact()){
+            $formContact->bind($instituicaoLogado->getContact());
+        }
 
+        $formAdress = new AdressForm('/instituicao/salvarEndereco',$instituicaoLogado);
+        if($instituicaoLogado->getAdress()){
+            $formAdress->bind($instituicaoLogado->getAdress());
+        }
 
         return new ViewModel(
             array(
@@ -60,6 +70,58 @@ class InstitutionController extends ActionControllerAbstract
                      if($service->salvar($formInstitution->getData())){
                          $this->flashMessenger()->addSuccessMessage(MensagemConst::OPERACAO_SUCESSO);
                      }
+                } catch (\Exception $e) {
+                    $this->flashMessenger()->addErrorMessage(MensagemConst::OCORREU_UM_ERRO);
+                }
+            }
+        }
+
+        return $this->redirect()->toRoute('instituicao');
+
+    }
+
+    public function salvarContatoAction(){
+        /** @var InstitutionService $service */
+        $service = $this->getFromServiceLocator(InstitutionConst::SERVICE);
+
+        $post = $this->getRequest()->getPost();
+
+        $formContact = new ContactForm();
+        $formContact->setInputFilter(new ContactFilter());
+        if ($this->isPost()) {
+            $formContact->setData($post);
+            if ($formContact->isValid()) {
+
+                try {
+                    if($service->salvar($formContact->getData())){
+                        $this->flashMessenger()->addSuccessMessage(MensagemConst::OPERACAO_SUCESSO);
+                    }
+                } catch (\Exception $e) {
+                    $this->flashMessenger()->addErrorMessage(MensagemConst::OCORREU_UM_ERRO);
+                }
+            }
+        }
+
+        return $this->redirect()->toRoute('instituicao');
+
+    }
+
+    public function salvarEnderecoAction(){
+        /** @var InstitutionService $service */
+        $service = $this->getFromServiceLocator(InstitutionConst::SERVICE);
+
+        $post = $this->getRequest()->getPost();
+
+        $formAdress = new AdressForm();
+        $formAdress->setInputFilter(new AdressFilter());
+        if ($this->isPost()) {
+            $formAdress->setData($post);
+            if ($formAdress->isValid()) {
+
+                try {
+                    if($service->salvar($formAdress->getData())){
+                        $this->flashMessenger()->addSuccessMessage(MensagemConst::OPERACAO_SUCESSO);
+                    }
                 } catch (\Exception $e) {
                     $this->flashMessenger()->addErrorMessage(MensagemConst::OCORREU_UM_ERRO);
                 }

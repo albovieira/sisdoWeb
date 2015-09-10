@@ -70,6 +70,50 @@ class User extends EntityAbstract implements UserInterface
     private $person;
 
     /**
+     * @ORM\OneToOne(targetEntity="Sisdo\Entity\Contact", mappedBy="userId")
+     **/
+    private $contact;
+
+    /**
+     * @ORM\OneToOne(targetEntity="Sisdo\Entity\Adress", mappedBy="userId")
+     **/
+    private $adress;
+
+    /**
+     * @return mixed
+     */
+    public function getAdress()
+    {
+        return $this->adress;
+    }
+
+    /**
+     * @param mixed $adress
+     */
+    public function setAdress($adress)
+    {
+        $this->adress = $adress;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getContact()
+    {
+        return $this->contact;
+    }
+
+    /**
+     * @param mixed $contact
+     */
+    public function setContact($contact)
+    {
+        $this->contact = $contact;
+    }
+
+
+
+    /**
      * @return mixed
      */
     public function getPerson()
