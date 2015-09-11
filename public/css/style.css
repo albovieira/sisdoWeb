@@ -1,3 +1,8 @@
+html {
+    position: relative;
+    min-height: 100%;
+}
+
 body {
     padding-top: 60px;
     padding-bottom: 40px;
@@ -60,3 +65,10 @@ div.container a.brand {
 .red{
     color: darkred;
 }
+
+footer {
+    position: absolute;
+    bottom: 0;
+    height: 60px;
+}
+

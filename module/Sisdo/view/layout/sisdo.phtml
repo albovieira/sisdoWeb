@@ -29,6 +29,7 @@
         ->prependFile($this->basePath('js/respond.min.js'), 'text/javascript', array('conditional' => 'lt IE 9',))
         ->prependFile($this->basePath('js/html5shiv.min.js'),   'text/javascript', array('conditional' => 'lt IE 9',))
     ; ?>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
 </head>
 <body>
@@ -66,9 +67,12 @@
             </div>
         </div>
     </div>
-    <hr>
-    <footer>
 
+    <footer>
+        <hr>
+        <div class="container">
+            <p class="text-center text-info"><strong>Copyright PA2015</strong></p>
+        </div>
     </footer>
 </div> <!-- /container -->
 <?php echo $this->inlineScript() ?>
