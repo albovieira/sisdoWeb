@@ -134,12 +134,12 @@ class TransactionForm extends Form
                 'type' => 'button',
                 'value' => 'Ver Mensagens',
                 'id' => 'ver' . $this->getName(),
-                'class' => 'btn-primary btn-white width-25 btn',
+                'class' => 'btn-success btn-white width-25 btn',
                 'style' => '',
             ),
             'options' => array(
                 'label' => 'Ver Mensagens',
-                'glyphicon' => 'glyphicon glyphicon-floppy-disk blue',
+                'glyphicon' => 'glyphicon glyphicon-eye-open',
             ),
 
         ));

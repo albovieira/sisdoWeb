@@ -145,7 +145,7 @@ class TemplateEmailForm extends Form
             ),
             'options' => array(
                 'label' => 'Ver Email',
-                'glyphicon' => 'glyphicon glyphicon-eye-open',
+                'glyphicon' => 'glyphicon-eye-open',
             ),
 
         ));

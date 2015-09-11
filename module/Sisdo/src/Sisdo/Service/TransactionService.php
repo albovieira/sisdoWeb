@@ -89,7 +89,7 @@ class TransactionService extends ServiceAbstract
             $botaoVer->setTitle('Ver transacao');
             $botaoVer->setClass('btn btn-primary btn-xs');
             $botaoVer->setUrl('#modal_transacao');
-            $botaoVer->setIcon('glyphicon glyphicon-zoom-in');
+            $botaoVer->setIcon('glyphicon glyphicon-eye-open');
             $botaoVer->setDataToggle('modal');
             $botaoVer->setOnClick("$('#modal_transacao .modal-body').load('/transacao/visualizar/{$transaction->getId()}')");
 
