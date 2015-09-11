@@ -21,7 +21,7 @@ class NameUserHelper extends AbstractHelper implements ServiceLocatorAwareInterf
      */
     private $serviceLocator;
 
-    public function getNameUser()
+    public function __invoke()
     {
         $helperServiceLocator = $this->getServiceLocator();
         $serviceLocator = $helperServiceLocator->getServiceLocator();
