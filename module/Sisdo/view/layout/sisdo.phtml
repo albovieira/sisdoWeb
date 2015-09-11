@@ -112,17 +112,26 @@
 
 <?php
 $flash = $this->flashMessenger();
-$flash->setMessageOpenFormat('<div%s>
-     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-         &times;
-     </button>
-     <ul><li>')
-    ->setMessageSeparatorString('</li><li>')
-    ->setMessageCloseString('</li></ul></div>');
 
-echo $flash->render('error',   array('alert', 'alert-dismissible', 'alert-danger'));
-echo $flash->render('info',    array('alert', 'alert-dismissible', 'alert-info'));
-echo $flash->render('default', array('alert', 'alert-dismissible', 'alert-warning'));
-echo $flash->render('success', array('alert', 'alert-dismissible', 'alert-success'));
+if ($flash->hasCurrentSuccessMessages()) {
+
+    $message = $flash->render('success');
+    echo "<script>showMessages(`{$message}`, 'success');</script>";
+}
+if ($flash->hasCurrentErrorMessages()) {
+
+    $message = $flash->render('danger');
+    echo "<script>showMessages(`{$message}`, 'danger');</script>";
+}
+if ($flash->hasCurrentInfoMessages()) {
+    $message = $flash->render('info');
+    echo "<script>showMessages(`{$message}`, 'info');</script>";
+}
+if ($flash->hasCurrentWarningMessages()) {
+    $message = $flash->render('warning');
+    echo "<script>showMessages(`{$message}`, 'warning');</script>";
+}
+
 ?>
+
 </html>
