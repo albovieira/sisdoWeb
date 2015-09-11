@@ -29,9 +29,9 @@ class NameUserHelper extends AbstractHelper implements ServiceLocatorAwareInterf
         $userLogado = $serviceLocator->get(UsuarioConst::ZFCUSER_AUTH_SERVICE)->getIdentity();
 
         if ($userLogado->getInstituicao()) {
-            $name = 'Logado como gestor da ' . $userLogado->getInstituicao()->getFancyName();
+            $name = 'Usuario, ' . $userLogado->getInstituicao()->getFancyName();
         } else {
-            $name = 'Bem vindo' . $userLogado->getPerson()->getName();
+            $name = 'Usuario, ' . $userLogado->getPerson()->getName();
         }
         return $name;
     }
