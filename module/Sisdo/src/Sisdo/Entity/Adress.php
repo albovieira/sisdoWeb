@@ -72,7 +72,7 @@ class Adress extends EntityAbstract
     private $country;
 
     /**
-     * @ORM\OneToOne(targetEntity="Application\Entity\User", inversedBy="contact")
+     * @ORM\OneToOne(targetEntity="Application\Entity\User", inversedBy="adress")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="user_id")
      **/
     private $userId;

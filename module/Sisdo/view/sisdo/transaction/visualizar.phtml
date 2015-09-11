@@ -1,0 +1,56 @@
+<?php
+
+echo $this->form(null, \TwbBundle\Form\View\Helper\TwbBundleForm::LAYOUT_HORIZONTAL)->openTag($this->form);
+$this->form->prepare();
+
+?>
+<?php echo $this->formRow($this->form->get(\Sisdo\Constants\TransactionConst::FLD_ID_TRANSACTION)); ?>
+<?php echo $this->formRow($this->form->get(\Sisdo\Constants\TransactionConst::FLD_PRODUTO)); ?>
+<?php echo $this->formRow($this->form->get(\Sisdo\Constants\TransactionConst::FLD_PERSON_USER)); ?>
+<?php echo $this->formRow($this->form->get(\Sisdo\Constants\TransactionConst::FLD_STATUS)); ?>
+<?php echo $this->formRow($this->form->get(\Sisdo\Constants\TransactionConst::FLD_QUANTIFY)); ?>
+<?php echo $this->formRow($this->form->get(\Sisdo\Constants\TransactionConst::FLD_START_DATE)); ?>
+<?php echo $this->formRow($this->form->get(\Sisdo\Constants\TransactionConst::FLD_END_DATE)); ?>
+
+<div class="row botoesacao">
+    <?php echo $this->formButton($this->form->get('btn_ver_mensagens')); ?>
+    <?php echo $this->formButton($this->form->get('btn_finalizar_doacao')); ?>
+    <?php echo $this->formButton($this->form->get('btn_cancelar')); ?>
+</div>
+
+<?php echo $this->form()->closeTag(); ?>
+
+<div class="conversa panel panel-primary" style="margin-top: 40px;">
+        <div class="panel-heading">
+            <h3 class="panel-title">Conversa</h3>
+        </div>
+        <div class="panel-body">
+            <?php
+            if($this->userLogado->getInstituicao()){
+                foreach($this->conversa as $mensagem){
+                    if($mensagem instanceof \Sisdo\Entity\Message){
+
+                        if($mensagem->getIdUser()->getInstituicao()){
+                            echo '<br>';
+                            echo '<span class="red"><strong>Enviado em :</strong>' .$mensagem->getDate()->format('d/m/Y') .'<br></span>';
+                            echo '<span class="red"><strong>Instituicao: </strong>'. $mensagem->getIdUser()->getInstituicao()->getFancyName().'<br></span>';
+                            echo '<span class="red"><strong>Mensagem:</strong> '. $mensagem->getMessage() .'<br></span>';
+                        }
+                        else if($mensagem->getIdUser()->getPerson()){
+                            echo '<br>';
+
+                            echo '<span><strong>Enviado em :</strong>' .$mensagem->getDate()->format('d/m/Y') .'<br></span>';
+                            echo '<span><strong>Usuario: </strong>'. $mensagem->getIdUser()->getPerson()->getName() .'<br></span>';
+                            echo '<span><strong>Mensagem:</strong> '. $mensagem->getMessage().'<br></span>';
+                        }
+
+                    }
+                }
+            }
+            else{
+
+            }
+            ?>
+        </div>
+</div>
+

@@ -20,19 +20,22 @@ class Message extends EntityAbstract
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $id;
+    protected $id;
+
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="id_transacao", type="integer", nullable=true)
-     */
+     * @ORM\ManyToOne(targetEntity="Sisdo\Entity\Transaction", inversedBy="transaction")
+     * @ORM\JoinColumn(name="id_transacao", referencedColumnName="id")
+     **/
     private $idTransacao;
 
     /**
-     * @var string
+     * @var \Application\Entity\User
      *
-     * @ORM\Column(name="id_user", type="string", length=45, nullable=true)
+     * @ORM\ManyToOne(targetEntity="Application\Entity\User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_user", referencedColumnName="user_id")
+     * })
      */
     private $idUser;
 
@@ -42,6 +45,29 @@ class Message extends EntityAbstract
      * @ORM\Column(name="date", type="datetime", nullable=true)
      */
     private $date;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="message", type="string", nullable=true)
+     */
+    private $message;
+
+    /**
+     * @return string
+     */
+    public function getMessage()
+    {
+        return $this->message;
+    }
+
+    /**
+     * @param string $message
+     */
+    public function setMessage($message)
+    {
+        $this->message = $message;
+    }
 
     /**
      * @return int

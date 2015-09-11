@@ -14,6 +14,7 @@ class  ModalHelper extends AbstractHelper
     private $footer;
     private $id = 'myModal';
 
+
     public function __construct($id = null)
     {
         if (isset($id)) {

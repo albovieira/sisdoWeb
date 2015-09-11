@@ -202,6 +202,9 @@ return array(
             'RelationshipDao' => function ($sm) {
                 return new \Sisdo\Dao\RelationshipDao($sm->get('Doctrine\ORM\EntityManager'), $sm);
             },
+            'TransactionDao' => function ($sm) {
+                return new \Sisdo\Dao\TransactionDao($sm->get('Doctrine\ORM\EntityManager'), $sm);
+            },
 
             //Services
             'ProductService' => function ($sm) {
@@ -212,6 +215,9 @@ return array(
             },
             'RelationshipService' => function ($sm) {
                 return new \Sisdo\Service\RelationshipService($sm);
+            },
+            'TransactionService' => function ($sm) {
+                return new \Sisdo\Service\TransactionService($sm);
             },
         ),
     ),

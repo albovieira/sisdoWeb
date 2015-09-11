@@ -16,6 +16,8 @@ class JqGridButton
     private $icon;
     private $title;
     private $hasTexto;
+    private $onClick;
+    private $dataToggle;
 
     /**
      * @return mixed
@@ -113,8 +115,23 @@ class JqGridButton
         $this->hasTexto = $hasTexto;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getDataToggle()
+    {
+        return $this->dataToggle;
+    }
 
-    public function getOnClick()
+    /**
+     * @param mixed $dataToggle
+     */
+    public function setDataToggle($dataToggle)
+    {
+        $this->dataToggle = $dataToggle;
+    }
+
+    public function getValidateOnClick()
     {
         return <<<EOF
         bootbox.confirm("Are you sure?", function(result) {
@@ -123,10 +140,20 @@ class JqGridButton
 EOF;
     }
 
+    public function setOnClick($function){
+        $this->onClick = $function;
+    }
+    public function getOnClick(){
+        return $this->onClick;
+    }
+
+
     public function render(){
         $hasTexto = $this->hasTexto ? $this->title : '';
         return <<<EOF
-        <a class='{$this->class}' href='{$this->url}' title ={$this->title} >
+        <a class="{$this->class}" href="{$this->url}" title ="{$this->title}" data-toggle = "{$this->dataToggle}"
+          onClick="{$this->getOnClick()}"
+          >
             <i class='{$this->icon}'></i>$hasTexto
         </a>
 EOF;

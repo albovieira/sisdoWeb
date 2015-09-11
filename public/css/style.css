@@ -52,3 +52,11 @@ div.container a.brand {
 .agrupa-botoes .btn {
     margin-right: 10px;
 }
+
+.ocultar{
+    display: none;
+}
+
+.red{
+    color: darkred;
+}

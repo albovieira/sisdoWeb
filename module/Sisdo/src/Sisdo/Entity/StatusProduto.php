@@ -21,7 +21,7 @@ class StatusProduto
         );
     }
 
-    static function getProdutoByFlag($flag){
+    static function getStatusProdutoByFlag($flag){
         $status = StatusProduto::getArray();
 
         if (array_key_exists($flag, $status)) {
