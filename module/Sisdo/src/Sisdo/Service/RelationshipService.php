@@ -100,4 +100,25 @@ class RelationshipService extends ServiceAbstract
     }
 
 
+    public function  enviaEmail()
+    {
+        /* $de = ExpedirAlvaraEmail::getRemetente();
+          $deNome = ExpedirAlvaraEmail::getNomeRemetente();
+          $destinatario = $gestor->getEmailUsuario();
+          $nomeGestor = $gestor->getNomUsuario();
+          $nomeUnidade = $unidadeDestino->getDesUnidadeOrganizacional();
+
+          $assunto = ExpedirAlvaraEmail::getAssunto() . $nomeUnidade;
+          $txtEmail = ExpedirAlvaraEmail::getEmail(
+              array(
+                  'nomeUnidade' => $nomeUnidade,
+                  'codIdentificador' => $alvara->getCodIdentificador(),
+              )
+          );
+
+          $emailUtil = new EmailUtil($this->getServiceLocator());
+          $emailUtil->setSender($deNome, $de)->sendMail($nomeGestor, $destinatario, $assunto, $txtEmail); */
+    }
+
+
 }
