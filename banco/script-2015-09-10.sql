@@ -143,6 +143,7 @@ CREATE TABLE `message` (
   `id_transacao` int(11) DEFAULT NULL,
   `id_user` varchar(45) DEFAULT NULL,
   `date` datetime DEFAULT NULL,
+  `message` varchar(250) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -153,6 +154,8 @@ CREATE TABLE `message` (
 
 LOCK TABLES `message` WRITE;
 /*!40000 ALTER TABLE `message` DISABLE KEYS */;
+INSERT INTO sisdo_dbs.message (id, id_transacao, id_user, date, message) VALUES (1, 1, '2', '2015-09-10 10:28:42', 'Ola gostaria de fazer uma doacao');
+INSERT INTO sisdo_dbs.message (id, id_transacao, id_user, date, message) VALUES (2, 1, '3', '2015-09-11 10:29:24', 'Ola Albo, basta fazer a doacao pelo app, caso queira pode nos ligar ou vir ate a instituicao.');
 /*!40000 ALTER TABLE `message` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -303,6 +306,7 @@ CREATE TABLE `transaction` (
 
 LOCK TABLES `transaction` WRITE;
 /*!40000 ALTER TABLE `transaction` DISABLE KEYS */;
+INSERT INTO sisdo_dbs.transaction (id, start_date, quantity, end_date, status, product_id, institution_user_id, person_user_id) VALUES (1, '2015-09-11 10:25:02', '2', '2015-10-11 10:25:05', '1', 1, 2, 3);
 /*!40000 ALTER TABLE `transaction` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -344,3 +348,5 @@ UNLOCK TABLES;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2015-09-10 20:37:06
+
+
