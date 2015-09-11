@@ -49,7 +49,10 @@
                 <li class=""><a href="#">Ajuda</a></li>
                 <li class=""><a href="<?php echo $this->url('logout') ?>"><?php echo $this->translate('Sair') ?></a></li>
             </ul>
-            <?php echo $this->zfcUserDisplayName() ?>
+
+            <div class="navbar-form navbar-right " style="line-height: 30px;">
+                <span style="color: #fff"><?php echo $this->nameUser()->getNameUser() ?></span>
+            </div>
 
         </div><!--/.nav-collapse -->
     </div>

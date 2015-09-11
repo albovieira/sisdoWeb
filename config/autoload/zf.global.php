@@ -19,6 +19,7 @@ return array(
         'invokables' => array(
             'botoesHelper' => 'Application\Helper\BotoesHelper',
             'menuLateralHelper' => 'Application\Helper\MenuLateralHelper',
+            'nameUser' => 'Application\Helper\NameUserHelper',
             //'FlashMessengerHelper' => 'Application\Helper\FlashMessengerHelper',
             //'jqGrid' => 'Application\Util\JqGridTable',
           /*  'urlHelper' => 'Application\Helper\URLHelper',
