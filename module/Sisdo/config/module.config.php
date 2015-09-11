@@ -205,6 +205,9 @@ return array(
             'TransactionDao' => function ($sm) {
                 return new \Sisdo\Dao\TransactionDao($sm->get('Doctrine\ORM\EntityManager'), $sm);
             },
+            'TemplateEmailDao' => function ($sm) {
+                return new \Sisdo\Dao\TemplateEmailDao($sm->get('Doctrine\ORM\EntityManager'), $sm);
+            },
 
             //Services
             'ProductService' => function ($sm) {

@@ -22,9 +22,8 @@ class BotoesHelper extends AbstractHelper
             if (($botoes['attr'])) {
 
                 foreach ($botoes['attr'] as $key => $atributo) {
-                    $attrs .= $key . "=" . $atributo . ' ';
+                    $attrs .= $key . "= '" . $atributo . "'";
                 }
-                //var_dump($attrs);die;
             }
 
             if(!empty($botoes['alt']) && empty($botoes['tittle'])){

@@ -11,10 +11,12 @@ namespace Sisdo\Service;
 use Application\Constants\JqGridConst;
 use Application\Constants\UsuarioConst;
 use Application\Custom\ServiceAbstract;
+use Application\Util\EmailUtil\EmailUtil;
 use Application\Util\JqGridButton;
 use Application\Util\JqGridTable;
 use Sisdo\Constants\PersonConst;
 use Sisdo\Constants\RelationshipConst;
+use Sisdo\Constants\TemplateEmailConst;
 use Sisdo\Dao\RelationshipDao;
 use Sisdo\Entity\Person;
 use Sisdo\Entity\Relationship;
@@ -100,24 +102,36 @@ class RelationshipService extends ServiceAbstract
     }
 
 
+    public function getTemplates()
+    {
+        /** @var \Sisdo\Dao\TemplateEmailDao $dao */
+        $dao = $this->getFromServiceLocator(TemplateEmailConst::DAO);
+        return array();
+        //return  $dao->findTemplatesAsArray($this->getUserLogado()->getUserId());
+    }
+
+    public function incluirModeloEmail($modelo)
+    {
+        /** @var \Sisdo\Dao\TemplateEmailDao $dao */
+        $dao = $this->getFromServiceLocator(TemplateEmailConst::DAO);
+        $dao->save($modelo);
+
+        return $modelo;
+    }
+
     public function  enviaEmail()
     {
-        /* $de = ExpedirAlvaraEmail::getRemetente();
-          $deNome = ExpedirAlvaraEmail::getNomeRemetente();
-          $destinatario = $gestor->getEmailUsuario();
-          $nomeGestor = $gestor->getNomUsuario();
-          $nomeUnidade = $unidadeDestino->getDesUnidadeOrganizacional();
+        $de = 'albovieira@gmail.com';
+        $deNome = 'Nome remetente';
 
-          $assunto = ExpedirAlvaraEmail::getAssunto() . $nomeUnidade;
-          $txtEmail = ExpedirAlvaraEmail::getEmail(
-              array(
-                  'nomeUnidade' => $nomeUnidade,
-                  'codIdentificador' => $alvara->getCodIdentificador(),
-              )
-          );
+        $destinatario = 'albo.vieira@basis.com.br';
+        $fromDestinatario = 'Nome destinatariao';
+
+        $assunto = 'Teste';
+        $txtEmail = 'Novoteste';
 
           $emailUtil = new EmailUtil($this->getServiceLocator());
-          $emailUtil->setSender($deNome, $de)->sendMail($nomeGestor, $destinatario, $assunto, $txtEmail); */
+        $emailUtil->setSender($deNome, $de)->sendMail($fromDestinatario, $destinatario, $assunto, $txtEmail);
     }
 
 

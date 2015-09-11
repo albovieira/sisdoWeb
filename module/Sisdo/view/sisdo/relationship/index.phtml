@@ -2,6 +2,13 @@
 <?php
 echo $this->botoesHelper($this->botoesHelper);
 echo  $this->grid;
+
+$modal = new \Application\Helper\ModalHelper();
+$modal->setId('modal_envia_email');
+$modal->setTitle('Enviar Email');
+//$modal->setContent('');
+echo $modal->renderModal();
+
 ?>
 
 

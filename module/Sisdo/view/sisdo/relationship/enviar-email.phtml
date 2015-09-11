@@ -1,0 +1,18 @@
+<?php
+
+echo $this->form(null, \TwbBundle\Form\View\Helper\TwbBundleForm::LAYOUT_HORIZONTAL)->openTag($this->form);
+$this->form->prepare();
+
+?>
+<?php echo $this->formRow($this->form->get(\Sisdo\Constants\TemplateEmailConst::FLD_TEMPLATES)); ?>
+
+<br>
+<div class="row botoesacao">
+    <?php echo $this->formButton($this->form->get('btn_enviar_email')); ?>
+    <?php echo $this->formButton($this->form->get('btn_ver_email')); ?>
+    <?php echo $this->formButton($this->form->get('btn_cancelar')); ?>
+</div>
+
+<?php echo $this->form()->closeTag(); ?>
+
+
