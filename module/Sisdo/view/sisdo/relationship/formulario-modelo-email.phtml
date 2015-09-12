@@ -1,0 +1,23 @@
+<h4><i style="color: #d9cd0f;" class="glyphicon glyphicon-info-sign"></i> Crie modelos de email para envio aos doadores.</h4>
+<hr>
+
+<?php
+echo $this->form(null, \TwbBundle\Form\View\Helper\TwbBundleForm::LAYOUT_HORIZONTAL)->openTag($this->form);
+$this->form->prepare();
+?>
+
+<?php echo $this->formRow($this->form->get(\Sisdo\Constants\TemplateEmailConst::FLD_ID_TEMPLATE)); ?>
+<?php echo $this->formRow($this->form->get(\Sisdo\Constants\TemplateEmailConst::FLD_USER_ID)); ?>
+<?php echo $this->formRow($this->form->get(\Sisdo\Constants\TemplateEmailConst::FLD_DESC)); ?>
+<?php echo $this->formRow($this->form->get(\Sisdo\Constants\TemplateEmailConst::FLD_HEADER)); ?>
+<?php echo $this->formRow($this->form->get(\Sisdo\Constants\TemplateEmailConst::FLD_CONTENT)); ?>
+<?php echo $this->formRow($this->form->get(\Sisdo\Constants\TemplateEmailConst::FLD_FOOTER)); ?>
+
+<br>
+<div class="row botoesacao">
+    <?php echo $this->formButton($this->form->get('btn_salvar')); ?>
+    <?php echo $this->formButton($this->form->get('btn_cancelar')); ?>
+</div>
+
+<?php echo $this->form()->closeTag(); ?>
+

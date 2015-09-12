@@ -23,6 +23,9 @@ class JqGridTable
     private $collapse = false;
     private $height;
 
+
+    private $top = '';
+
     /**
      * @param mixed $title
      */
@@ -141,6 +144,22 @@ class JqGridTable
         $this->collapse = $collapse;
     }
 
+    /**
+     * @return string
+     */
+    public function getTop()
+    {
+        return $this->top;
+    }
+
+    /**
+     * @param string $top
+     */
+    public function setTop($top)
+    {
+        $this->top = $top;
+    }
+
 
 
     public function renderJs(){
@@ -151,7 +170,7 @@ class JqGridTable
 
         return <<<EOF
 
-        <div style="margin-left:20px">
+        <div style="{$this->top}">
             <table id="jqGrid"></table>
             <div id="jqGridPager"></div>
         </div>

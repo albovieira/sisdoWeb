@@ -15,11 +15,17 @@ class TemplateEmailDao extends DaoAbstract
 {
     protected $entityName = 'Sisdo\\Entity\\TemplateEmail';
 
-    public function findTemplatesAsArray($userId)
+    public function findTemplatesByUser($institutionUserId)
     {
         $qb = $this->getQueryBuilder();
-        $qb->where($this->alias . DaoAbstract::TABLE_COLUMN_SEPARATOR . "userId = {$userId}");
+        $qb->where($this->alias . DaoAbstract::TABLE_COLUMN_SEPARATOR . "institutionUser = {$institutionUserId}");
 
+        return $qb;
+    }
+
+    public function findTemplatesAsArray($institutionUserId)
+    {
+        $qb = $this->findTemplatesByUser($institutionUserId);
         return $qb->getQuery()->getArrayResult();
     }
 

@@ -26,7 +26,7 @@ interface ProductConst
     const LBL_DESC = 'Descricao';
 
     const FLD_DATE = 'date';
-    const LBL_DATE = 'Data';
+    const LBL_DATE = 'Data Fim';
 
     const FLD_INSTITUICAO = 'institutionUser';
     const LBL_INSTITUICAO = 'Instituicao';

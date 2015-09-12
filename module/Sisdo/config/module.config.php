@@ -208,6 +208,9 @@ return array(
             'TemplateEmailDao' => function ($sm) {
                 return new \Sisdo\Dao\TemplateEmailDao($sm->get('Doctrine\ORM\EntityManager'), $sm);
             },
+            'ProductTypeDao' => function ($sm) {
+                return new \Sisdo\Dao\ProductTypeDao($sm->get('Doctrine\ORM\EntityManager'), $sm);
+            },
 
             //Services
             'ProductService' => function ($sm) {
@@ -241,7 +244,6 @@ return array(
             'Sisdo\Controller\Produto' => 'Sisdo\Controller\ProductController',
             'Sisdo\Controller\Transacao' => 'Sisdo\Controller\TransactionController',
             'Sisdo\Controller\Relacionamento' => 'Sisdo\Controller\RelationshipController',
-            'Sisdo\Controller\ModeloEmail' => 'Sisdo\Controller\EmailModelController',
         ),
     ),
     'view_manager' => array(

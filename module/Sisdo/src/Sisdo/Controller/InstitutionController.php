@@ -59,13 +59,11 @@ class InstitutionController extends ActionControllerAbstract
         $service = $this->getFromServiceLocator(InstitutionConst::SERVICE);
 
         $post = $this->getRequest()->getPost();
-
         $formInstitution = new InstitutionForm();
         $formInstitution->setInputFilter(new InstitutionFilter());
         if ($this->isPost()) {
             $formInstitution->setData($post);
             if ($formInstitution->isValid()) {
-
                 try {
                      if($service->salvar($formInstitution->getData())){
                          $this->flashMessenger()->addSuccessMessage(MensagemConst::OPERACAO_SUCESSO);

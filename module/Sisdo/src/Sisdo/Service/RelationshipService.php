@@ -18,9 +18,11 @@ use Sisdo\Constants\PersonConst;
 use Sisdo\Constants\RelationshipConst;
 use Sisdo\Constants\TemplateEmailConst;
 use Sisdo\Dao\RelationshipDao;
+use Sisdo\Dao\TemplateEmailDao;
 use Sisdo\Entity\Person;
 use Sisdo\Entity\Relationship;
 use Sisdo\Entity\Sexo;
+use Sisdo\Entity\TemplateEmail;
 
 class RelationshipService extends ServiceAbstract
 {
@@ -41,6 +43,7 @@ class RelationshipService extends ServiceAbstract
 
         $jqgrid->setUrl(self::URL_GET_DADOS);
         $jqgrid->setTitle('Pessoas seguindo');
+        $jqgrid->setTop('margin-top:50px');
 
         return $jqgrid->renderJs();
     }
@@ -78,15 +81,72 @@ class RelationshipService extends ServiceAbstract
 
 
             $botaoEditar = new JqGridButton();
+            $botaoEditar->setTitle('Ver Mais');
+            $botaoEditar->setClass('btn btn-primary btn-xs');
+            $botaoEditar->setUrl('/relacionamento/ver-usuario/' . $relationship->getPersonUserId()->getId());
+            $botaoEditar->setIcon('glyphicon glyphicon-eye-open');
+
+            $temp[JqGridConst::ACAO] = "<div class='agrupa-botoes'>" . $botaoEditar->render() .
+                "</div>";
+
+            $dados[] = $temp;
+        }
+        $rows[JqGridConst::PARAM_REGISTROS] = $dados;
+
+        return $rows;
+    }
+
+
+    public function getGridTemplate(){
+
+        $jqgrid = new JqGridTable();
+        $jqgrid->addColunas(array(JqGridConst::LABEL  =>
+            TemplateEmailConst::LBL_DESC,JqGridConst::NAME => TemplateEmailConst::FLD_DESC, JqGridConst::WIDTH => 150));
+
+        $jqgrid->addColunas(array(JqGridConst::LABEL  =>
+            'Acao',JqGridConst::NAME => 'acao', JqGridConst::WIDTH => 80, JqGridConst::CLASSCSS => 'text-center'));
+
+        $jqgrid->setUrl('/relacionamento/getGridTemplate');
+        $jqgrid->setTitle('Templates Email');
+
+        return $jqgrid->renderJs();
+    }
+
+    public function getGridDadosTemplate(){
+
+        /** @var TemplateEmailDao $dao */
+        $dao = $this->getFromServiceLocator(TemplateEmailConst::DAO);
+
+
+        /** @var \Application\Entity\User $instituicaoLogado */
+        $instituicaoLogado = $this->getFromServiceLocator(UsuarioConst::ZFCUSER_AUTH_SERVICE)->getIdentity();
+
+        $qb = $dao->findTemplatesByUser($instituicaoLogado->getId());
+
+        $jqgrid = new JqGridTable();
+        $jqgrid->setAlias('t');
+        $jqgrid->setQuery($qb);
+
+        //$paramsPost = $jqgrid->getParametrosFromPost();
+        $rows = $jqgrid->getDatatableArray();
+
+        $dados = [];
+        foreach($rows[JqGridConst::PARAM_REGISTROS] as $row){
+            /** @var TemplateEmail $template*/
+            $template = $row;
+
+            $temp[TemplateEmailConst::FLD_DESC] = $template->getDescription();
+
+            $botaoEditar = new JqGridButton();
             $botaoEditar->setTitle('Editar');
             $botaoEditar->setClass('btn btn-primary btn-xs');
-            $botaoEditar->setUrl('/relacionamento/editar/' . $relationship->getInstitutionUserId()->getId());
+            $botaoEditar->setUrl('/relacionamento/editar-modelo/' . $template->getId());
             $botaoEditar->setIcon('glyphicon glyphicon-edit');
 
             $botaoExcluir = new JqGridButton();
             $botaoExcluir->setTitle('Excluir');
             $botaoExcluir->setClass('btn btn-danger btn-xs');
-            $botaoExcluir->setUrl('/relacionamento/excluir/' . $relationship->getInstitutionUserId()->getId());
+            $botaoExcluir->setUrl('/relacionamento/excluir-modelo/' . $template->getId());
             $botaoExcluir->setIcon('glyphicon glyphicon-trash');
             //$botaoExcluir->getOnClick();
 
@@ -101,16 +161,21 @@ class RelationshipService extends ServiceAbstract
         return $rows;
     }
 
-
     public function getTemplates()
     {
         /** @var \Sisdo\Dao\TemplateEmailDao $dao */
         $dao = $this->getFromServiceLocator(TemplateEmailConst::DAO);
-        return array();
-        //return  $dao->findTemplatesAsArray($this->getUserLogado()->getUserId());
+        return  $dao->findTemplatesAsArray($this->getUserLogado()->getUserId());
     }
 
-    public function incluirModeloEmail($modelo)
+    public function getTemplateById($id)
+    {
+        /** @var \Sisdo\Dao\TemplateEmailDao $dao */
+        $dao = $this->getFromServiceLocator(TemplateEmailConst::DAO);
+        return  $dao->getEntity($id);
+    }
+
+    public function salvarModeloEmail(TemplateEmail $modelo)
     {
         /** @var \Sisdo\Dao\TemplateEmailDao $dao */
         $dao = $this->getFromServiceLocator(TemplateEmailConst::DAO);

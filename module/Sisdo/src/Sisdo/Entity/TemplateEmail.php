@@ -6,9 +6,9 @@ use Application\Custom\EntityAbstract;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Transaction
+ * TemplateEmail
  *
- * @ORM\Table(name="template_email")
+ * @ORM\Table(name="template_email", indexes={@ORM\Index(name="fk_template_intitution_user_idx", columns={"institution_user_id"})})
  * @ORM\Entity
  */
 class TemplateEmail extends EntityAbstract
@@ -25,35 +25,28 @@ class TemplateEmail extends EntityAbstract
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="string", length=150, nullable=true)
+     * @ORM\Column(name="description", type="string", length=100, nullable=false)
      */
     private $description;
 
     /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="type", type="string", length=1 ,nullable=true)
-     */
-    private $type;
-
-    /**
      * @var string
      *
-     * @ORM\Column(name="content", type="string", length=45, nullable=true)
+     * @ORM\Column(name="content", type="string", length=300, nullable=false)
      */
     private $content;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="header", type="string", length=100, nullable=true)
+     * @ORM\Column(name="header", type="string", length=45, nullable=true)
      */
     private $header;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="footer", type="string", length=100, nullable=true)
+     * @ORM\Column(name="footer", type="string", length=45, nullable=true)
      */
     private $footer;
 
@@ -62,10 +55,10 @@ class TemplateEmail extends EntityAbstract
      *
      * @ORM\ManyToOne(targetEntity="Application\Entity\User")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="person_user_id", referencedColumnName="user_id")
+     *   @ORM\JoinColumn(name="institution_user_id", referencedColumnName="user_id")
      * })
      */
-    private $userId;
+    private $institutionUser;
 
     /**
      * @return int
@@ -97,22 +90,6 @@ class TemplateEmail extends EntityAbstract
     public function setDescription($description)
     {
         $this->description = $description;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getType()
-    {
-        return $this->type;
-    }
-
-    /**
-     * @param \DateTime $type
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
     }
 
     /**
@@ -164,19 +141,19 @@ class TemplateEmail extends EntityAbstract
     }
 
     /**
-     * @return \Application\Entity\User
+     * @return \Application\
      */
-    public function getUserId()
+    public function getInstitutionUser()
     {
-        return $this->userId;
+        return $this->institutionUser;
     }
 
     /**
-     * @param \Application\Entity\User $userId
+     * @param \Application\ $institutionUser
      */
-    public function setUserId($userId)
+    public function setInstitutionUser($institutionUser)
     {
-        $this->userId = $userId;
+        $this->institutionUser = $institutionUser;
     }
 
 

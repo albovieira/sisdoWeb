@@ -16,14 +16,15 @@ class MenuLateralHelper extends AbstractHelper
 
     public function getMenu(){
         return <<<DOC
-        <div class="sidebar">
+        <div class="sidebar-nav">
             <ul class="nav nav-sidebar">
                 <li class="active"><a href="/">Principal<span class="sr-only">(current)</span></a></li>
                 <li><a href="/instituicao">Dados Instituicao</a></li>
-                <li><a href="#">Relatorio</a></li>
+                <li><a href="/produto">Doacoes</a></li>
                 <li><a href="/transacao">Transacoes</a></li>
                 <li><a href="/relacionamento">Relacionamentos</a></li>
                 <li><a href="/mensagem">Mensagens</a></li>
+                <li><a href="#">Relatorio</a></li>
                 <li><a href="#">Exportar</a></li>
             </ul>
         </div>

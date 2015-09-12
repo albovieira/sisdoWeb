@@ -1,0 +1,26 @@
+<h4><i style="color: #d9cd0f;" class="glyphicon glyphicon-info-sign"></i> Produtos doacao</h4>
+<hr>
+
+<?php
+echo $this->form(null, \TwbBundle\Form\View\Helper\TwbBundleForm::LAYOUT_HORIZONTAL)->openTag($this->form);
+$this->form->prepare();
+?>
+
+<?php echo $this->formRow($this->form->get(\Sisdo\Constants\ProductConst::FLD_ID_PRODUTO)); ?>
+<?php echo $this->formRow($this->form->get(\Sisdo\Constants\ProductConst::FLD_DATE)); ?>
+<?php echo $this->formRow($this->form->get(\Sisdo\Constants\ProductConst::FLD_INSTITUICAO)); ?>
+<?php echo $this->formRow($this->form->get(\Sisdo\Constants\ProductConst::FLD_TIPO)); ?>
+<?php echo $this->formRow($this->form->get(\Sisdo\Constants\ProductConst::FLD_TITLE)); ?>
+<?php echo $this->formRow($this->form->get(\Sisdo\Constants\ProductConst::FLD_DESC)); ?>
+<?php echo $this->formRow($this->form->get(\Sisdo\Constants\ProductConst::FLD_QTD)); ?>
+<?php echo $this->formRow($this->form->get(\Sisdo\Constants\ProductConst::FLD_UNITY)); ?>
+<?php echo $this->formRow($this->form->get(\Sisdo\Constants\ProductConst::FLD_STATUS)); ?>
+
+<br>
+<div class="row botoesacao">
+    <?php echo $this->formButton($this->form->get('btn_salvar')); ?>
+    <?php echo $this->formButton($this->form->get('btn_cancelar')); ?>
+</div>
+
+<?php echo $this->form()->closeTag(); ?>
+

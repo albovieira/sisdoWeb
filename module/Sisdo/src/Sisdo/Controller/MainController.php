@@ -10,7 +10,6 @@
 namespace Sisdo\Controller;
 
 use Application\Custom\ActionControllerAbstract;
-use Sisdo\Constants\ProductConst;
 use Sisdo\Service\ProductService;
 use Zend\View\Model\ViewModel;
 
@@ -19,12 +18,11 @@ class MainController extends ActionControllerAbstract
     public function indexAction()
     {
         /** @var ProductService $service */
-        $service = $this->getFromServiceLocator(ProductConst::SERVICE);
-        $grid = $service->getGrid();
+        //$serviceProduct = $this->getFromServiceLocator(ProductConst::SERVICE);
+        //$gridProduct = $serviceProduct->getGrid(true);
         return new ViewModel(
             array(
-                'grid' => $grid,
-                'botoesHelper' => $this->getBotoesHelper()
+
             )
         );
     }

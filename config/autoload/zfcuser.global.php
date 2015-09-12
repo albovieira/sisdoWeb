@@ -82,7 +82,7 @@ $settings = array(
      *
      * Accepted values: positive int value
      */
-    'login_form_timeout' => 1000,
+    //'login_form_timeout' => 1000,
 
     /**
      * Registration form timeout

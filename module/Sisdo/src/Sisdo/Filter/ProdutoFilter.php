@@ -6,10 +6,11 @@
  * Time: 16:35
  */
 
-namespace GerenciaEstoque\Filter;
+namespace Sisdo\Filter;
 
 
 use Application\Constants\ProdutoConst;
+use Sisdo\Constants\ProductConst;
 use Zend\InputFilter\InputFilter;
 
 class ProdutoFilter extends InputFilter
@@ -17,7 +18,7 @@ class ProdutoFilter extends InputFilter
     public function __construct()
     {
         $this->add(array(
-            'name' => ProdutoConst::FLD_DESC_PRODUTO,
+            'name' => ProductConst::FLD_DESC,
             'required' => true,
             'filters' => array(
                 array('name' => 'StripTags'),
@@ -27,14 +28,14 @@ class ProdutoFilter extends InputFilter
                 array(
                     'name' => 'NotEmpty',
                     'options' => array(
-                        'campo' => ProdutoConst::LBL_DESC_PRODUTO,
+                        'campo' => ProductConst::LBL_DESC,
                     ),
                 ),
             ),
         ));
 
         $this->add(array(
-            'name' => ProdutoConst::FLD_VAL_UNITARIO,
+            'name' => ProductConst::FLD_TITLE,
             'required' => true,
             'filters' => array(
                 array('name' => 'StripTags'),
@@ -45,7 +46,7 @@ class ProdutoFilter extends InputFilter
                 array(
                     'name' => 'NotEmpty',
                     'options' => array(
-                        'campo' => ProdutoConst::LBL_VAL_UNITARIO
+                        'campo' => ProductConst::LBL_TITLE
                     ),
                 ),
             )

@@ -10,8 +10,11 @@
 namespace Sisdo\Controller;
 
 use Application\Constants\MensagemConst;
+use Application\Constants\UsuarioConst;
 use Application\Custom\ActionControllerAbstract;
 use Sisdo\Constants\RelationshipConst;
+use Sisdo\Entity\TemplateEmail;
+use Sisdo\Filter\TemplateEmailFilter;
 use Sisdo\Form\TemplateEmailForm;
 use Sisdo\Service\RelationshipService;
 use Zend\View\Model\JsonModel;
@@ -46,7 +49,7 @@ class RelationshipController extends ActionControllerAbstract
         /** @var RelationshipService $service */
         $service = $this->getFromServiceLocator(RelationshipConst::SERVICE);
 
-        $form = new TemplateEmailForm(null, null, $service);
+        $form = new TemplateEmailForm(null, null ,true, $service);
 
         $view = new ViewModel();
         $view->setVariables(
@@ -63,24 +66,28 @@ class RelationshipController extends ActionControllerAbstract
 
     public function incluirModeloAction()
     {
+        //var_dump($this->getRequest()->getPost());die;
         /** @var RelationshipService $service */
         $service = $this->getFromServiceLocator(RelationshipConst::SERVICE);
 
-        $form = new TemplateEmailForm($service);
-        //$filter = new ProdutoFilter();
+        /** @var \Application\Entity\User $userLogado */
+        $userLogado = $this->getFromServiceLocator(UsuarioConst::ZFCUSER_AUTH_SERVICE)->getIdentity();
+        $form = new TemplateEmailForm(null,$userLogado,false,$service);
 
         if ($this->getRequest()->isPost()) {
             $post = $this->getRequest()->getPost();
-            //$form->setInputFilter($filter);
+            $form->setInputFilter(new TemplateEmailFilter());
             $form->setData($post);
 
             if ($form->isValid()) {
                 try {
-                    if ($service->incluirModeloEmail($form->getData())) {
+                    /** @var TemplateEmail $template */
+                    $template = $form->getData();
+                    $template->setInstitutionUser($userLogado);
+
+                    if ($service->salvarModeloEmail($template)) {
                         $this->flashMessenger()->addSuccessMessage(MensagemConst::CADASTRO_SUCESSO);
-
                         return $this->redirect()->toRoute('relacionamento');
-
                     } else {
                         $this->flashMessenger()->addErrorMessage(MensagemConst::OCORREU_UM_ERRO);
                     }
@@ -88,9 +95,76 @@ class RelationshipController extends ActionControllerAbstract
                     $this->flashMessenger()->addErrorMessage(MensagemConst::OCORREU_UM_ERRO);
                 }
             }
-
         }
 
+        $view = new ViewModel();
+        $view->setVariable('form',$form);
+        $view->setTemplate('sisdo/relationship/formulario-modelo-email');
+
+        return $view;
+    }
+
+    public function editarModeloAction()
+    {
+        //var_dump($this->getRequest()->getPost());die;
+        /** @var RelationshipService $service */
+        $service = $this->getFromServiceLocator(RelationshipConst::SERVICE);
+
+        $id = $this->params()->fromRoute('id');
+        $template = $service->getTemplateById($id);
+        /** @var \Application\Entity\User $userLogado */
+        $userLogado = $this->getFromServiceLocator(UsuarioConst::ZFCUSER_AUTH_SERVICE)->getIdentity();
+        $form = new TemplateEmailForm(null,$userLogado,false,$service);
+        $form->bind($template);
+
+        if ($this->getRequest()->isPost()) {
+            $post = $this->getRequest()->getPost();
+            $form->setInputFilter(new TemplateEmailFilter());
+            $form->setData($post);
+
+            if ($form->isValid()) {
+                try {
+                    /** @var TemplateEmail $template */
+                    $template = $form->getData();
+                    $template->setInstitutionUser($userLogado);
+
+                    if ($service->salvarModeloEmail($template)) {
+                        $this->flashMessenger()->addSuccessMessage(MensagemConst::OPERACAO_SUCESSO);
+                        return $this->redirect()->toRoute('relacionamento',array('action' => 'ver-modelo'));
+                    } else {
+                        $this->flashMessenger()->addErrorMessage(MensagemConst::OCORREU_UM_ERRO);
+                    }
+                } catch (\Exception $e) {
+                    $this->flashMessenger()->addErrorMessage(MensagemConst::OCORREU_UM_ERRO);
+                }
+            }
+        }
+
+        $view = new ViewModel();
+        $view->setVariable('form',$form);
+        $view->setTemplate('sisdo/relationship/formulario-modelo-email');
+        return $view;
+    }
+
+    public function verModeloAction(){
+        /** @var RelationshipService $service */
+        $service = $this->getFromServiceLocator(RelationshipConst::SERVICE);
+        $grid = $service->getGridTemplate();
+        return new ViewModel(
+            array(
+                'grid' => $grid,
+                'botoesHelper' => $this->getBotoesHelper()
+            )
+        );
+    }
+
+    public function getGridTemplateAction(){
+
+        /** @var RelationshipService $service */
+        $service = $this->getFromServiceLocator(RelationshipConst::SERVICE);
+        $grid = $service->getGridDadosTemplate();
+
+        return new JsonModel($grid);
     }
 
     public function getBotoesHelper()
@@ -99,10 +173,11 @@ class RelationshipController extends ActionControllerAbstract
             $this->addBotaoHelper('btn-incluir btn-primary btn btn-xs', 'glyphicon glyphicon-envelope',
                 'Enviar Email', '', '#modal_envia_email', true, array('data-toggle' => "modal", 'onclick' => '$("#modal_envia_email .modal-body").load("/relacionamento/enviar-email")')),
 
-            $this->addBotaoHelper('btn-incluir btn-success btn btn-xs', 'glyphicon glyphicon-plus',
-                'Incluir Modelo Email', '', '#modal_envia_email', true, array('data-toggle' => "modal", 'onclick' => '$("#modal_envia_email .modal-body").load("/relacionamento/incluir-modelo")')),
+            $this->addBotaoHelper('btn-incluir btn-success btn btn-xs', 'glyphicon glyphicon-plus', 'Incluir Template Email','',
+                $this->url()->fromRoute('relacionamento', array('action' => 'incluir-modelo'))),
 
-
+            $this->addBotaoHelper('btn-incluir btn-warning btn btn-xs', 'glyphicon glyphicon-eye-open', 'Ver Templates','',
+                $this->url()->fromRoute('relacionamento', array('action' => 'ver-modelo'))),
         );
     }
 

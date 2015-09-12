@@ -14,7 +14,9 @@ use Application\Custom\ServiceAbstract;
 use Application\Util\JqGridButton;
 use Application\Util\JqGridTable;
 use Sisdo\Constants\ProductConst;
+use Sisdo\Constants\ProductTypeConst;
 use Sisdo\Dao\ProductDao;
+use Sisdo\Dao\ProductTypeDao;
 use Sisdo\Entity\Product;
 use Sisdo\Entity\Unidade;
 
@@ -24,8 +26,18 @@ class ProductService extends ServiceAbstract
 
     public function salvar(Product $produto){
 
+        //var_dump();die;
+
         /** @var \Sisdo\Dao\ProductDao $dao */
         $dao = $this->getFromServiceLocator(ProductConst::DAO);
+
+        $produto->setDate(new \DateTime($produto->getDate()));
+
+        /** @var \Sisdo\Dao\ProductTypeDao $dao */
+        $daoProductType = $this->getFromServiceLocator(ProductTypeConst::DAO);
+        $productType = $daoProductType->getEntity($produto->getProductType());
+
+        $produto->setProductType($productType);
         $dao->save($produto);
 
         return $produto;
@@ -46,7 +58,7 @@ class ProductService extends ServiceAbstract
         return $dao->getEntity($id);
     }
 
-    public function getGrid(){
+    public function getGrid($isCollapse = false){
 
         $jqgrid = new JqGridTable();
         $jqgrid->addColunas(array(JqGridConst::LABEL  =>
@@ -68,7 +80,7 @@ class ProductService extends ServiceAbstract
         $jqgrid->setUrl(self::URL_GET_DADOS);
         $jqgrid->setTitle('Doacoes Ativas');
 
-        $jqgrid->setCollapse(true);
+        $jqgrid->setCollapse($isCollapse);
         return $jqgrid->renderJs();
     }
 
@@ -106,13 +118,13 @@ class ProductService extends ServiceAbstract
             $botaoEditar = new JqGridButton();
             $botaoEditar->setTitle('Editar');
             $botaoEditar->setClass('btn btn-primary btn-xs');
-            $botaoEditar->setUrl('/product/editar/' . $produto->getIdProduto());
+            $botaoEditar->setUrl('/produto/editar/' . $produto->getIdProduto());
             $botaoEditar->setIcon('glyphicon glyphicon-edit');
 
             $botaoExcluir = new JqGridButton();
             $botaoExcluir->setTitle('Excluir');
             $botaoExcluir->setClass('btn btn-danger btn-xs');
-            $botaoExcluir->setUrl('/product/excluir/' . $produto->getIdProduto());
+            $botaoExcluir->setUrl('/produto/excluir/' . $produto->getIdProduto());
             $botaoExcluir->setIcon('glyphicon glyphicon-trash');
             //$botaoExcluir->getOnClick();
 
@@ -125,6 +137,12 @@ class ProductService extends ServiceAbstract
         $rows[JqGridConst::PARAM_REGISTROS] = $dados;
 
         return $rows;
+    }
+
+    public function getProductType(){
+        /** @var ProductTypeDao $dao */
+        $dao = $this->getFromServiceLocator(ProductTypeConst::DAO);
+        return $dao->findProductTypeAsArray();
     }
 
 
