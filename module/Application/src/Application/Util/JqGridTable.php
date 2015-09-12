@@ -16,7 +16,7 @@ class JqGridTable
     private $title;
     private $colunas = array();
     private $url;
-    private $widthTable = 900;
+    private $widthTable = 1050;
 
     private $queryBuilder;
     private $alias;
