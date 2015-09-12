@@ -96,14 +96,14 @@ class TransactionService extends ServiceAbstract
             $botaoConfirmar = new JqGridButton();
             $botaoConfirmar->setTitle('Confirmar Recebimento');
             $botaoConfirmar->setClass('btn btn-success btn-xs');
-            $botaoConfirmar->setUrl('/relacionamento/editar/' . $transaction->getId());
+            $botaoConfirmar->setUrl('/transacao/confirmar-recebimento/' . $transaction->getId());
             $botaoConfirmar->setIcon('glyphicon glyphicon-ok-sign');
 
 
             $botaoCancelar = new JqGridButton();
             $botaoCancelar->setTitle('Cancelar Recebimento');
             $botaoCancelar->setClass('btn btn-danger btn-xs');
-            $botaoCancelar->setUrl('/relacionamento/excluir/' . $transaction->getId());
+            $botaoCancelar->setUrl('/transacao/cancelar-recebimento/' . $transaction->getId());
             $botaoCancelar->setIcon('glyphicon glyphicon-ban-circle');
             //$botaoExcluir->getOnClick();
 

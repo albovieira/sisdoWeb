@@ -43,6 +43,36 @@ class TransactionController extends ActionControllerAbstract
         return new JsonModel($grid);
     }
 
+    public function confirmarRecebimentoAction(){
+
+        /** @var TransactionService $service */
+        $service = $this->getFromServiceLocator(TransactionConst::SERVICE);
+
+        $id = $this->params()->fromRoute('id');
+        /** @var Transaction $transacao */
+        $transacao = $service->getTransactionById($id);
+
+        $conversaAsArray = $transacao->getMessages()->getValues();
+
+        $form = new TransactionForm();
+
+        $this->bindTransacao($transacao,$form);
+
+        /** @var \Application\Entity\User $userLogado*/
+        $userLogado = $this->getFromServiceLocator(UsuarioConst::ZFCUSER_AUTH_SERVICE)->getIdentity();
+
+        $view = new ViewModel();
+        $view->setVariables(
+            array(
+                'form' => $form,
+                'transacao' => $transacao,
+                'userLogado' => $userLogado,
+                'conversa' => $conversaAsArray,
+            )
+        );
+        return $view;
+    }
+
     public function visualizarAction(){
         /** @var TransactionService $service */
         $service = $this->getFromServiceLocator(TransactionConst::SERVICE);
@@ -52,7 +82,29 @@ class TransactionController extends ActionControllerAbstract
         $transacao = $service->getTransactionById($id);
 
         $form = new TransactionForm();
-        //var_dump($transacao);die;
+
+        $conversaAsArray = $transacao->getMessages()->getValues();
+
+        /** @var \Application\Entity\User $userLogado*/
+        $userLogado = $this->getFromServiceLocator(UsuarioConst::ZFCUSER_AUTH_SERVICE)->getIdentity();
+
+        $this->bindTransacao($transacao,$form);
+
+        $view = new ViewModel();
+        $view->setVariables(
+            array(
+                'form' => $form,
+                'transacao' => $transacao,
+                'conversa' => $conversaAsArray,
+                'userLogado' => $userLogado
+            )
+        );
+        $view->setTerminal(true);
+
+        return $view;
+    }
+
+    public function bindTransacao(Transaction &$transacao, TransactionForm $form){
 
         $dataStart = $transacao->getStartDate()->format('d/m/Y');
         $transacao->setStartDate($dataStart);
@@ -69,23 +121,7 @@ class TransactionController extends ActionControllerAbstract
         $form->get(TransactionConst::FLD_QUANTIFY)
             ->setValue($transacao->getQuantity());
 
-        $conversaAsArray = $transacao->getMessages()->getValues();
-
-        /** @var \Application\Entity\User $userLogado*/
-        $userLogado = $this->getFromServiceLocator(UsuarioConst::ZFCUSER_AUTH_SERVICE)->getIdentity();
-
-
-        $view = new ViewModel();
-        $view->setVariables(
-            array(
-                'form' => $form,
-                'transacao' => $transacao,
-                'conversa' => $conversaAsArray,
-                'userLogado' => $userLogado
-            )
-        );
-        $view->setTerminal(true);
-        return $view;
+        return $transacao;
     }
 
     /**

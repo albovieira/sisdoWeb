@@ -72,4 +72,9 @@ div.container a.brand {
     height: 60px;
 }
 
-
+.cor-icone-principal{
+    color: #333;
+    border: 1px solid #333;
+    padding: 10px;
+    box-shadow: 1px 1px 3px;
+}

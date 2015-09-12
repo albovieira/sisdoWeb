@@ -161,16 +161,16 @@ class TransactionForm extends Form
         ));
 
         $this->add(array(
-            'name' => 'btn_cancelar',
+            'name' => 'btn_rejeitar',
             'type' => 'button',
             'attributes' => array(
                 'type' => 'reset',
-                'value' => 'Cancelar',
+                'value' => 'Rejeitar',
                 'id' => 'cancelar_' . $this->getName(),
                 'class' => 'btn-danger btn-white margin-left-right-10px width-25 btn',
             ),
             'options' => array(
-                'label' => 'Cancelar',
+                'label' => 'Rejeitar',
                 'glyphicon' => 'glyphicon glyphicon-remove red',
             ),
         ));
