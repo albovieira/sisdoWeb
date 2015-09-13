@@ -2,7 +2,6 @@
  * Created by albov on 10/09/2015.
  */
 
-
 function sisdoAjax(url, type, data, callbackSuccess, targetId, extraParam) {
 
     extraParam = extraParam || {};
@@ -33,6 +32,13 @@ function sisdoAjax(url, type, data, callbackSuccess, targetId, extraParam) {
     }));
 }
 
+$(document).ajaxStart(function () {
+    $('#preloading').show();
+});
+//
+$(document).ajaxStop(function () {
+    $('#preloading').hide();
+});
 
 $(document).ready(function(){/* off-canvas sidebar toggle */
     $('[data-toggle=offcanvas]').click(function() {
@@ -43,4 +49,8 @@ $(document).ready(function(){/* off-canvas sidebar toggle */
         $('#xs-menu').toggleClass('visible-xs').toggleClass('hidden-xs');
         $('#btnShow').toggle();
     });
+
+
+
 });
+

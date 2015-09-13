@@ -4,6 +4,7 @@ namespace Sisdo\Form;
 
 use Application\Constants\GrupoConst as Grupo;
 use Application\Constants\ProdutoConst;
+use Application\Entity\User;
 use GerenciaEstoque\Entity\Produto;
 use Sisdo\Constants\TransactionConst;
 use Sisdo\Entity\Transaction;
@@ -16,7 +17,7 @@ use Zend\Stdlib\Hydrator\ClassMethods as ClassMethodsHydrator;
 class TransactionForm extends Form
 {
 
-    public function __construct($url = null, $userLogado = null)
+    public function __construct($url = null, User $userLogado = null)
     {
 
         parent::__construct('transaction_form');
@@ -44,10 +45,9 @@ class TransactionForm extends Form
         $this->add(array(
             'name' => TransactionConst::FLD_INSTITUTION_USER,
             'attributes' => array(
-                'type' => 'text',
+                'type' => 'hidden',
                 'class' => '',
-                'disabled' => 'disabled',
-
+                'value' => !is_null($userLogado) ? $userLogado->getId() : '',
             ),
             'options' => array(
                 'label' => TransactionConst::LBL_INSTITUTION_USER_ID,
@@ -116,6 +116,19 @@ class TransactionForm extends Form
         ));
 
         $this->add(array(
+            'name' => TransactionConst::FLD_SHIPPING_METHOD,
+            'attributes' => array(
+                'type' => 'text',
+                'class' => '',
+                'disabled' => 'disabled',
+
+            ),
+            'options' => array(
+                'label' => TransactionConst::LBL_SHIPPING_METHOD,
+            ),
+        ));
+
+        $this->add(array(
             'name' => TransactionConst::FLD_STATUS,
             'attributes' => array(
                 'type' => 'text',
@@ -149,7 +162,7 @@ class TransactionForm extends Form
             'type' => 'button',
             'attributes' => array(
                 'value' => 'Finalizar Doacao',
-                'id' => 'salvar_' . $this->getName(),
+                'id' => 'btn_finalizar_doacao',
                 'class' => 'btn-primary btn-white width-25 btn',
                 'style' => '',
             ),

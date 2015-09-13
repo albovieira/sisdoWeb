@@ -78,3 +78,41 @@ div.container a.brand {
     padding: 10px;
     box-shadow: 1px 1px 3px;
 }
+
+
+footer#footer .col-sm-11{
+    margin-top: 50px;
+    border-top: 1px solid #358BF5;
+    line-height: 40px;
+    position: absolute;
+    bottom: 0;
+    height: 60px;
+}
+
+#preloading {
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    background-color:#fff; /* change if the mask should have another color then white */
+    opacity: 0.65;
+    -moz-opacity: 0.65;
+    filter: alpha(opacity=65);
+    z-index:9999; /* makes sure it stays on top */
+    display: none;
+
+}
+
+#loading {
+    width:200px;
+    height:200px;
+    position:absolute;
+    left:50%; /* centers the loading animation horizontally one the screen */
+    top:50%; /* centers the loading animation vertically one the screen */
+    background-image:url(../img/loading.gif); /* path to your loading animation */
+    background-repeat:no-repeat;
+    background-position:center;
+    margin:-100px 0 0 -100px; /* is width and height divided by two */
+}
+

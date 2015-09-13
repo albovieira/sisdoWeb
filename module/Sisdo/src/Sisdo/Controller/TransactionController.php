@@ -12,6 +12,7 @@ namespace Sisdo\Controller;
 use Application\Constants\UsuarioConst;
 use Application\Custom\ActionControllerAbstract;
 use Sisdo\Constants\TransactionConst;
+use Sisdo\Entity\ShippingMethod;
 use Sisdo\Entity\StatusTransacao;
 use Sisdo\Entity\Transaction;
 use Sisdo\Form\TransactionForm;
@@ -21,6 +22,8 @@ use Zend\View\Model\ViewModel;
 
 class TransactionController extends ActionControllerAbstract
 {
+    const DATA_INVALIDA = '-0001';
+
     public function indexAction()
     {
         /** @var TransactionService $service */
@@ -54,12 +57,12 @@ class TransactionController extends ActionControllerAbstract
 
         $conversaAsArray = $transacao->getMessages()->getValues();
 
-        $form = new TransactionForm();
-
-        $this->bindTransacao($transacao,$form);
-
         /** @var \Application\Entity\User $userLogado*/
         $userLogado = $this->getFromServiceLocator(UsuarioConst::ZFCUSER_AUTH_SERVICE)->getIdentity();
+
+        $form = new TransactionForm(null,$userLogado);
+
+        $this->bindTransacao($transacao,$form);
 
         $view = new ViewModel();
         $view->setVariables(
@@ -78,15 +81,17 @@ class TransactionController extends ActionControllerAbstract
         $service = $this->getFromServiceLocator(TransactionConst::SERVICE);
 
         $id = $this->params()->fromRoute('id');
+
         /** @var Transaction $transacao */
         $transacao = $service->getTransactionById($id);
 
-        $form = new TransactionForm();
+        /** @var \Application\Entity\User $userLogado*/
+        $userLogado = $this->getFromServiceLocator(UsuarioConst::ZFCUSER_AUTH_SERVICE)->getIdentity();
+
+        $form = new TransactionForm(null,$userLogado);
 
         $conversaAsArray = $transacao->getMessages()->getValues();
 
-        /** @var \Application\Entity\User $userLogado*/
-        $userLogado = $this->getFromServiceLocator(UsuarioConst::ZFCUSER_AUTH_SERVICE)->getIdentity();
 
         $this->bindTransacao($transacao,$form);
 
@@ -104,22 +109,53 @@ class TransactionController extends ActionControllerAbstract
         return $view;
     }
 
+    public function finalizarTransacaoAction(){
+        /** @var TransactionService $service */
+        $service = $this->getFromServiceLocator(TransactionConst::SERVICE);
+
+        $id = $this->getRequest()->getQuery('id');
+
+        /** @var Transaction $transacao */
+        $isFinalizado = $service->finalizaTransacao($id);
+
+        if($isFinalizado){
+            $retorno = 'sucesso';
+        }else{
+            $retorno = 'falha';
+        }
+
+        return new JsonModel(array('retorno' => $retorno));
+    }
+
     public function bindTransacao(Transaction &$transacao, TransactionForm $form){
 
         $dataStart = $transacao->getStartDate()->format('d/m/Y');
         $transacao->setStartDate($dataStart);
-        $dataEnd = $transacao->getEndDate()->format('d/m/Y');
-        $transacao->setEndDate($dataEnd);
+
+        $ano = $transacao->getEndDate()->format('Y');
+        if($ano != self::DATA_INVALIDA){
+            $dataEnd = $transacao->getEndDate()->format('d/m/Y');
+            $transacao->setEndDate($dataEnd);
+        }else{
+            $transacao->setEndDate(null);
+        }
 
         $form->bind($transacao);
+
+        $institutionUser = $form->get(TransactionConst::FLD_INSTITUTION_USER)->getValue();
+
         $form->get(TransactionConst::FLD_PRODUTO)
             ->setValue($transacao->getProduct()->getTitle());
         $form->get(TransactionConst::FLD_STATUS)
             ->setValue(StatusTransacao::getStatusByFlag($transacao->getStatus()));
+        $form->get(TransactionConst::FLD_SHIPPING_METHOD)
+            ->setValue(ShippingMethod::getShippingMethod($transacao->getShippingMethod()));
         $form->get(TransactionConst::FLD_PERSON_USER)
             ->setValue($transacao->getPersonUser()->getPerson()->getName());
         $form->get(TransactionConst::FLD_QUANTIFY)
             ->setValue($transacao->getQuantity());
+        $form->get(TransactionConst::FLD_INSTITUTION_USER)
+            ->setValue($institutionUser->getId());
 
         return $transacao;
     }

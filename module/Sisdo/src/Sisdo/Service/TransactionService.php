@@ -13,6 +13,7 @@ use Application\Constants\UsuarioConst;
 use Application\Custom\ServiceAbstract;
 use Application\Util\JqGridButton;
 use Application\Util\JqGridTable;
+use Sisdo\Constants\StatusTransacaoConst;
 use Sisdo\Constants\TransactionConst;
 use Sisdo\Dao\TransactionDao;
 use Sisdo\Entity\StatusTransacao;
@@ -27,6 +28,27 @@ class TransactionService extends ServiceAbstract
         /** @var TransactionDao $dao */
         $dao = $this->getFromServiceLocator(TransactionConst::DAO);
         return $dao->getEntity($id);
+    }
+
+    public function finalizaTransacao($id){
+
+        /** @var TransactionDao $dao */
+        $dao = $this->getFromServiceLocator(TransactionConst::DAO);
+
+        /** @var Transaction $transacao */
+        $transacao = $this->getTransactionById($id);
+
+        if($transacao->getStatus() == StatusTransacaoConst::FLAG_PENDENTE_FINALIZACAO){
+            $transacao->setStatus(StatusTransacaoConst::FLAG_FINALIZADO);
+            $transacao->setEndDate(new \DateTime('now'));
+
+            $dao->save($transacao);
+
+            return true;
+        }
+
+
+        return false;
     }
 
 

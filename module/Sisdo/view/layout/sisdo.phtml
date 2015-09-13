@@ -1,6 +1,6 @@
 <?php echo $this->doctype(); ?>
 
-<html lang="pt-br">
+<html lang="pt-br" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="utf-8">
     <?php echo $this->headTitle($this->translate('Sisdo'))->setSeparator(' - ')->setAutoEscape(false) ?>
@@ -87,13 +87,28 @@
                     <div class="full col-sm-9">
                         <?php echo $this->content; ?>
                     </div>
+
+                       <!-- <footer id="footer" class="text-center">
+                            <div class="col-sm-11" style="margin-top: 30px">
+                                <p>
+                                    <a href="#" class="text-center">Copyright PA 2015</a>
+                                </p>
+                            </div>
+                        </footer> -->
                 </div>
-                <hr>
             </div><!-- /main -->
 
         </div>
     </div>
+
+    <div id="preloading">
+        <div id="loading">&nbsp;</div>
+    </div>
+
+
 </div>
+
+
 
 </body>
 

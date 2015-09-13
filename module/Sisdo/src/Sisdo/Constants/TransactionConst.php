@@ -28,6 +28,9 @@ interface TransactionConst
     const FLD_PRODUTO = 'product';
     const LBL_PRODUTO = 'Produto';
 
+    const FLD_SHIPPING_METHOD = 'shippingMethod';
+    const LBL_SHIPPING_METHOD = 'Metodo de Envio';
+
     const FLD_INSTITUTION_USER = 'institutionUser';
     const LBL_INSTITUTION_USER_ID = 'Instituicao';
 

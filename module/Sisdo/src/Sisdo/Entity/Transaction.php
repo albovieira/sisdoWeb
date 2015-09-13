@@ -46,9 +46,16 @@ class Transaction extends EntityAbstract
     /**
      * @var string
      *
-     * @ORM\Column(name="status", type="string", length=45, nullable=true)
+     * @ORM\Column(name="status", type="string", length=1, nullable=true)
      */
     private $status;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="shipping_method", type="string", length=1, nullable=true)
+     */
+    private $shippingMethod;
 
     /**
      * @var \Sisdo\Entity\Product
@@ -240,6 +247,23 @@ class Transaction extends EntityAbstract
     {
         $this->personUser = $personUser;
     }
+
+    /**
+     * @return string
+     */
+    public function getShippingMethod()
+    {
+        return $this->shippingMethod;
+    }
+
+    /**
+     * @param string $shippingMethod
+     */
+    public function setShippingMethod($shippingMethod)
+    {
+        $this->shippingMethod = $shippingMethod;
+    }
+
 
 
 
