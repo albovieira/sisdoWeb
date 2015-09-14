@@ -358,3 +358,18 @@ UNLOCK TABLES;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2015-09-13 19:22:43
+
+CREATE TABLE money_donation
+(
+  id INT NOT NULL,
+  value DECIMAL(10,2) NOT NULL,
+  status CHAR(1) NOT NULL,
+  id_instituition_user INT NOT NULL,
+  id_person_user INT NOT NULL,
+  startDate DATETIME NOT NULL,
+  endDate DATETIME NOT NULL,
+  FOREIGN KEY (id_instituition_user) REFERENCES user (user_id),
+  FOREIGN KEY (id_person_user) REFERENCES user (user_id)
+);
+CREATE INDEX fk_money_institution_user_idx ON money_donation (id_instituition_user);
+CREATE INDEX fk_money_person_user_idx ON money_donation (id_person_user);
