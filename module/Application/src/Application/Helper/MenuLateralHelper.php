@@ -25,7 +25,8 @@ class MenuLateralHelper extends AbstractHelper
                 <ul class="nav hidden-xs" id="lg-menu">
                     <li class="active"><a href="/"><i class="glyphicon glyphicon-list-alt"></i> Principal</a></li>
                     <li><a href="/instituicao"><i class="fa fa-user"></i> Meus Dados</a></li>
-                    <li><a href="/produto"><i class="glyphicon glyphicon-gift"></i> Doacoes</a></li>
+                    <li><a href="/produto"><i class="glyphicon glyphicon-gift"></i> Doacoes Produtos/Servicos</a></li>
+                    <li><a href="/doacao-financeira"><i class="fa fa-money"></i> Doacoes em dinheiro</a></li>
                     <li><a href="/transacao"><i class="fa fa-exchange"></i> Transacoes</a></li>
                     <li><a href="/relacionamento"><i class="fa fa-users"></i> Relacionamentos</a></li>
                 </ul>
@@ -35,6 +36,7 @@ class MenuLateralHelper extends AbstractHelper
                     <li><a href="/" class="text-center"><i class="glyphicon glyphicon-list-alt"></i></a></li>
                     <li><a href="/instituicao" class="text-center"><i class="fa fa-user"></i></a></li>
                     <li><a href="/produto" class="text-center"><i class="glyphicon glyphicon-gift"></i></a></li>
+                    <li><a href="/doacao-financeira"><i class="fa fa-money"></i></a></li>
                     <li><a href="/transacao" class="text-center"><i class="fa fa-exchange"></i></a></li>
                     <li><a href="/relacionamento" class="text-center"><i class="fa fa-users"></i></a></li>
                 </ul>
