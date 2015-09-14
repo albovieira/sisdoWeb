@@ -368,6 +368,7 @@ CREATE TABLE money_donation
   id_person_user INT NOT NULL,
   startDate DATETIME NOT NULL,
   endDate DATETIME NOT NULL,
+  PRIMARY KEY (`id`),
   FOREIGN KEY (id_instituition_user) REFERENCES user (user_id),
   FOREIGN KEY (id_person_user) REFERENCES user (user_id)
 );

@@ -110,6 +110,22 @@ return array(
                     ),
                 ),
             ),
+            'doacao-financeira' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/doacao-financeira[/][:action][/:id]',
+                    'constraints' => array(
+                        'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id' => '[0-9]+',
+                    ),
+                    'defaults' => array(
+                        '__NAMESPACE__' => 'Sisdo\Controller',
+                        'controller' => 'DoacaoFinanceira',
+                        'action' => 'index',
+                    ),
+                ),
+            ),
 
             'produto' => array(
                 'type' => 'Segment',
@@ -231,6 +247,9 @@ return array(
             'PersonDao' => function ($sm) {
                 return new \Sisdo\Dao\PersonDao($sm->get('Doctrine\ORM\EntityManager'), $sm);
             },
+            'MoneyDonationDao' => function ($sm) {
+                return new \Sisdo\Dao\MoneyDonationDao($sm->get('Doctrine\ORM\EntityManager'), $sm);
+            },
 
             //Services
             'ProductService' => function ($sm) {
@@ -247,6 +266,9 @@ return array(
             },
             'PersonService' => function ($sm) {
                 return new \Sisdo\Service\PersonService($sm);
+            },
+            'MoneyDonationService' => function ($sm) {
+                return new \Sisdo\Service\MoneyDonationService($sm);
             },
         ),
     ),
@@ -265,6 +287,7 @@ return array(
             'Sisdo\Controller\Main' => 'Sisdo\Controller\MainController',
             'Sisdo\Controller\Instituicao' => 'Sisdo\Controller\InstitutionController',
             'Sisdo\Controller\Produto' => 'Sisdo\Controller\ProductController',
+            'Sisdo\Controller\DoacaoFinanceira' => 'Sisdo\Controller\MoneyDonationController',
             'Sisdo\Controller\Transacao' => 'Sisdo\Controller\TransactionController',
             'Sisdo\Controller\Relacionamento' => 'Sisdo\Controller\RelationshipController',
             'Sisdo\Controller\Pessoa' => 'Sisdo\Controller\PersonController',
