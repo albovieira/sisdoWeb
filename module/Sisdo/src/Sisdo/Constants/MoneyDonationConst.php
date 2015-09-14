@@ -16,8 +16,8 @@ interface MoneyDonationConst
     const FLD_VALUE = 'value';
     const LBL_VALUE = 'Valor';
 
-    const FLD_STATUS = 'email';
-    const LBL_STATUS = 'Email';
+    const FLD_STATUS = 'status';
+    const LBL_STATUS = 'Status';
 
     const FLD_INSTITUTION_USER_ID = 'idInstituitionUser';
     const LBL_INSTITUTION_USER_ID = 'Instituicao';

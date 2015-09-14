@@ -64,6 +64,118 @@ class MoneyDonation extends EntityAbstract
      */
     private $enddate;
 
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
+    /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getValue()
+    {
+        return $this->value;
+    }
+
+    /**
+     * @param string $value
+     */
+    public function setValue($value)
+    {
+        $this->value = $value;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param string $status
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    }
+
+    /**
+     * @return int
+     */
+    public function getIdInstituitionUser()
+    {
+        return $this->idInstituitionUser;
+    }
+
+    /**
+     * @param int $idInstituitionUser
+     */
+    public function setIdInstituitionUser($idInstituitionUser)
+    {
+        $this->idInstituitionUser = $idInstituitionUser;
+    }
+
+    /**
+     * @return int
+     */
+    public function getIdPersonUser()
+    {
+        return $this->idPersonUser;
+    }
+
+    /**
+     * @param int $idPersonUser
+     */
+    public function setIdPersonUser($idPersonUser)
+    {
+        $this->idPersonUser = $idPersonUser;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getStartdate()
+    {
+        return $this->startdate;
+    }
+
+    /**
+     * @param \DateTime $startdate
+     */
+    public function setStartdate($startdate)
+    {
+        $this->startdate = $startdate;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getEnddate()
+    {
+        return $this->enddate;
+    }
+
+    /**
+     * @param \DateTime $enddate
+     */
+    public function setEnddate($enddate)
+    {
+        $this->enddate = $enddate;
+    }
+
+    
 }
 

@@ -11,7 +11,6 @@ namespace Sisdo\Controller;
 
 use Application\Custom\ActionControllerAbstract;
 use Sisdo\Constants\MoneyDonationConst;
-use Sisdo\Constants\ProductConst;
 use Sisdo\Service\MoneyDonationService;
 use Zend\View\Model\JsonModel;
 use Zend\View\Model\ViewModel;
@@ -35,7 +34,7 @@ class MoneyDonationController extends ActionControllerAbstract
     {
 
         /** @var MoneyDonationService $service */
-        $service = $this->getFromServiceLocator(ProductConst::SERVICE);
+        $service = $this->getFromServiceLocator(MoneyDonationConst::SERVICE);
         $grid = $service->getGridDados();
 
         return new JsonModel($grid);
