@@ -167,7 +167,7 @@ class TransactionController extends ActionControllerAbstract
      */
     public function getTitle()
     {
-        // TODO: Implement getTitle() method.
+
     }
 
     /**

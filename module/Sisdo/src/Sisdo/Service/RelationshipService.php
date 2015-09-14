@@ -183,19 +183,35 @@ class RelationshipService extends ServiceAbstract
         return $modelo;
     }
 
-    public function  enviaEmail()
+    public function  enviaEmail($idTemplate)
     {
+        /** @var \Sisdo\Dao\TemplateEmailDao $dao */
+        $dao = $this->getFromServiceLocator(TemplateEmailConst::DAO);
+
+        /** @var \Application\Entity\User $userLogado */
+        $userLogado = $this->getFromServiceLocator(UsuarioConst::ZFCUSER_AUTH_SERVICE)->getIdentity();
+
+        /** @var TemplateEmail $template */
+        $template = $dao->getEntity($idTemplate);
+
+        //$de = $userLogado->getEmail();
         $de = 'albovieira@gmail.com';
-        $deNome = 'Nome remetente';
+        $deNome = $userLogado->getInstituicao()->getFancyName();
 
         $destinatario = 'albo.vieira@basis.com.br';
         $fromDestinatario = 'Nome destinatariao';
 
-        $assunto = 'Teste';
-        $txtEmail = 'Novoteste';
+        $assunto = 'Doacao- Criar campo assunto';
+        $txtEmail = <<<DOC
+        {$template->getHeader()} <br>
+        {$template->getContent()}  <br><br>
+        {$template->getFooter()} <br>
+DOC;
 
-          $emailUtil = new EmailUtil($this->getServiceLocator());
+        $emailUtil = new EmailUtil($this->getServiceLocator());
         $emailUtil->setSender($deNome, $de)->sendMail($fromDestinatario, $destinatario, $assunto, $txtEmail);
+
+        return true;
     }
 
 

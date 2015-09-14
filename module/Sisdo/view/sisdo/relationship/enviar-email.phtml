@@ -15,4 +15,19 @@ $this->form->prepare();
 
 <?php echo $this->form()->closeTag(); ?>
 
+<script>
+    $('form#template_email_form').submit(function (e) {
 
+        e.preventDefault();
+        var data = {'template': $('select[name="template"]').val()};
+        sisdoAjax('/relacionamento/enviar-email', 'GET', data, function (json) {
+
+            if (json.retorno == 'sucesso') {
+                showMessages('Email enviado com sucesso', 'success');
+                //$()
+            } else {
+                showMessages('Ocorreu um erro ao realizar a operacao.', 'danger');
+            }
+        });
+    });
+</script>

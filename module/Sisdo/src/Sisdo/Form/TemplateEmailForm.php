@@ -56,7 +56,7 @@ class TemplateEmailForm extends Form
                 'attributes' => array(
                     'type' => 'submit',
                     'value' => 'Enviar',
-                    'id' => 'enviar' . $this->getName(),
+                    'id' => 'btn_enviar_email',
                     'class' => 'btn-primary btn-white width-25 btn',
                     'style' => '',
                 ),

@@ -51,6 +51,21 @@ class RelationshipController extends ActionControllerAbstract
 
         $form = new TemplateEmailForm(null, null ,true, $service);
 
+        $template = $this->getRequest()->getQuery('template');
+
+        if ($template) {
+
+            if ($service->enviaEmail($template)) {
+                return new JsonModel(
+                    array('retorno' => 'sucesso')
+                );
+            } else {
+                return new JsonModel(
+                    array('retorno' => 'erro')
+                );
+            }
+        }
+
         $view = new ViewModel();
         $view->setVariables(
             array(
@@ -60,8 +75,6 @@ class RelationshipController extends ActionControllerAbstract
         $view->setTerminal(true);
         return $view;
 
-
-        //$service->enviaEmail();
     }
 
     public function incluirModeloAction()
