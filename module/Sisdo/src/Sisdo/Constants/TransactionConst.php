@@ -10,6 +10,8 @@ interface TransactionConst
     const DAO = 'TransactionDao';
     const SERVICE = 'TransactionService';
 
+    const DATA_INVALIDA = '-0001';
+
     const FLD_ID_TRANSACTION = 'id';
     const LBL_ID_TRANSACTION = 'id transacao';
 

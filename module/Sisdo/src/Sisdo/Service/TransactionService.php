@@ -56,20 +56,20 @@ class TransactionService extends ServiceAbstract
 
         $jqgrid = new JqGridTable();
         $jqgrid->addColunas(array(JqGridConst::LABEL  =>
-            TransactionConst::LBL_PRODUTO,JqGridConst::NAME => TransactionConst::FLD_PRODUTO, JqGridConst::WIDTH => 150));
+            TransactionConst::LBL_PRODUTO,JqGridConst::NAME => TransactionConst::FLD_PRODUTO));
         $jqgrid->addColunas(array(JqGridConst::LABEL  =>
-            TransactionConst::LBL_PERSON_USER_ID,JqGridConst::NAME => TransactionConst::FLD_PERSON_USER, JqGridConst::WIDTH => 120));
+            TransactionConst::LBL_PERSON_USER_ID,JqGridConst::NAME => TransactionConst::FLD_PERSON_USER));
         $jqgrid->addColunas(array(JqGridConst::LABEL  =>
-            TransactionConst::LBL_STATUS,JqGridConst::NAME => TransactionConst::FLD_STATUS, JqGridConst::WIDTH => 140));
+            TransactionConst::LBL_STATUS,JqGridConst::NAME => TransactionConst::FLD_STATUS));
         $jqgrid->addColunas(array(JqGridConst::LABEL  =>
-            TransactionConst::LBL_QUANTIFY,JqGridConst::NAME => TransactionConst::FLD_QUANTIFY, JqGridConst::WIDTH => 100));
+            TransactionConst::LBL_QUANTIFY,JqGridConst::NAME => TransactionConst::FLD_QUANTIFY));
         $jqgrid->addColunas(array(JqGridConst::LABEL  =>
-            TransactionConst::LBL_START_DATE,JqGridConst::NAME => TransactionConst::FLD_START_DATE, JqGridConst::WIDTH => 80));
+            TransactionConst::LBL_START_DATE,JqGridConst::NAME => TransactionConst::FLD_START_DATE));
         $jqgrid->addColunas(array(JqGridConst::LABEL  =>
-            TransactionConst::LBL_END_DATE,JqGridConst::NAME => TransactionConst::FLD_END_DATE, JqGridConst::WIDTH => 80));
+            TransactionConst::LBL_END_DATE,JqGridConst::NAME => TransactionConst::FLD_END_DATE));
 
         $jqgrid->addColunas(array(JqGridConst::LABEL  =>
-            'Acao',JqGridConst::NAME => 'acao', JqGridConst::WIDTH => 120, JqGridConst::CLASSCSS => 'text-center'));
+            'Acao',JqGridConst::NAME => 'acao', JqGridConst::CLASSCSS => 'text-center'));
 
         $jqgrid->setUrl(self::URL_GET_DADOS);
         $jqgrid->setTitle('Transacoes Pendentes');
@@ -104,7 +104,14 @@ class TransactionService extends ServiceAbstract
             $temp[TransactionConst::FLD_STATUS] = StatusTransacao::getStatusByFlag($transaction->getStatus());
             $temp[TransactionConst::FLD_QUANTIFY] = $transaction->getQuantity();
             $temp[TransactionConst::FLD_START_DATE] = $transaction->getStartDate()->format('d/m/Y');
-            $temp[TransactionConst::FLD_END_DATE] = $transaction->getEndDate()->format('d/m/Y');
+
+            $ano = $transaction->getEndDate()->format('Y');
+            if($ano != TransactionConst::DATA_INVALIDA){
+                $dataEnd =$transaction->getEndDate()->format('d/m/Y');
+            }else{
+                $dataEnd = '';
+            }
+            $temp[TransactionConst::FLD_END_DATE] = $dataEnd;
 
 
             $botaoVer = new JqGridButton();

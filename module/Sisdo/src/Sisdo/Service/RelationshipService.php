@@ -32,14 +32,14 @@ class RelationshipService extends ServiceAbstract
 
         $jqgrid = new JqGridTable();
         $jqgrid->addColunas(array(JqGridConst::LABEL  =>
-            PersonConst::LBL_NAME,JqGridConst::NAME => PersonConst::FLD_NAME, JqGridConst::WIDTH => 150));
+            PersonConst::LBL_NAME,JqGridConst::NAME => PersonConst::FLD_NAME));
         $jqgrid->addColunas(array(JqGridConst::LABEL  =>
-            PersonConst::LBL_SEX,JqGridConst::NAME => PersonConst::FLD_SEX, JqGridConst::WIDTH => 150));
+            PersonConst::LBL_SEX,JqGridConst::NAME => PersonConst::FLD_SEX));
         $jqgrid->addColunas(array(JqGridConst::LABEL  =>
-            UsuarioConst::LBL_EMAIL,JqGridConst::NAME => UsuarioConst::FLD_EMAIL, JqGridConst::WIDTH => 150));
+            UsuarioConst::LBL_EMAIL,JqGridConst::NAME => UsuarioConst::FLD_EMAIL));
 
         $jqgrid->addColunas(array(JqGridConst::LABEL  =>
-            'Acao',JqGridConst::NAME => 'acao', JqGridConst::WIDTH => 80, JqGridConst::CLASSCSS => 'text-center'));
+            'Acao',JqGridConst::NAME => 'acao', JqGridConst::CLASSCSS => 'text-center'));
 
         $jqgrid->setUrl(self::URL_GET_DADOS);
         $jqgrid->setTitle('Pessoas seguindo');
@@ -86,8 +86,7 @@ class RelationshipService extends ServiceAbstract
             $botaoEditar->setUrl('/relacionamento/ver-usuario/' . $relationship->getPersonUserId()->getId());
             $botaoEditar->setIcon('glyphicon glyphicon-eye-open');
 
-            $temp[JqGridConst::ACAO] = "<div class='agrupa-botoes'>" . $botaoEditar->render() .
-                "</div>";
+            $temp[JqGridConst::ACAO] = "<div class='agrupa-botoes'>" . $botaoEditar->render() . "</div>";
 
             $dados[] = $temp;
         }

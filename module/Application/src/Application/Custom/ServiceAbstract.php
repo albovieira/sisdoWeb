@@ -113,7 +113,7 @@ abstract class ServiceAbstract implements ServiceLocatorAwareInterface
      * @param $label
      * @return array
      */
-    public function montarArrayNomeadoSelect(array $dados, $indice, $label)
+    public function createSelectFromArray(array $dados, $indice, $label)
     {
         $options = array();
         $options[null] = FormConst::SELECT_OPTION_SELECIONE;

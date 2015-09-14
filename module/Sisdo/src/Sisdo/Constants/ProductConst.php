@@ -22,6 +22,9 @@ interface ProductConst
     const FLD_QTD = 'quantity';
     const LBL_QTD = 'Quantidade';
 
+    const FLD_COLLECT = 'collect';
+    const LBL_COLLECT = 'Arrecadado';
+
     const FLD_DESC = 'description';
     const LBL_DESC = 'Descricao';
 

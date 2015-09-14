@@ -30,4 +30,17 @@ class TransactionDao extends DaoAbstract
         return $qb;
     }
 
+    public function findTransactionsByProduto($produto){
+        $qb = $this->getQueryBuilder();
+        $qb->where($this->alias.DaoAbstract::TABLE_COLUMN_SEPARATOR. "product = :id")
+            ->andWhere($this->alias.DaoAbstract::TABLE_COLUMN_SEPARATOR. "status = :status")
+            ->setParameters(
+                array(
+                    'id' => $produto,
+                    'status' => StatusTransacaoConst::FLAG_FINALIZADO,
+                )
+            );
+        return $qb->getQuery()->getResult();
+    }
+
 }

@@ -54,3 +54,8 @@ $(document).ready(function(){/* off-canvas sidebar toggle */
 
 });
 
+$(window).on("resize", function () {
+    var newWidth = $("#jqGrid").closest(".ui-jqgrid").parent().width();
+    $("#jqGrid").jqGrid("setGridWidth", newWidth, true);
+
+});

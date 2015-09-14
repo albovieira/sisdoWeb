@@ -15,9 +15,12 @@ use Application\Util\JqGridButton;
 use Application\Util\JqGridTable;
 use Sisdo\Constants\ProductConst;
 use Sisdo\Constants\ProductTypeConst;
+use Sisdo\Constants\TransactionConst;
 use Sisdo\Dao\ProductDao;
 use Sisdo\Dao\ProductTypeDao;
+use Sisdo\Dao\TransactionDao;
 use Sisdo\Entity\Product;
+use Sisdo\Entity\Transaction;
 use Sisdo\Entity\Unidade;
 
 class ProductService extends ServiceAbstract
@@ -62,17 +65,19 @@ class ProductService extends ServiceAbstract
 
         $jqgrid = new JqGridTable();
         $jqgrid->addColunas(array(JqGridConst::LABEL  =>
-            ProductConst::LBL_TITLE,JqGridConst::NAME => ProductConst::FLD_TITLE, JqGridConst::WIDTH => 150));
+            ProductConst::LBL_TITLE,JqGridConst::NAME => ProductConst::FLD_TITLE));
         $jqgrid->addColunas(array(JqGridConst::LABEL  =>
-            ProductConst::LBL_DESC,JqGridConst::NAME  => ProductConst::FLD_DESC,JqGridConst::WIDTH => 300));
+            ProductConst::LBL_DESC,JqGridConst::NAME  => ProductConst::FLD_DESC));
         $jqgrid->addColunas(array(JqGridConst::LABEL  =>
-            ProductConst::LBL_QTD,JqGridConst::NAME => ProductConst::FLD_QTD, JqGridConst::WIDTH => 150));
+            ProductConst::LBL_QTD,JqGridConst::NAME => ProductConst::FLD_QTD));
         $jqgrid->addColunas(array(JqGridConst::LABEL  =>
-            ProductConst::LBL_UNITY,JqGridConst::NAME => ProductConst::FLD_UNITY, JqGridConst::WIDTH => 100));
+            ProductConst::LBL_COLLECT,JqGridConst::NAME => ProductConst::FLD_COLLECT));
         $jqgrid->addColunas(array(JqGridConst::LABEL  =>
-            ProductConst::LBL_TIPO,JqGridConst::NAME => ProductConst::FLD_TIPO, JqGridConst::WIDTH => 150));
+            ProductConst::LBL_UNITY,JqGridConst::NAME => ProductConst::FLD_UNITY));
         $jqgrid->addColunas(array(JqGridConst::LABEL  =>
-            ProductConst::LBL_DATE,JqGridConst::NAME => ProductConst::FLD_DATE, JqGridConst::WIDTH => 150));
+            ProductConst::LBL_TIPO,JqGridConst::NAME => ProductConst::FLD_TIPO));
+        $jqgrid->addColunas(array(JqGridConst::LABEL  =>
+            ProductConst::LBL_DATE,JqGridConst::NAME => ProductConst::FLD_DATE));
 
         $jqgrid->addColunas(array(JqGridConst::LABEL  =>
             'Acao',JqGridConst::NAME => 'acao', JqGridConst::WIDTH => 80, JqGridConst::CLASSCSS => 'text-center'));
@@ -88,6 +93,9 @@ class ProductService extends ServiceAbstract
 
         /** @var ProductDao $dao */
         $dao = $this->getFromServiceLocator(ProductConst::DAO);
+
+        /** @var TransactionDao $daoTransaction */
+        $daoTransaction = $this->getFromServiceLocator(TransactionConst::DAO);
 
 
         /** @var \Application\Entity\User $instituicaoLogado */
@@ -107,6 +115,15 @@ class ProductService extends ServiceAbstract
             /** @var Product $produto */
             $produto = $row;
 
+            $transacoes = $daoTransaction->findTransactionsByProduto($produto->getIdProduto());
+            $qtd = 0;
+            if($transacoes){
+                /** @var Transaction $transacao */
+                foreach($transacoes as $transacao){
+                    $qtd += $transacao->getQuantity();
+                }
+            }
+
             $data = $produto->getDate();
             $temp[ProductConst::FLD_QTD] = $produto->getQuantity();
             $temp[ProductConst::FLD_UNITY] = Unidade::getUnidadeBySigla($produto->getUnity());
@@ -114,6 +131,8 @@ class ProductService extends ServiceAbstract
             $temp[ProductConst::FLD_DATE] = $data->format('d/m/Y');
             $temp[ProductConst::FLD_TIPO] = $produto->getProductType()->getDescription();
             $temp[ProductConst::FLD_DESC] = $produto->getDescription();
+            $temp[ProductConst::FLD_COLLECT] =
+                $qtd < $produto->getQuantity() ? '<span style="color: red">'.$qtd.'</span>' : '<span style="color: green">'.$qtd.'</span>';
 
             $botaoEditar = new JqGridButton();
             $botaoEditar->setTitle('Editar');

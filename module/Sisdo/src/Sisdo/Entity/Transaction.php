@@ -153,7 +153,7 @@ class Transaction extends EntityAbstract
     }
 
     /**
-     * @return string
+     * @return int
      */
     public function getQuantity()
     {
@@ -161,7 +161,7 @@ class Transaction extends EntityAbstract
     }
 
     /**
-     * @param string $quantity
+     * @param int $quantity
      */
     public function setQuantity($quantity)
     {

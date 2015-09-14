@@ -57,6 +57,23 @@ return array(
                 ),
             ),
 
+            'pessoa' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/pessoa[/][:action][/:id]',
+                    'constraints' => array(
+                        'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id' => '[0-9]+',
+                    ),
+                    'defaults' => array(
+                        '__NAMESPACE__' => 'Sisdo\Controller',
+                        'controller' => 'Pessoa',
+                        'action' => 'index',
+                    ),
+                ),
+            ),
+
 
             'relacionamento' => array(
                 'type' => 'Segment',
@@ -211,6 +228,9 @@ return array(
             'ProductTypeDao' => function ($sm) {
                 return new \Sisdo\Dao\ProductTypeDao($sm->get('Doctrine\ORM\EntityManager'), $sm);
             },
+            'PersonDao' => function ($sm) {
+                return new \Sisdo\Dao\PersonDao($sm->get('Doctrine\ORM\EntityManager'), $sm);
+            },
 
             //Services
             'ProductService' => function ($sm) {
@@ -224,6 +244,9 @@ return array(
             },
             'TransactionService' => function ($sm) {
                 return new \Sisdo\Service\TransactionService($sm);
+            },
+            'PersonService' => function ($sm) {
+                return new \Sisdo\Service\PersonService($sm);
             },
         ),
     ),
@@ -244,6 +267,7 @@ return array(
             'Sisdo\Controller\Produto' => 'Sisdo\Controller\ProductController',
             'Sisdo\Controller\Transacao' => 'Sisdo\Controller\TransactionController',
             'Sisdo\Controller\Relacionamento' => 'Sisdo\Controller\RelationshipController',
+            'Sisdo\Controller\Pessoa' => 'Sisdo\Controller\PersonController',
         ),
     ),
     'view_manager' => array(

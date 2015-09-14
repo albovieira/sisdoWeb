@@ -109,7 +109,7 @@ class ProductForm extends Form
             'options' => array(
                 'empty_option' => FormConst::SELECT_OPTION_SELECIONE,
                 'label' => ProductConst::LBL_TIPO,
-                'value_options' => $service->montarArrayNomeadoSelect(
+                'value_options' => $service->createSelectFromArray(
                     $service->getProductType(),
                     ProductTypeConst::FLD_ID_PRODUCT_TYPE,
                     ProductTypeConst::FLD_DESC_PRODUCT_TYPE

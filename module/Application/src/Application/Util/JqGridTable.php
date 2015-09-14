@@ -170,7 +170,7 @@ class JqGridTable
 
         return <<<EOF
 
-        <div style="{$this->top}">
+        <div class='teste' style="{$this->top}">
             <table id="jqGrid"></table>
             <div id="jqGridPager"></div>
         </div>
@@ -179,7 +179,7 @@ class JqGridTable
         $(document).ready(function () {
             //$.jgrid.no_legacy_api = true;
             //$.jgrid.useJSON = true;
-            $.jgrid.defaults.width = $this->widthTable;
+            //$.jgrid.defaults.width = $this->widthTable;
             $("#jqGrid").jqGrid({
                 url: '$this->url',
                 mtype: "GET",
@@ -194,9 +194,18 @@ class JqGridTable
                 autoWidth:true,
                 height: '$height' ,
                 hiddengrid: $collapse ,
-                //shrink:true
+                shrinkToFit: true
             });
+
+             var newWidth = $("#jqGrid").closest(".ui-jqgrid").parent().width();
+             $("#jqGrid").jqGrid("setGridWidth", newWidth, true);
+
         });
+
+
+
+
+
         </script>
 EOF;
     }

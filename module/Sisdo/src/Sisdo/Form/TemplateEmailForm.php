@@ -41,7 +41,7 @@ class TemplateEmailForm extends Form
                 'options' => array(
                     'empty_option' => FormConst::SELECT_OPTION_SELECIONE,
                     'label' => TemplateEmailConst::LBL_TEMPLATES,
-                    'value_options' => $service->montarArrayNomeadoSelect(
+                    'value_options' => $service->createSelectFromArray(
                         $service->getTemplates(),
                         TemplateEmailConst::FLD_ID_TEMPLATE,
                         TemplateEmailConst::FLD_DESC
