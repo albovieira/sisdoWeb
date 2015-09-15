@@ -26,7 +26,6 @@ class MainController extends ActionControllerAbstract
             return $this->redirect()->toRoute('inicio');
         }
 
-
         return new ViewModel(
             array(
 
