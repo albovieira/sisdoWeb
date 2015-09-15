@@ -8,6 +8,7 @@ namespace Sisdo\Service;
  * Time: 00:11
  */
 
+use Application\Constants\FormConst;
 use Application\Constants\JqGridConst;
 use Application\Constants\UsuarioConst;
 use Application\Custom\ServiceAbstract;
@@ -106,8 +107,8 @@ class TransactionService extends ServiceAbstract
             $temp[TransactionConst::FLD_START_DATE] = $transaction->getStartDate()->format('d/m/Y');
 
             $ano = $transaction->getEndDate()->format('Y');
-            if($ano != TransactionConst::DATA_INVALIDA){
-                $dataEnd =$transaction->getEndDate()->format('d/m/Y');
+            if($ano != FormConst::DATA_INVALIDA){
+                $dataEnd = $transaction->getEndDate()->format('d/m/Y');
             }else{
                 $dataEnd = '';
             }

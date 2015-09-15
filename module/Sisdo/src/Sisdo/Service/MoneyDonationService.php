@@ -9,6 +9,7 @@ namespace Sisdo\Service;
  * Time: 00:11
  */
 
+use Application\Constants\FormConst;
 use Application\Constants\JqGridConst;
 use Application\Constants\UsuarioConst;
 use Application\Custom\ServiceAbstract;
@@ -17,6 +18,7 @@ use Application\Util\JqGridTable;
 use Sisdo\Constants\MoneyDonationConst;
 use Sisdo\Dao\MoneyDonationDao;
 use Sisdo\Entity\MoneyDonation;
+use Sisdo\Entity\StatusTransacao;
 
 class MoneyDonationService extends ServiceAbstract
 {
@@ -24,8 +26,6 @@ class MoneyDonationService extends ServiceAbstract
 
     public function salvar(MoneyDonation $moneyDonation)
     {
-
-        //var_dump();die;
 
         /** @var \Sisdo\Dao\MoneyDonationDao $dao */
         $dao = $this->getFromServiceLocator(MoneyDonationConst::DAO);
@@ -97,27 +97,41 @@ class MoneyDonationService extends ServiceAbstract
             /** @var MoneyDonation $moneyDonation */
             $moneyDonation = $row;
 
-            $temp[MoneyDonationConst::FLD_PERSON_USER_ID] = '';
-            $temp[MoneyDonationConst::FLD_STATUS] = $moneyDonation->getStatus();
-            $temp[MoneyDonationConst::FLD_START_DATE] = $moneyDonation->getStartdate();
-            $temp[MoneyDonationConst::FLD_END_DATE] = $moneyDonation->getEnddate();
+
+            $temp[MoneyDonationConst::FLD_PERSON_USER_ID] = $moneyDonation->getIdPersonUser()->getPerson()->getName();
+            $temp[MoneyDonationConst::FLD_STATUS] = StatusTransacao::getStatusByFlag($moneyDonation->getStatus());
             $temp[MoneyDonationConst::FLD_VALUE] = $moneyDonation->getValue();
 
-            $botaoEditar = new JqGridButton();
-            $botaoEditar->setTitle('Editar');
-            $botaoEditar->setClass('btn btn-primary btn-xs');
-            $botaoEditar->setUrl('/doacao-financeira/editar/' . $moneyDonation->getId());
-            $botaoEditar->setIcon('glyphicon glyphicon-edit');
+            $temp[MoneyDonationConst::FLD_START_DATE] = $moneyDonation->getStartdate()->format('d/m/Y');
 
-            $botaoExcluir = new JqGridButton();
-            $botaoExcluir->setTitle('Excluir');
-            $botaoExcluir->setClass('btn btn-danger btn-xs');
-            $botaoExcluir->setUrl('/doacao-financeira/excluir/' . $moneyDonation->getId());
-            $botaoExcluir->setIcon('glyphicon glyphicon-trash');
-            //$botaoExcluir->getOnClick();
+            if($moneyDonation->getEndDate()){
+                $ano = $moneyDonation->getEndDate()->format('Y');
+                if($ano != FormConst::DATA_INVALIDA){
+                    $dataEnd = $moneyDonation->getEndDate()->format('d/m/Y');
+                }else{
+                    $dataEnd = '';
+                }
+            }
+            else{
+                $dataEnd = '';
+            }
+
+            $temp[MoneyDonationConst::FLD_END_DATE] = $dataEnd;
+
+            $botaoConfirmar = new JqGridButton();
+            $botaoConfirmar->setTitle('Confirmar Recebimento');
+            $botaoConfirmar->setClass('btn btn-success btn-xs');
+            $botaoConfirmar->setUrl('/transacao/confirmar-recebimento/' . $moneyDonation->getId());
+            $botaoConfirmar->setIcon('glyphicon glyphicon-ok-sign');
 
 
-            $temp[JqGridConst::ACAO] = "<div class='agrupa-botoes'>" . $botaoEditar->render() . $botaoExcluir->render() .
+            $botaoCancelar = new JqGridButton();
+            $botaoCancelar->setTitle('Cancelar Recebimento');
+            $botaoCancelar->setClass('btn btn-danger btn-xs');
+            $botaoCancelar->setUrl('/transacao/cancelar-recebimento/' . $moneyDonation->getId());
+            $botaoCancelar->setIcon('glyphicon glyphicon-ban-circle');
+
+            $temp[JqGridConst::ACAO] = "<div class='agrupa-botoes'>" . $botaoConfirmar->render() . $botaoCancelar->render() .
                 "</div>";
 
             $dados[] = $temp;

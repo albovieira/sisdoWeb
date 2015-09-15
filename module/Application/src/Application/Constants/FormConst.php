@@ -8,6 +8,7 @@ namespace Application\Constants;
 interface FormConst
 {
 
+    const DATA_INVALIDA = '-0001';
 
     /**
      *

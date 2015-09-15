@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * MoneyDonation
  *
- * @ORM\Table(name="money_donation", indexes={@ORM\Index(name="id_instituition_user", columns={"id_instituition_user"}), @ORM\Index(name="id_person_user", columns={"id_person_user"})})
+ * @ORM\Table(name="money_donation", indexes={@ORM\Index(name="fk_money_institution_user_idx", columns={"id_instituition_user"}), @ORM\Index(name="fk_money_person_user_idx", columns={"id_person_user"})})
  * @ORM\Entity
  */
 class MoneyDonation extends EntityAbstract
@@ -37,20 +37,6 @@ class MoneyDonation extends EntityAbstract
     private $status;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="id_instituition_user", type="integer", nullable=false)
-     */
-    private $idInstituitionUser;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id_person_user", type="integer", nullable=false)
-     */
-    private $idPersonUser;
-
-    /**
      * @var \DateTime
      *
      * @ORM\Column(name="startDate", type="datetime", nullable=false)
@@ -60,9 +46,29 @@ class MoneyDonation extends EntityAbstract
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="endDate", type="datetime", nullable=false)
+     * @ORM\Column(name="endDate", type="datetime", nullable=true)
      */
     private $enddate;
+
+    /**
+     * @var \Application\Entity\User
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_instituition_user", referencedColumnName="user_id")
+     * })
+     */
+    private $idInstituitionUser;
+
+    /**
+     * @var \Application\Entity\User
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_person_user", referencedColumnName="user_id")
+     * })
+     */
+    private $idPersonUser;
 
     /**
      * @return int
@@ -113,38 +119,6 @@ class MoneyDonation extends EntityAbstract
     }
 
     /**
-     * @return int
-     */
-    public function getIdInstituitionUser()
-    {
-        return $this->idInstituitionUser;
-    }
-
-    /**
-     * @param int $idInstituitionUser
-     */
-    public function setIdInstituitionUser($idInstituitionUser)
-    {
-        $this->idInstituitionUser = $idInstituitionUser;
-    }
-
-    /**
-     * @return int
-     */
-    public function getIdPersonUser()
-    {
-        return $this->idPersonUser;
-    }
-
-    /**
-     * @param int $idPersonUser
-     */
-    public function setIdPersonUser($idPersonUser)
-    {
-        $this->idPersonUser = $idPersonUser;
-    }
-
-    /**
      * @return \DateTime
      */
     public function getStartdate()
@@ -176,6 +150,39 @@ class MoneyDonation extends EntityAbstract
         $this->enddate = $enddate;
     }
 
-    
+    /**
+     * @return \Application\
+     */
+    public function getIdInstituitionUser()
+    {
+        return $this->idInstituitionUser;
+    }
+
+    /**
+     * @param \Application\ $idInstituitionUser
+     */
+    public function setIdInstituitionUser($idInstituitionUser)
+    {
+        $this->idInstituitionUser = $idInstituitionUser;
+    }
+
+    /**
+     * @return \Application\
+     */
+    public function getIdPersonUser()
+    {
+        return $this->idPersonUser;
+    }
+
+    /**
+     * @param \Application\ $idPersonUser
+     */
+    public function setIdPersonUser($idPersonUser)
+    {
+        $this->idPersonUser = $idPersonUser;
+    }
+
+
+
 }
 
