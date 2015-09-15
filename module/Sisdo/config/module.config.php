@@ -144,6 +144,23 @@ return array(
                 ),
             ),
 
+            'notificacao' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/notificacao[/][:action][/:id]',
+                    'constraints' => array(
+                        'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id' => '[0-9]+',
+                    ),
+                    'defaults' => array(
+                        '__NAMESPACE__' => 'Sisdo\Controller',
+                        'controller' => 'Notificacao',
+                        'action' => 'index',
+                    ),
+                ),
+            ),
+
             'modeloemail' => array(
                 'type' => 'Segment',
                 'options' => array(
@@ -291,6 +308,7 @@ return array(
             'Sisdo\Controller\Transacao' => 'Sisdo\Controller\TransactionController',
             'Sisdo\Controller\Relacionamento' => 'Sisdo\Controller\RelationshipController',
             'Sisdo\Controller\Pessoa' => 'Sisdo\Controller\PersonController',
+            'Sisdo\Controller\Notificacao' => 'Sisdo\Controller\NotificationController',
         ),
     ),
     'view_manager' => array(
