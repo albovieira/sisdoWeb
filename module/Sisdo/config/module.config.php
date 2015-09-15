@@ -39,6 +39,16 @@ return array(
                     ),
                 ),
             ),
+            'inicio' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route' => '/inicio',
+                    'defaults' => array(
+                        'controller' => 'Sisdo\Controller\Main',
+                        'action' => 'inicio',
+                    ),
+                ),
+            ),
 
             'instituicao' => array(
                 'type' => 'Segment',

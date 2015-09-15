@@ -9,22 +9,34 @@
 
 namespace Sisdo\Controller;
 
+use Application\Constants\ProfileConst;
+use Application\Constants\UsuarioConst;
 use Application\Custom\ActionControllerAbstract;
-use Sisdo\Service\ProductService;
+use Application\Entity\User;
 use Zend\View\Model\ViewModel;
 
 class MainController extends ActionControllerAbstract
 {
     public function indexAction()
     {
-        /** @var ProductService $service */
-        //$serviceProduct = $this->getFromServiceLocator(ProductConst::SERVICE);
-        //$gridProduct = $serviceProduct->getGrid(true);
+        /** @var User $usuarioLogado */
+        $usuarioLogado = $this->getFromServiceLocator(UsuarioConst::ZFCUSER_AUTH_SERVICE)->getIdentity();
+
+        if ($usuarioLogado->getProfile() == ProfileConst::FLAG_PROFILE_PERSON) {
+            return $this->redirect()->toRoute('inicio');
+        }
+
+
         return new ViewModel(
             array(
 
             )
         );
+    }
+
+    public function inicioAction()
+    {
+
     }
 
     /**

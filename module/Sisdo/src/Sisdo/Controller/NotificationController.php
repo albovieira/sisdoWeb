@@ -19,9 +19,13 @@ class NotificationController extends ActionControllerAbstract
     public function indexAction()
     {
 
+        // teria q
+        // criar tabela notification
+        //id, titulo, descricao, intitution_user, person_user, nao_visto
+
         $pusher = new PusherUtil();
 
-        $data['message'] = 'hello world';
+        $data['message'] = 'teste';
         $pusher->setChannel('notifications');
         $pusher->setEvent('new_notification');
         $pusher->setData($data);
