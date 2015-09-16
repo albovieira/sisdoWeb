@@ -9,33 +9,39 @@
 
 namespace Sisdo\Controller;
 
-use Application\Constants\ProfileConst;
-use Application\Constants\UsuarioConst;
 use Application\Custom\ActionControllerAbstract;
-use Application\Entity\User;
+use Application\Util\PusherUtil;
+use Zend\View\Model\JsonModel;
 use Zend\View\Model\ViewModel;
 
-class MainController extends ActionControllerAbstract
+class NotificationController extends ActionControllerAbstract
 {
     public function indexAction()
     {
-        /** @var User $usuarioLogado */
-        $usuarioLogado = $this->getFromServiceLocator(UsuarioConst::ZFCUSER_AUTH_SERVICE)->getIdentity();
 
-        if ($usuarioLogado->getProfile() == ProfileConst::FLAG_PROFILE_PERSON) {
-            return $this->redirect()->toRoute('inicio');
-        }
+        // teria q
+        // criar tabela notification
+        //id, titulo, descricao, intitution_user, person_user, nao_visto
+
+        $pusher = new PusherUtil();
+
+        $data['message'] = 'teste';
+        $pusher->setChannel('notifications');
+        $pusher->setEvent('new_notification');
+        $pusher->setData($data);
+
+        $pusher->triggerEvent();
 
         return new ViewModel(
-            array(
-
-            )
+            array()
         );
     }
 
-    public function inicioAction()
+    public function getJsonAction()
     {
-
+        return new JsonModel(array(
+            'teste' => 'tesstessss'
+        ));
     }
 
     /**

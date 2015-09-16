@@ -1,9 +1,9 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: albov
- * Date: 14/09/2015
- * Time: 20:36
+ * User: albo.vieira
+ * Date: 15/09/2015
+ * Time: 09:40
  */
 
 namespace Application\Util;
@@ -11,44 +11,24 @@ namespace Application\Util;
 
 class PusherUtil extends \Pusher
 {
-    protected $app_id = '141845';
-    protected $app_key = 'c2a648e31b7233e57d83';
-    protected $app_secret = '7c782ed5085dbb1d2016';
 
-    private $data;
-    private $event;
     private $channel;
+    private $event;
+    private $data;
 
-    public function triggerEvent(){
-        return $this->trigger($this->channel,$this->event,$this->data);
-    }
+    const APP_KEY = 'c2a648e31b7233e57d83';
+    const APP_SECRET = '7c782ed5085dbb1d2016';
+    const APP_ID = '141845';
 
-    public function __construct(){
-        parent::__construct(
-            $this->app_key,
-            $this->app_secret,
-            $this->app_id,
-            array('encrypted' => true)
-        );
-    }
-
-    /**
-     * @return string
-     */
-    public function getAppKey()
+    public function triggerEvent()
     {
-        return $this->app_key;
+        $this->trigger($this->channel, $this->event, $this->data);
     }
 
-    /**
-     * @param string $app_key
-     */
-    public function setAppKey($app_key)
+    public function __construct()
     {
-        $this->app_key = $app_key;
+        parent::__construct(PusherUtil::APP_KEY, PusherUtil::APP_SECRET, PusherUtil::APP_ID);
     }
-
-
 
     /**
      * @return mixed

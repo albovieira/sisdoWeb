@@ -39,6 +39,16 @@ return array(
                     ),
                 ),
             ),
+            'inicio' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route' => '/inicio',
+                    'defaults' => array(
+                        'controller' => 'Sisdo\Controller\Main',
+                        'action' => 'inicio',
+                    ),
+                ),
+            ),
 
             'instituicao' => array(
                 'type' => 'Segment',
@@ -139,6 +149,23 @@ return array(
                     'defaults' => array(
                         '__NAMESPACE__' => 'Sisdo\Controller',
                         'controller' => 'Produto',
+                        'action' => 'index',
+                    ),
+                ),
+            ),
+
+            'notificacao' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/notificacao[/][:action][/:id]',
+                    'constraints' => array(
+                        'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id' => '[0-9]+',
+                    ),
+                    'defaults' => array(
+                        '__NAMESPACE__' => 'Sisdo\Controller',
+                        'controller' => 'Notificacao',
                         'action' => 'index',
                     ),
                 ),
@@ -291,6 +318,7 @@ return array(
             'Sisdo\Controller\Transacao' => 'Sisdo\Controller\TransactionController',
             'Sisdo\Controller\Relacionamento' => 'Sisdo\Controller\RelationshipController',
             'Sisdo\Controller\Pessoa' => 'Sisdo\Controller\PersonController',
+            'Sisdo\Controller\Notificacao' => 'Sisdo\Controller\NotificationController',
         ),
     ),
     'view_manager' => array(

@@ -42,7 +42,15 @@
 
             <!-- sidebar -->
             <?php
-                echo $this->menuLateralHelper()->getMenu();
+            $meusDados = '';
+            $user = $this->nameUser();
+            if ($user['profile'] == \Application\Constants\ProfileConst::FLAG_PROFILE_INSTITUTION) {
+                $meusDados = '/instituicao';
+                echo $this->menuLateralHelper()->getMenuInstitution();
+            } else {
+                $meusDados = '/pessoa';
+                echo $this->menuLateralHelper()->getMenuPerson();
+            }
             ?>
             <!-- /sidebar -->
 
@@ -74,9 +82,12 @@
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="margin-right: 40px"><i style="font-size: 20px" class="fa fa-user"></i> <?php echo $this->nameUser() ?></a>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="margin-right: 40px"><i
+                                        style="font-size: 20px"
+                                        class="fa fa-user"></i> <?php echo $this->nameUser()['name'] ?></a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="/instituicao"><i class="fa fa-user"></i> Meus Dados</a></li>
+                                        <li><a href="<?php echo $meusDados ?>"><i class="fa fa-user"></i> Meus Dados</a>
+                                        </li>
                                         <li><a href="/user/logout"><i class="fa fa-sign-out"></i> Logout</a></li>
                                     </ul>
                             </li>

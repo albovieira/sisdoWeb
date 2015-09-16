@@ -359,18 +359,19 @@ UNLOCK TABLES;
 
 -- Dump completed on 2015-09-13 19:22:43
 
-CREATE TABLE money_donation
-(
-  id INT NOT NULL,
-  value DECIMAL(10,2) NOT NULL,
-  status CHAR(1) NOT NULL,
-  id_instituition_user INT NOT NULL,
-  id_person_user INT NOT NULL,
-  startDate DATETIME NOT NULL,
-  endDate DATETIME NOT NULL,
+
+
+CREATE TABLE `money_donation` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `value` DECIMAL(10,2) NOT NULL,
+  `status` CHAR(1) NOT NULL,
+  `id_person_user` int(11) NOT NULL,
+  `institution_user_id` int(11) NOT NULL,
+  `startDate`  DATETIME NOT NULL,
+  `endDate` DATETIME DEFAULT NULL,
   PRIMARY KEY (`id`),
-  FOREIGN KEY (id_instituition_user) REFERENCES user (user_id),
-  FOREIGN KEY (id_person_user) REFERENCES user (user_id)
-);
-CREATE INDEX fk_money_institution_user_idx ON money_donation (id_instituition_user);
-CREATE INDEX fk_money_person_user_idx ON money_donation (id_person_user);
+  KEY `fk_money_institution1_idx` (`institution_user_id`),
+  KEY `fk_money_person1_idx` (`id_person_user`),
+  CONSTRAINT `fk_money_institution1` FOREIGN KEY (`institution_user_id`) REFERENCES `institution` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_money_person1` FOREIGN KEY (`id_person_user`) REFERENCES `person` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
