@@ -4,6 +4,9 @@ echo $this->form(null, \TwbBundle\Form\View\Helper\TwbBundleForm::LAYOUT_HORIZON
 $this->form->prepare();
 
 ?>
+
+
+
 <?php echo $this->formRow($this->form->get(\Sisdo\Constants\TransactionConst::FLD_ID_TRANSACTION)); ?>
 <?php echo $this->formRow($this->form->get(\Sisdo\Constants\TransactionConst::FLD_INSTITUTION_USER)); ?>
 <?php echo $this->formRow($this->form->get(\Sisdo\Constants\TransactionConst::FLD_PRODUTO)); ?>
@@ -55,10 +58,47 @@ $this->form->prepare();
         </div>
 </div>
 
+
+
 <script>
     $('#btn_finalizar_doacao').click(function () {
 
+        bootbox.dialog({
+            message:
+                '<label>Observacao</label><textarea class="form-control" rows="2" cols="2"></textarea>'+
+                '<input id="input-id" type="number" class="rating" min=0 max=5 step=0.5 data-size="xs" >',
+            title: "Finalizar Doacao",
+            buttons: {
+                success: {
+                    label: "Confirmar",
+                    className: "btn-primary",
+                    callback: function() {
+                        var data = {'id': $('input[name="id"]').val()};
+                        sisdoAjax('/transacao/finalizar-transacao', 'GET', data, function (json) {
+                            if (json.retorno == 'sucesso') {
+                                showMessages('Transacao finalizaca com sucesso.', 'success');
+                                window.location.assign("/transacao/");
+                            } else {
+                                showMessages('Ocorreu um erro ao realizar a operacao.', 'danger');
+                            }
+                        });
+                    }
+                }
+
+            }
+        });
+
+        // initialize with defaults
+        $("#input-id").rating();
+
+        // with plugin options
+        $("#input-id").rating({'size':'lg'});
+
+/*
         bootbox.confirm("Deseja finalizar a transacao? Fazendo isso voce confirma o recebimento do produto.", function(result) {
+
+
+
             if(result){
                 var data = {'id': $('input[name="id"]').val()};
                 sisdoAjax('/transacao/finalizar-transacao', 'GET', data, function (json) {
@@ -69,7 +109,10 @@ $this->form->prepare();
                         showMessages('Ocorreu um erro ao realizar a operacao.', 'danger');
                     }
                 });
+
             }
-        });
+        });*/
     });
+
+
 </script>

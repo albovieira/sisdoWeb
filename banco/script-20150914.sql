@@ -391,3 +391,20 @@ UNLOCK TABLES;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2015-09-14 19:07:19
+
+
+
+CREATE TABLE `money_donation` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `value` DECIMAL(10,2) NOT NULL,
+  `status` CHAR(1) NOT NULL,
+  `id_person_user` int(11) NOT NULL,
+  `institution_user_id` int(11) NOT NULL,
+  `startDate`  DATETIME NOT NULL,
+  `endDate` DATETIME DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_money_institution1_idx` (`institution_user_id`),
+  KEY `fk_money_person1_idx` (`id_person_user`),
+  CONSTRAINT `fk_money_institution1` FOREIGN KEY (`institution_user_id`) REFERENCES `institution` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_money_person1` FOREIGN KEY (`id_person_user`) REFERENCES `person` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;

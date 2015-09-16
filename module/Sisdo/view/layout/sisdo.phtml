@@ -14,6 +14,7 @@
     <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
         ->prependStylesheet($this->basePath('css/template-style.css'))
         ->prependStylesheet($this->basePath('css/style.css'))
+        ->prependStylesheet($this->basePath('js/bootstrap-rating/css/star-rating.min.css'))
             ->prependStylesheet($this->basePath('css/bootstrap-theme.min.css'))
         ->prependStylesheet($this->basePath('css/bootstrap.min.css'))
         ->prependStylesheet($this->basePath('/jqgrid/css/ui.jqgrid-bootstrap.css')) ?>
@@ -21,6 +22,7 @@
     <!-- Scripts -->
     <?php echo $this->headScript()
         ->prependFile($this->basePath('js/sisdo/sisdo.js'))
+        ->prependFile($this->basePath('js/bootstrap-rating/js/star-rating.min.js'))
         ->prependFile($this->basePath('js/jquery.maskedinput.min.js'))
         ->prependFile($this->basePath('js/bootbox.min.js'))
         ->prependFile($this->basePath('js/bootstrap-notify.min.js'))
