@@ -50,6 +50,20 @@ class Person extends EntityAbstract
     private $userId;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="picture", type="string", length=200, nullable=false)
+     */
+    private $picture;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="about_me", type="string", length=500, nullable=false)
+     */
+    private $aboutMe;
+
+    /**
      * @return int
      */
     public function getId()
@@ -127,6 +141,38 @@ class Person extends EntityAbstract
     public function setUserId($userId)
     {
         $this->userId = $userId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPicture()
+    {
+        return $this->picture;
+    }
+
+    /**
+     * @param string $picture
+     */
+    public function setPicture($picture)
+    {
+        $this->picture = $picture;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAboutMe()
+    {
+        return $this->aboutMe;
+    }
+
+    /**
+     * @param string $aboutMe
+     */
+    public function setAboutMe($aboutMe)
+    {
+        $this->aboutMe = $aboutMe;
     }
 
 

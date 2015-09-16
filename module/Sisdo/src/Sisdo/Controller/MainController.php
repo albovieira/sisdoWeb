@@ -13,6 +13,8 @@ use Application\Constants\ProfileConst;
 use Application\Constants\UsuarioConst;
 use Application\Custom\ActionControllerAbstract;
 use Application\Entity\User;
+use Sisdo\Constants\PersonConst;
+use Sisdo\Service\PersonService;
 use Zend\View\Model\ViewModel;
 
 class MainController extends ActionControllerAbstract
@@ -35,7 +37,18 @@ class MainController extends ActionControllerAbstract
 
     public function inicioAction()
     {
+        /** @var PersonService $service */
+        $service = $this->getFromServiceLocator(PersonConst::SERVICE);
 
+        /** @var User $usuarioLogado */
+        $usuarioLogado = $service->getUserLogado();
+
+
+        return new ViewModel(
+            array(
+                'usuarioLogado' => $usuarioLogado
+            )
+        );
     }
 
     /**
