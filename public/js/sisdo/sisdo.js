@@ -41,6 +41,7 @@ $(document).ajaxStop(function () {
 });
 
 $(document).ready(function(){/* off-canvas sidebar toggle */
+
     $('[data-toggle=offcanvas]').click(function() {
         $(this).toggleClass('visible-xs text-center');
         $(this).find('i').toggleClass('glyphicon-chevron-right glyphicon-chevron-left');
@@ -50,12 +51,13 @@ $(document).ready(function(){/* off-canvas sidebar toggle */
         $('#btnShow').toggle();
     });
 
+    $('#lg-menu li').removeClass('active');
+
     $('#lg-menu li a').each(function (index, value) {
         //console.log($(this).attr('href'));
         var linkItemMenu = $(this).attr('href');
 
         if (linkItemMenu == window.location.pathname) {
-            $('#lg-menu li').removeClass('active');
             $(this).parent().addClass('active');
 
         }
