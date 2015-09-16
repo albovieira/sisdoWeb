@@ -4,16 +4,6 @@ $user = $this->usuarioLogado;
 /** @var \Sisdo\Entity\Person $pessoa */
 $pessoa = $user->getPerson();
 
-/*
-echo $pessoa->getPicture();
-echo $user->getEmail();
-//echo $user->getAdress();
-//echo $user->getContact();
-echo $pessoa->getName();
-echo $pessoa->getBirthDate()->format('d/m/Y');
-*/
-
-
 ?>
 
 <div class="content">
@@ -28,9 +18,9 @@ echo $pessoa->getBirthDate()->format('d/m/Y');
                                                       src="<?php echo $pessoa->getPicture() ?>"></div>
                         <div class="row">
                             <div class="col-xs-12"><a class="btn btn-success btn-xs btn-block no-br"><i
-                                        class="fa fa-check-circle append-icon"></i>Friends</a></div>
+                                        class="fa fa-check-circle append-icon"></i> Amigos</a></div>
                             <div class="col-xs-12"><a class="btn btn-default btn-xs btn-block no-br"><i
-                                        class="fa fa-envelope append-icon"></i>Send Message</a></div>
+                                        class="fa fa-envelope append-icon"></i> Enviar Mensagem</a></div>
                         </div>
                         <h3 class="font-semibold"><?php echo $pessoa->getName() ?></h3>
                         <h4>Sobre Mim</h4>
@@ -46,11 +36,11 @@ echo $pessoa->getBirthDate()->format('d/m/Y');
                                 </tr>
                                 <tr>
                                     <td>Ranking</td>
-                                    <td><i class="fa fa-star vd_yellow fa-fw"></i><i
-                                            class="fa fa-star vd_yellow fa-fw"></i><i
-                                            class="fa fa-star vd_yellow fa-fw"></i><i
-                                            class="fa fa-star vd_yellow fa-fw"></i><i
-                                            class="fa fa-star vd_yellow fa-fw"></i></td>
+                                    <td><i class="fa fa-star  fa-fw"></i><i
+                                            class="fa fa-star  fa-fw"></i><i
+                                            class="fa fa-star  fa-fw"></i><i
+                                            class="fa fa-star  fa-fw"></i><i
+                                            class="fa fa-star  fa-fw"></i></td>
                                 </tr>
                                 <tr>
                                     <td>Membro desde</td>
@@ -70,7 +60,7 @@ echo $pessoa->getBirthDate()->format('d/m/Y');
                     <div class="panel-body-list">
                         <h3 class="pd-20 mgbt-xs-0"><i class="fa fa-users mgr-10"></i> Relacionamentos</h3>
 
-                        <div class="content-grid column-xs-2 column-sm-3 height-xs-auto mgbt-xs-20">
+                        <div class="content-grid column-xs-2 column-sm-3 height-xs-auto ">
                             <div>
                                 <ul class="list-wrapper">
                                     <li>

@@ -25,7 +25,7 @@ function sisdoAjax(url, type, data, callbackSuccess, targetId, extraParam) {
                 window.location.reload();
             } else {
                 //var msg = Mensagens.MERRO + '<br>' + Mensagens.MERROINSTRUCAO;
-                var msg = 'Ocorreu um erro ao tentar realizar a operação <br> <pre>' + jqXHR.responseText + '</pre>';
+                var msg = 'Ocorreu um erro ao tentar realizar a operaï¿½ï¿½o <br> <pre>' + jqXHR.responseText + '</pre>';
                 showMessages(msg, 'danger');
             }
         }
@@ -50,7 +50,17 @@ $(document).ready(function(){/* off-canvas sidebar toggle */
         $('#btnShow').toggle();
     });
 
+    $('#lg-menu li a').each(function (index, value) {
+        //console.log($(this).attr('href'));
+        var linkItemMenu = $(this).attr('href');
 
+        if (linkItemMenu == window.location.pathname) {
+            $('#lg-menu li').removeClass('active');
+            $(this).parent().addClass('active');
+
+        }
+
+    });
 
 });
 

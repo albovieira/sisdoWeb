@@ -46,9 +46,12 @@
             <?php
             $meusDados = '';
             $user = $this->nameUser();
+
+            $link = $_SERVER['REQUEST_URI'];
+
             if ($user['profile'] == \Application\Constants\ProfileConst::FLAG_PROFILE_INSTITUTION) {
                 $meusDados = '/instituicao';
-                echo $this->menuLateralHelper()->getMenuInstitution();
+                echo $this->menuLateralHelper()->getMenuInstitution($link);
             } else {
                 $meusDados = '/pessoa';
                 echo $this->menuLateralHelper()->getMenuPerson();

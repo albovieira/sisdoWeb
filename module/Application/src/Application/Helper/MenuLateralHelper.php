@@ -13,9 +13,14 @@ use Zend\View\Helper\AbstractHelper;
 
 class MenuLateralHelper extends AbstractHelper
 {
+    public function getItemAtivo($link)
+    {
+
+    }
 
     public function getMenuInstitution()
     {
+
         return <<<DOC
         <div class="column col-sm-2 col-xs-1 sidebar-offcanvas" id="sidebar">
 
@@ -57,8 +62,9 @@ DOC;
                 </ul>
 
                 <ul class="nav hidden-xs" id="lg-menu">
-                    <li class="active"><a href="/"><i class="glyphicon glyphicon-list-alt"></i> Principal</a></li>
-                    <li><a href="/pessoa"><i class="fa fa-user"></i> Meus Dados</a></li>
+                    <li class="active"><a href="/"><i class="fa fa-user"></i> Principal</a></li>
+                    <li><a href="#"><i class="fa fa-users"></i> Buscar Instituicoes</a></li>
+                    <li><a href="#"><i class="glyphicon glyphicon-gift"></i> Minhas doacoes</a></li>
                 </ul>
 
                 <!-- tiny only nav-->
