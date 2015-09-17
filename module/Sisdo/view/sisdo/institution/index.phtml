@@ -64,7 +64,19 @@
             <div class="form-group">
                 <?php echo $this->formRow($this->formAdress->get(\Sisdo\Constants\AdressConst::FLD_ID_ADRESS)); ?>
                 <?php echo $this->formRow($this->formAdress->get(\Sisdo\Constants\AdressConst::FLD_COUNTRY)); ?>
-                <?php echo $this->formRow($this->formAdress->get(\Sisdo\Constants\AdressConst::FLD_ZIP_CODE)); ?>
+
+                <div class="form-group ">
+                    <label>Cep</label>
+                    <?= $this->formLabel
+                    ($this->formAdress->get(\Sisdo\Constants\AdressConst::FLD_ZIP_CODE)) ?>
+                    <div class="input-group">
+                        <?php echo $this->formInput($this->formAdress->get(\Sisdo\Constants\AdressConst::FLD_ZIP_CODE)) ?>
+                        <span class="input-group-addon" id="btn-busca-cep">
+                            <i class="fa fa-search"></i>
+                        </span>
+                    </div>
+                </div>
+
                 <?php echo $this->formRow($this->formAdress->get(\Sisdo\Constants\AdressConst::FLD_UF)); ?>
                 <?php echo $this->formRow($this->formAdress->get(\Sisdo\Constants\AdressConst::FLD_CITY)); ?>
                 <?php echo $this->formRow($this->formAdress->get(\Sisdo\Constants\AdressConst::FLD_NEIGHBORHOOD)); ?>
@@ -83,5 +95,4 @@
 </div>
 
 
-
-
+<script src="/js/sisdo/user.js"></script>

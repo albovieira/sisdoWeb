@@ -126,7 +126,7 @@ class AdressForm extends Form
             'name' => AdressConst::FLD_ZIP_CODE,
             'attributes' => array(
                 'type' => 'text',
-                'class' => '',
+                'class' => 'form-control',
             ),
             'options' => array(
                 'label' => AdressConst::LBL_ZIP_CODE,
