@@ -28,6 +28,16 @@ class InstitutionService extends ServiceAbstract
 {
     const URL_GET_DADOS = '/instituicao/getDados';
 
+
+    public function getInstitutionById($id){
+        /** @var \Sisdo\Dao\InstitutionDao $dao */
+        $dao = $this->getFromServiceLocator(InstitutionConst::DAO);
+
+        $dao->getEntity($id);
+        return $dao->getEntity($id);
+
+    }
+
     public function salvar(EntityAbstract $obj){
 
         $dao = '';

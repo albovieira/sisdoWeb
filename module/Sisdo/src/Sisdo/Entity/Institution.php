@@ -58,7 +58,7 @@ class Institution extends EntityAbstract
     private $about;
 
     /**
-     * @ORM\OneToOne(targetEntity="Application\Entity\User", inversedBy="institution")
+     * @ORM\OneToOne(targetEntity="Application\Entity\User")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="user_id")
      **/
     private $userId;

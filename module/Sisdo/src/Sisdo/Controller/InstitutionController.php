@@ -130,6 +130,28 @@ class InstitutionController extends ActionControllerAbstract
 
     }
 
+    public function pesquisarAction(){
+
+    }
+
+    public function paginaAction(){
+
+        /** @var InstitutionService $service */
+        $service = $this->getFromServiceLocator(InstitutionConst::SERVICE);
+
+        $id = $this->params()->fromRoute('id');
+        $institution = $service->getInstitutionById($id);
+
+
+        return new ViewModel(
+            array(
+                'institution' => $institution
+            )
+        );
+
+    }
+
+
     /**
      * Retorna o titulo da pagina (especializar)
      *
