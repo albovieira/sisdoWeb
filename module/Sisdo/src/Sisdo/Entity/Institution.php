@@ -64,6 +64,13 @@ class Institution extends EntityAbstract
     private $userId;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="picture", type="string", length=200, nullable=false)
+     */
+    private $picture;
+
+    /**
      * @return int
      */
     public function getId()
@@ -173,6 +180,22 @@ class Institution extends EntityAbstract
     public function setUserId($userId)
     {
         $this->userId = $userId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPicture()
+    {
+        return $this->picture;
+    }
+
+    /**
+     * @param string $picture
+     */
+    public function setPicture($picture)
+    {
+        $this->picture = $picture;
     }
 
 

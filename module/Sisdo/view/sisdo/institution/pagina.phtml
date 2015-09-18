@@ -1,3 +1,21 @@
 <?php
-var_dump($this->institution);
+
+/** @var \Sisdo\Entity\Institution $institution */
+$institution = $this->institution;
+$userInstitution = $institution->getUserId();
+
+//var_dump($this->institution);
+echo $institution->getPicture();
+
+//echo $userInstitution->getContact()->getTel();
+echo $userInstitution->getEmail();
+
+echo $institution->getFancyName();
+echo $institution->getCorporateName();
+echo $institution->getCnpj();
+echo $institution->getAbout();
+echo $institution->getBranch();
+
+
 ?>
+

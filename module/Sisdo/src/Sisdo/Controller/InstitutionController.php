@@ -142,7 +142,6 @@ class InstitutionController extends ActionControllerAbstract
         $id = $this->params()->fromRoute('id');
         $institution = $service->getInstitutionById($id);
 
-
         return new ViewModel(
             array(
                 'institution' => $institution
