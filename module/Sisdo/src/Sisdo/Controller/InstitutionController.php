@@ -19,6 +19,7 @@ use Sisdo\Filter\InstitutionFilter;
 use Sisdo\Form\AdressForm;
 use Sisdo\Form\ContactForm;
 use Sisdo\Form\InstitutionForm;
+use Sisdo\Form\InstitutionSearchForm;
 use Sisdo\Service\InstitutionService;
 use Zend\View\Model\ViewModel;
 
@@ -131,7 +132,20 @@ class InstitutionController extends ActionControllerAbstract
     }
 
     public function pesquisarAction(){
+        /** @var InstitutionService $service */
+        $service = $this->getFromServiceLocator(InstitutionConst::SERVICE);
 
+        $institutionForm = new InstitutionSearchForm();
+
+        $institutions = $service->getInstitutionsByUFofUser();
+
+
+        return new ViewModel(
+            array(
+                'formSearch' => $institutionForm,
+                'institutions' => $institutions
+            )
+        );
     }
 
     public function paginaAction(){

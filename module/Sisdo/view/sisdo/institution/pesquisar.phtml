@@ -1,1 +1,44 @@
-pesquisar
+<h4><i style="color: #d9cd0f;" class="glyphicon glyphicon-info-sign"></i> Pesquisar Instituicoes</h4>
+<hr>
+
+<?php
+echo $this->form(null, \TwbBundle\Form\View\Helper\TwbBundleForm::LAYOUT_INLINE)->openTag($this->formSearch);
+$this->formSearch->prepare();
+?>
+
+<?php echo $this->formRow($this->formSearch->get(\Sisdo\Constants\InstitutionConst::FLD_FANCY_NAME)); ?>
+<?php echo $this->formRow($this->formSearch->get(\Sisdo\Constants\AdressConst::FLD_UF)); ?>
+
+<div class="form-group " style="margin-top: 2%;">
+    <?php echo $this->formButton($this->formSearch->get('btn_search')); ?>
+</div>
+
+<?php echo $this->form()->closeTag(); ?>
+
+
+
+<div class="row" style="margin-top: 4%;">
+    <?php
+
+    /** @var \Sisdo\Entity\Institution $instituicao */
+    foreach ($this->institutions as $instituicao) {
+        //var_dump($instituicao);die;
+        echo <<<DOC
+        <div class="col-sm-3">
+            <div class="thumbnail">
+              <img src="{$instituicao->getPicture()}" data-holder-rendered="true" style="height: 200px; width: 100%; display: block;">
+              <div class="caption">
+                <h4>{$instituicao->getFancyName()}</h4>
+                <p>{$instituicao->getCnpj()}</p>
+                <p>
+                    <a href="#" class="btn btn-primary" role="button">Seguir</a>
+                    <a href="#" class="btn btn-default" role="button">Ver Mais</a>
+                </p>
+              </div>
+            </div>
+        </div>
+
+DOC;
+    }
+    ?>
+</div>

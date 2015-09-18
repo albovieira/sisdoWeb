@@ -12,6 +12,7 @@ use Application\Constants\JqGridConst;
 use Application\Constants\UsuarioConst;
 use Application\Custom\EntityAbstract;
 use Application\Custom\ServiceAbstract;
+use Application\Entity\User;
 use Application\Util\JqGridButton;
 use Application\Util\JqGridTable;
 use Sisdo\Constants\ContactConst;
@@ -35,6 +36,18 @@ class InstitutionService extends ServiceAbstract
 
         $dao->getEntity($id);
         return $dao->getEntity($id);
+
+    }
+
+    public function getInstitutionsByUFofUser()
+    {
+        /** @var \Sisdo\Dao\InstitutionDao $dao */
+        $dao = $this->getFromServiceLocator(InstitutionConst::DAO);
+
+        /** @var User $userLogado */
+        $userLogado = $this->getUserLogado();
+
+        return $dao->findInstitutionsByUF($userLogado->getAdress()->getUf());
 
     }
 

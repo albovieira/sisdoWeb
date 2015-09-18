@@ -15,4 +15,16 @@ class InstitutionDao extends DaoAbstract
 {
     protected $entityName = 'Sisdo\\Entity\\Institution';
 
+
+    public function findInstitutionsByUF($uf)
+    {
+
+        $qb = $this->getQueryBuilder();
+        $qb->leftJoin($this->getAlias() . '.userId', 'u')
+            ->leftJoin('u.adress', 'a')
+            ->where('a.uf = :uf')
+            ->setParameter('uf', $uf);
+
+        return $qb->getQuery()->getResult();
+    }
 }
