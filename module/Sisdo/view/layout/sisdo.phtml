@@ -178,11 +178,11 @@
                     url:'/instituicao/getInstituctionAutoComplete',
                     success: function (data) {
 
-                        var arrEventos = [];
+                        var instituicoes = [];
                         $.each( data, function( key, value ) {
-                            arrEventos.push(value);
+                            instituicoes.push(value);
                         });
-                        return response(arrEventos);
+                        return response(instituicoes);
                     }
                 });
             }

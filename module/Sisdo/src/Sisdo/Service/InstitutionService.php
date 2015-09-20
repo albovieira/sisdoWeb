@@ -57,7 +57,6 @@ class InstitutionService extends ServiceAbstract
         $userLogado = $this->getUserLogado();
 
         return $dao->findInstitutionsByUF($userLogado->getAdress()->getUf());
-
     }
 
     public function salvar(EntityAbstract $obj){
