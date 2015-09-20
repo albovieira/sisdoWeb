@@ -63,14 +63,15 @@ DOC;
 
                 <ul class="nav hidden-xs" id="lg-menu">
                     <li class="active"><a href="/"><i class="fa fa-user"></i> Principal</a></li>
-                    <li><a href="#"><i class="fa fa-users"></i> Buscar Instituicoes</a></li>
+                    <li><a href="/instituicao/pesquisar"><i class="fa fa-users"></i> Buscar Instituicoes</a></li>
                     <li><a href="#"><i class="glyphicon glyphicon-gift"></i> Minhas doacoes</a></li>
                 </ul>
 
                 <!-- tiny only nav-->
                 <ul class="nav visible-xs" id="xs-menu">
-                    <li><a href="/" class="text-center"><i class="glyphicon glyphicon-list-alt"></i></a></li>
-                    <li><a href="/pessoa" class="text-center"><i class="fa fa-user"></i></a></li>
+                    <li><a href="/" class="text-center"><i class="fa fa-user"></i></a></li>
+                    <li><a href="/instituicao/pesquisar" class="text-center"><i class="fa fa-users"></i></a></li>
+                    <li><a href="/" class="text-center"><i class="glyphicon glyphicon-gift"></i></a></li>
                 </ul>
 
         </div>

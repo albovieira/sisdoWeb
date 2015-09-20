@@ -124,3 +124,7 @@ footer#footer .col-sm-11{
 #btn-busca-cep {
     cursor: pointer;
 }
+
+.ui-autocomplete.ui-front.ui-menu.ui-widget.ui-widget-content{
+    z-index: 10000;
+}
