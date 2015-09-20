@@ -15,6 +15,22 @@ class InstitutionDao extends DaoAbstract
 {
     protected $entityName = 'Sisdo\\Entity\\Institution';
 
+    public function findAll(){
+
+        $this->getCompleteQueryBuilder()->getQuery()->getArrayResult();
+    }
+
+    public function findNameInstitutionByTerm($term){
+        $qb = $this->createQueryBuilder()
+            ->select($this->alias . DaoAbstract::TABLE_COLUMN_SEPARATOR . 'id',
+                $this->alias . DaoAbstract::TABLE_COLUMN_SEPARATOR . 'fancyName')
+            ->from($this->entityName, $this->alias)
+            ->where($this->alias . DaoAbstract::TABLE_COLUMN_SEPARATOR . "fancyName LIKE  '%{$term}%'")
+            ->orderBy($this->alias . DaoAbstract::TABLE_COLUMN_SEPARATOR . 'fancyName', 'asc');
+
+        return $qb->getQuery()->getArrayResult();
+
+    }
 
     public function findInstitutionsByUF($uf)
     {

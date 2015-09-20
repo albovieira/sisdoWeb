@@ -21,6 +21,7 @@ use Sisdo\Form\ContactForm;
 use Sisdo\Form\InstitutionForm;
 use Sisdo\Form\InstitutionSearchForm;
 use Sisdo\Service\InstitutionService;
+use Zend\View\Model\JsonModel;
 use Zend\View\Model\ViewModel;
 
 class InstitutionController extends ActionControllerAbstract
@@ -162,6 +163,25 @@ class InstitutionController extends ActionControllerAbstract
             )
         );
 
+    }
+
+    public function getInstituctionAutoCompleteAction(){
+
+        /** @var InstitutionService $service */
+        $service = $this->getFromServiceLocator(InstitutionConst::SERVICE);
+
+        $term = $this->params()->fromQuery('term');
+        //var_dump($this->getRequest());die;
+        $instituicoes = $service->getInstitutionsByTerm($term);
+
+        $namesInstituicao = [];
+        foreach($instituicoes as $instituicao){
+            $namesInstituicao[] = $instituicao['fancyName'];
+        }
+
+        return new JsonModel(
+            $namesInstituicao
+        );
     }
 
 

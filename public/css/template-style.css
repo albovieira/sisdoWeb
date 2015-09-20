@@ -89,7 +89,7 @@ hr {
 .navbar-blue .dropdown-menu li > a {padding-left:30px;}
 
 .navbar-blue li>a:hover, .navbar-blue li>a:focus, .navbar-blue .open, .navbar-blue .open>a, .navbar-blue .open>a:hover, .navbar-blue .open>a:focus {
-   background-color:#2A4888;
+   background-color:#393939;
    color:#fff;
 }
 
@@ -125,7 +125,7 @@ hr {
   background-color:#fff;
   color:#3B5999;
   height:28px;
-  width:28px;
+  width:80px;
   margin:9px;
   margin-right:2px;
   margin-left:15px;
@@ -142,9 +142,6 @@ hr {
   bottom:5px;
   padding:5px;
 }
-
-
-/* bootstrap overrides */
 
 h1,h2,h3 {
    font-weight:800;

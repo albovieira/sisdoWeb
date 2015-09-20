@@ -14,7 +14,9 @@ use Application\Constants\UsuarioConst;
 use Application\Custom\ActionControllerAbstract;
 use Application\Entity\User;
 use Sisdo\Constants\PersonConst;
+use Sisdo\Constants\RelationshipConst;
 use Sisdo\Service\PersonService;
+use Sisdo\Service\RelationshipService;
 use Zend\View\Model\ViewModel;
 
 class MainController extends ActionControllerAbstract
@@ -40,13 +42,19 @@ class MainController extends ActionControllerAbstract
         /** @var PersonService $service */
         $service = $this->getFromServiceLocator(PersonConst::SERVICE);
 
+        /** @var RelationshipService $relationService */
+        $relationService = $this->getFromServiceLocator(RelationshipConst::SERVICE);
+
         /** @var User $usuarioLogado */
         $usuarioLogado = $service->getUserLogado();
+
+        $relacionamentos = $relationService->getRelationshipByUser();
 
 
         return new ViewModel(
             array(
-                'usuarioLogado' => $usuarioLogado
+                'usuarioLogado' => $usuarioLogado,
+                'relacionamentos' => $relacionamentos
             )
         );
     }

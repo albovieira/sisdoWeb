@@ -15,12 +15,18 @@ class RelationshipDao extends DaoAbstract
 {
     protected $entityName = 'Sisdo\\Entity\\Relationship';
 
-    public function findRelationshipsInstitution($userId){
+    public function findRelationshipsByInstitutionUser($userId){
         $qb = $this->getQueryBuilder();
         $qb->where($this->alias.DaoAbstract::TABLE_COLUMN_SEPARATOR. "institutionUserId = {$userId}");
-            //->setParameter('id',);
 
         return $qb;
+    }
+
+    public function listRelationship($userId){
+        $qb = $this->getQueryBuilder();
+        $qb->where($this->alias.DaoAbstract::TABLE_COLUMN_SEPARATOR. "personUserId = {$userId}");
+
+        return $qb->getQuery()->getResult();
     }
 
 }

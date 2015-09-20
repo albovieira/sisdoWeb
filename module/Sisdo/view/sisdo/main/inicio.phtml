@@ -11,9 +11,7 @@ $pessoa = $user->getPerson();
     <div class="clearfix">
         <div class="row">
             <div class="col-sm-3">
-                <div class="panel widget light-widget panel-bd-top">
-                    <div class="panel-heading no-title"></div>
-                    <div class="panel-body">
+                    <div class="cont">
                         <div class="text-center"><img style="width: 216px;height: 246px" alt="example image"
                                                       src="<?php echo $pessoa->getPicture() ?>"></div>
                         <div class="row">
@@ -49,42 +47,40 @@ $pessoa = $user->getPerson();
                             </table>
                         </div>
                     </div>
-                </div>
 
             </div>
             <div class="col-sm-9">
-                <!-- panel widget -->
 
-                <div class="panel">
-                    <div class="panel-body-list">
-                        <h3 class=""><i class="fa fa-users mgr-10"></i> Relacionamentos</h3>
+                <div class="row">
+                    <div class="panel">
+                        <div class="panel-body-list">
+                            <h3 class=""><i class="fa fa-users mgr-10"></i> Relacionamentos</h3>
 
-                        <div class="column-xs-2 column-sm-3 ">
-                            <div>
-                                <ul class="list-wrapper">
-                                    <li>
-                                        <!--<a href="#"> <span class="menu-icon"><img alt="example image" src="img/avatar/avatar.jpg"></span> </a>--> </li>
-                                </ul>
-                            </div>
+                                <div>
+                                    <?php
+                                    $relacionamentos = $this->relacionamentos;
+
+                                    /** @var \Sisdo\Entity\Relationship $relacionamento */
+                                    foreach($relacionamentos as $relacionamento){
+                                        /** @var \Sisdo\Entity\Institution $instituicao */
+                                        $instituicao = $relacionamento->getInstitutionUserId()->getInstituicao();
+
+                                        echo <<<DOC
+                                           <div class='col-sm-3'>
+                                                <p>{$instituicao->getFancyName()}</p>
+                                                <p>{$instituicao->getAbout()}</p>
+                                           </div>
+DOC;
+                                    }
+
+                                    ?>
+                                </div>
                         </div>
                     </div>
+                    <!-- panel widget -->
                 </div>
-                <!-- panel widget -->
 
-                <div class="panel">
-                    <div class="">
-                        <h3><i class="fa fa-gift"></i> Ultimas doacoes</h3>
 
-                        <div class="">
-                            <div>
-                                <ul class="list-wrapper">
-                                    <li>
-                                        <!--<a href="#"> <span class="menu-icon"><img alt="example image" src="img/avatar/avatar.jpg"></span> </a>--> </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
 
             </div>
@@ -95,3 +91,8 @@ $pessoa = $user->getPerson();
     <!-- .vd_content-section -->
 
 </div>
+
+
+<script>
+
+</script>

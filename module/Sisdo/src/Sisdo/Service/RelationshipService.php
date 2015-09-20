@@ -28,6 +28,14 @@ class RelationshipService extends ServiceAbstract
 {
     const URL_GET_DADOS = '/relacionamento/getDados';
 
+    public function getRelationshipByUser(){
+
+        /** @var RelationshipDao $dao */
+        $dao = $this->getFromServiceLocator(RelationshipConst::DAO);
+        return $dao->listRelationship($this->getUserLogado()->getId());
+
+    }
+
     public function getGrid(){
 
         $jqgrid = new JqGridTable();
@@ -57,7 +65,7 @@ class RelationshipService extends ServiceAbstract
         /** @var \Application\Entity\User $instituicaoLogado */
         $instituicaoLogado = $this->getFromServiceLocator(UsuarioConst::ZFCUSER_AUTH_SERVICE)->getIdentity();
 
-        $qb = $dao->findRelationshipsInstitution($instituicaoLogado->getId());
+        $qb = $dao->findRelationshipsByInstitutionUser($instituicaoLogado->getId());
 
         $jqgrid = new JqGridTable();
         $jqgrid->setAlias('r');

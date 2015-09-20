@@ -39,6 +39,15 @@ class InstitutionService extends ServiceAbstract
 
     }
 
+    public function getInstitutionsByTerm($term){
+
+        /** @var \Sisdo\Dao\InstitutionDao $dao */
+        $dao = $this->getFromServiceLocator(InstitutionConst::DAO);
+
+        return $dao->findNameInstitutionByTerm($term);
+
+    }
+
     public function getInstitutionsByUFofUser()
     {
         /** @var \Sisdo\Dao\InstitutionDao $dao */
