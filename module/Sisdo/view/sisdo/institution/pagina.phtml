@@ -4,17 +4,37 @@
 $institution = $this->institution;
 $userInstitution = $institution->getUserId();
 
-//var_dump($this->institution);
-echo $institution->getPicture();
-
-//echo $userInstitution->getContact()->getTel();
-echo $userInstitution->getEmail();
-
-echo $institution->getFancyName();
-echo $institution->getCorporateName();
-echo $institution->getCnpj();
-echo $institution->getAbout();
-echo $institution->getBranch();
-
 ?>
 
+<div class="col-sm-3">
+    <div class="profile-userpic">
+        <img src="<?php echo $institution->getPicture(); ?>" class='img-responsive'>
+        <div>
+            <p><?php echo $institution->getFancyName(); ?></p>
+            <p><?php echo $userInstitution->getEmail(); ?></p>
+            <p><?php echo $institution->getCnpj(); ?></p>
+            <p><?php echo \Sisdo\Entity\RamoInstituicao::getRamoById($institution->getBranch()); ?></p>
+
+        </div>
+    </div>
+</div>
+
+<div class="col-sm-9">
+    <div>
+        <h4>Sobre</h4>
+        <p><?php echo $institution->getAbout() ?></p>
+        <h4>Produtos Ativos</h4>
+        <?php
+            /** @var \Sisdo\Entity\Product $produto */
+        foreach($this->produtos as $produto){
+            echo <<<DOC
+                                           <div class='col-sm-3'>
+                                                <p>{$produto->getTitle()}</p>
+                                                <p>{$produto->getQuantity()}</p>
+                                           </div>
+DOC;
+        }
+
+        ?>
+    </div>
+</div>

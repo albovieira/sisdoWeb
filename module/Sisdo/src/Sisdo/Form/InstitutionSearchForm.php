@@ -2,12 +2,15 @@
 
 namespace Sisdo\Form;
 
+use Application\Constants\FormConst;
 use Application\Constants\GrupoConst as Grupo;
 use Application\Constants\ProdutoConst;
 use GerenciaEstoque\Entity\Produto;
 use Sisdo\Constants\AdressConst;
 use Sisdo\Constants\InstitutionConst;
+use Sisdo\Constants\StateConst;
 use Sisdo\Entity\Institution;
+use Sisdo\Service\AdressService;
 use Zend\Form\Form;
 use Zend\Stdlib\Hydrator\ClassMethods as ClassMethodsHydrator;
 
@@ -19,7 +22,7 @@ class InstitutionSearchForm extends Form
     /**
      * Cria o formulario para instituicao.
      */
-    public function __construct($url = null, $instituicaoLogado = null)
+    public function __construct($url = null, AdressService $service)
     {
 
         parent::__construct('institution_search_form');
@@ -44,26 +47,21 @@ class InstitutionSearchForm extends Form
             ),
         ));
 
-        $this->add(array(
-            'name' => AdressConst::FLD_UF,
-            'attributes' => array(
-                'type' => 'text',
-                'class' => '',
-            ),
-            'options' => array(
-                'label' => AdressConst::LBL_UF,
-            ),
-        ));
+
 
         $this->add(array(
-            'name' => AdressConst::FLD_CITY,
-            'attributes' => array(
-                'type' => 'text',
-                'class' => '',
-            ),
+            'name' => AdressConst::FLD_UF,
+            'type' => 'Zend\Form\Element\Select',
             'options' => array(
-                'label' => AdressConst::LBL_CITY,
-            ),
+                'empty_option' => FormConst::SELECT_OPTION_SELECIONE,
+                'label' => AdressConst::LBL_UF,
+                'value_options' => $service->createSelectFromArray(
+                    $service->getAllState(),
+                    StateConst::FLD_UF,
+                    StateConst::FLD_NAME
+                ),
+                'disable_inarray_validator' => true,
+            )
         ));
 
         $this->add(array(

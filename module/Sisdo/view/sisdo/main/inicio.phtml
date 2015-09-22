@@ -6,91 +6,93 @@ $pessoa = $user->getPerson();
 
 ?>
 
-<div class="content">
 
-    <div class="clearfix">
-        <div class="row">
-            <div class="col-sm-3">
-                    <div class="cont">
-                        <div class="text-center"><img style="width: 216px;height: 246px" alt="example image"
-                                                      src="<?php echo $pessoa->getPicture() ?>"></div>
-                        <div class="row">
-                            <div class="col-xs-12"><a class="btn btn-success btn-xs btn-block no-br"><i
-                                        class="fa fa-check-circle append-icon"></i> Amigos</a></div>
-                            <div class="col-xs-12"><a class="btn btn-default btn-xs btn-block no-br"><i
-                                        class="fa fa-envelope append-icon"></i> Enviar Mensagem</a></div>
-                        </div>
-                        <h3 class="font-semibold"><?php echo $pessoa->getName() ?></h3>
-                        <h4>Sobre Mim</h4>
-                        <p><?php echo $pessoa->getAboutMe() ?></p>
+<!--
+User Profile Sidebar by @keenthemes
+A component of Metronic Theme - #1 Selling Bootstrap 3 Admin Theme in Themeforest: http://j.mp/metronictheme
+Licensed under MIT
+-->
 
-                        <div class="mgtp-20">
-                            <table class="table table-striped table-hover">
-                                <tbody>
-                                <tr>
-                                    <td style="width:60%;">Doacoes Pendentes:</td>
-                                    <td><span class="label label-danger">2</span></td>
-                                </tr>
-                                <tr>
-                                    <td>Ranking</td>
-                                    <td><i class="fa fa-star  fa-fw"></i><i
-                                            class="fa fa-star  fa-fw"></i><i
-                                            class="fa fa-star  fa-fw"></i><i
-                                            class="fa fa-star  fa-fw"></i><i
-                                            class="fa fa-star  fa-fw"></i></td>
-                                </tr>
-                                <tr>
-                                    <td>Membro desde</td>
-                                    <td> <?php echo $user->getDate()->format('d/m/Y') ?></td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
+    <div class="row profile">
+        <div class="col-md-3">
+            <div class="profile-sidebar">
+                <!-- SIDEBAR USERPIC -->
+                <div class="profile-userpic">
+                    <img src="<?php echo $pessoa->getPicture() ?>" class="img-responsive" alt="">
+                </div>
+                <!-- END SIDEBAR USERPIC -->
+                <!-- SIDEBAR USER TITLE -->
+                <div class="profile-usertitle">
+                    <div class="profile-usertitle-name">
+                        <?php echo $pessoa->getName() ?>
                     </div>
+                    <div class="profile-usertitle-job">
+                        <?php echo $pessoa->getAboutMe() ?>
+                    </div>
+                </div>
+                <!-- END SIDEBAR USER TITLE -->
 
+                <!-- SIDEBAR MENU -->
+                <div class="profile-usermenu">
+                        <table class="table table-striped table-hover">
+                            <tbody>
+                            <tr>
+                                <td style="width:60%;">Doacoes Pendentes:</td>
+                                <td><span class="label label-danger">2</span></td>
+                            </tr>
+                            <tr>
+                                <td>Ranking</td>
+                                <td><i class="fa fa-star  fa-fw"></i><i
+                                        class="fa fa-star  fa-fw"></i><i
+                                        class="fa fa-star  fa-fw"></i><i
+                                        class="fa fa-star  fa-fw"></i><i
+                                        class="fa fa-star  fa-fw"></i></td>
+                            </tr>
+                            <tr>
+                                <td>Membro desde</td>
+                                <td> <?php echo $user->getDate()->format('d/m/Y') ?></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                </div>
+                <!-- END MENU -->
             </div>
-            <div class="col-sm-9">
+        </div>
+        <div class="col-md-9">
+                <div class="panel">
+                    <div class="panel-body-list">
+                        <h3 class=""><i class="fa fa-users mgr-10"></i> Relacionamentos</h3>
 
-                <div class="row">
-                    <div class="panel">
-                        <div class="panel-body-list">
-                            <h3 class=""><i class="fa fa-users mgr-10"></i> Relacionamentos</h3>
+                        <div>
+                            <?php
+                            $relacionamentos = $this->relacionamentos;
 
-                                <div>
-                                    <?php
-                                    $relacionamentos = $this->relacionamentos;
+                            /** @var \Sisdo\Entity\Relationship $relacionamento */
+                            foreach($relacionamentos as $relacionamento){
+                                /** @var \Sisdo\Entity\Institution $instituicao */
+                                $instituicao = $relacionamento->getInstitutionUserId()->getInstituicao();
 
-                                    /** @var \Sisdo\Entity\Relationship $relacionamento */
-                                    foreach($relacionamentos as $relacionamento){
-                                        /** @var \Sisdo\Entity\Institution $instituicao */
-                                        $instituicao = $relacionamento->getInstitutionUserId()->getInstituicao();
-
-                                        echo <<<DOC
+                                echo <<<DOC
                                            <div class='col-sm-3'>
                                                 <p>{$instituicao->getFancyName()}</p>
                                                 <p>{$instituicao->getAbout()}</p>
                                            </div>
 DOC;
-                                    }
+                            }
 
-                                    ?>
-                                </div>
+                            ?>
                         </div>
                     </div>
-                    <!-- panel widget -->
-                </div>
-
-
-
-
             </div>
         </div>
-        <!-- row -->
-
     </div>
-    <!-- .vd_content-section -->
+<br>
+<br>
 
-</div>
+
+
+
+
 
 
 <script>

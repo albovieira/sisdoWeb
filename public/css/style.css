@@ -128,3 +128,7 @@ footer#footer .col-sm-11{
 .ui-autocomplete.ui-front.ui-menu.ui-widget.ui-widget-content{
     z-index: 10000;
 }
+
+.form-inline .form-control{
+    display: block;
+}

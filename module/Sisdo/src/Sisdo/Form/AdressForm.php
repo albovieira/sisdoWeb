@@ -2,11 +2,14 @@
 
 namespace Sisdo\Form;
 
+use Application\Constants\FormConst;
 use Application\Constants\GrupoConst as Grupo;
 use Application\Constants\ProdutoConst;
 use GerenciaEstoque\Entity\Produto;
 use Sisdo\Constants\AdressConst;
+use Sisdo\Constants\StateConst;
 use Sisdo\Entity\Adress;
+use Sisdo\Service\AdressService;
 use Zend\Form\Form;
 use Zend\Stdlib\Hydrator\ClassMethods as ClassMethodsHydrator;
 
@@ -18,7 +21,7 @@ class AdressForm extends Form
     /**
      * Cria o formulario para instituicao.
      */
-    public function __construct($url = null, $userLogado = null)
+    public function __construct($url = null,AdressService $service ,$userLogado = null)
     {
 
         parent::__construct('adress_form');
@@ -55,16 +58,7 @@ class AdressForm extends Form
             ),
         ));
 
-        $this->add(array(
-            'name' => AdressConst::FLD_CITY,
-            'attributes' => array(
-                'type' => 'text',
-                'class' => '',
-            ),
-            'options' => array(
-                'label' => AdressConst::LBL_CITY,
-            ),
-        ));
+
 
         $this->add(array(
             'name' => AdressConst::FLD_NEIGHBORHOOD,
@@ -113,13 +107,28 @@ class AdressForm extends Form
 
         $this->add(array(
             'name' => AdressConst::FLD_UF,
-            'attributes' => array(
-                'type' => 'text',
-                'class' => '',
-            ),
+            'type' => 'Zend\Form\Element\Select',
             'options' => array(
+                'empty_option' => FormConst::SELECT_OPTION_SELECIONE,
                 'label' => AdressConst::LBL_UF,
-            ),
+                'value_options' => $service->createSelectFromArray(
+                    $service->getAllState(),
+                    StateConst::FLD_UF,
+                    StateConst::FLD_NAME
+                ),
+                'disable_inarray_validator' => true,
+            )
+        ));
+
+        $this->add(array(
+            'name' => AdressConst::FLD_CITY,
+            'type' => 'Zend\Form\Element\Select',
+            'options' => array(
+                'empty_option' => FormConst::SELECT_OPTION_SELECIONE,
+                'label' => AdressConst::LBL_CITY,
+
+                'disable_inarray_validator' => true,
+            )
         ));
 
         $this->add(array(

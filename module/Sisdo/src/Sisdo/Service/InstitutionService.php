@@ -132,7 +132,6 @@ class InstitutionService extends ServiceAbstract
         /** @var ProductDao $dao */
         $dao = $this->getFromServiceLocator(ProductConst::DAO);
 
-
         /** @var \Application\Entity\User $instituicaoLogado */
         $instituicaoLogado = $this->getFromServiceLocator(UsuarioConst::ZFCUSER_AUTH_SERVICE)->getIdentity();
 
@@ -181,6 +180,8 @@ class InstitutionService extends ServiceAbstract
 
         return $rows;
     }
+
+
 
 
 }

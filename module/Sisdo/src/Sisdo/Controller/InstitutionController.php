@@ -12,7 +12,9 @@ namespace Sisdo\Controller;
 use Application\Constants\MensagemConst;
 use Application\Constants\UsuarioConst;
 use Application\Custom\ActionControllerAbstract;
+use Sisdo\Constants\AdressConst;
 use Sisdo\Constants\InstitutionConst;
+use Sisdo\Constants\ProductConst;
 use Sisdo\Filter\AdressFilter;
 use Sisdo\Filter\ContactFilter;
 use Sisdo\Filter\InstitutionFilter;
@@ -20,12 +22,21 @@ use Sisdo\Form\AdressForm;
 use Sisdo\Form\ContactForm;
 use Sisdo\Form\InstitutionForm;
 use Sisdo\Form\InstitutionSearchForm;
+use Sisdo\Service\AdressService;
 use Sisdo\Service\InstitutionService;
+use Sisdo\Service\ProductService;
 use Zend\View\Model\JsonModel;
 use Zend\View\Model\ViewModel;
 
 class InstitutionController extends ActionControllerAbstract
 {
+
+    public function getTesteAction(){
+        return new JsonModel(
+            array('teste' => 'teste')
+        );
+    }
+
     public function indexAction()
     {
 
@@ -42,7 +53,10 @@ class InstitutionController extends ActionControllerAbstract
             $formContact->bind($instituicaoLogado->getContact());
         }
 
-        $formAdress = new AdressForm('/instituicao/salvarEndereco',$instituicaoLogado);
+
+        /** @var InstitutionService $service */
+        $service = $this->getFromServiceLocator(AdressConst::SERVICE);
+        $formAdress = new AdressForm('/instituicao/salvarEndereco',$service,$instituicaoLogado);
         if($instituicaoLogado->getAdress()){
             $formAdress->bind($instituicaoLogado->getAdress());
         }
@@ -136,10 +150,11 @@ class InstitutionController extends ActionControllerAbstract
         /** @var InstitutionService $service */
         $service = $this->getFromServiceLocator(InstitutionConst::SERVICE);
 
-        $institutionForm = new InstitutionSearchForm();
+        /** @var AdressService $serviceAdress */
+        $serviceAdress = $this->getFromServiceLocator(AdressConst::SERVICE);
+        $institutionForm = new InstitutionSearchForm(null,$serviceAdress);
 
         $institutions = $service->getInstitutionsByUFofUser();
-
 
         return new ViewModel(
             array(
@@ -157,9 +172,14 @@ class InstitutionController extends ActionControllerAbstract
         $id = $this->params()->fromRoute('id');
         $institution = $service->getInstitutionById($id);
 
+        /** @var ProductService $serviceProduct */
+        $serviceProduct = $this->getFromServiceLocator(ProductConst::SERVICE);
+        $produtosAtivos = $serviceProduct->getProdutosAtivos();
+
         return new ViewModel(
             array(
-                'institution' => $institution
+                'institution' => $institution,
+                'produtos' => $produtosAtivos
             )
         );
 

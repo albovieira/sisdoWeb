@@ -308,4 +308,3 @@ class User extends EntityAbstract implements UserInterface
 
 
 }
-

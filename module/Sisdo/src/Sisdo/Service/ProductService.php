@@ -61,6 +61,12 @@ class ProductService extends ServiceAbstract
         return $dao->getEntity($id);
     }
 
+    public function getProdutosAtivos(){
+        /** @var ProductDao $dao */
+        $dao = $this->getFromServiceLocator(ProductConst::DAO);
+        return $dao->findProductActive();
+    }
+
     public function getGrid($isCollapse = false){
 
         $jqgrid = new JqGridTable();

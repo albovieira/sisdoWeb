@@ -277,6 +277,12 @@ return array(
             'MoneyDonationDao' => function ($sm) {
                 return new \Sisdo\Dao\MoneyDonationDao($sm->get('Doctrine\ORM\EntityManager'), $sm);
             },
+            'StateDao' => function ($sm) {
+                return new \Sisdo\Dao\StateDao($sm->get('Doctrine\ORM\EntityManager'), $sm);
+            },
+            'CityDao' => function ($sm) {
+                return new \Sisdo\Dao\CityDao($sm->get('Doctrine\ORM\EntityManager'), $sm);
+            },
 
             //Services
             'ProductService' => function ($sm) {
@@ -296,6 +302,9 @@ return array(
             },
             'MoneyDonationService' => function ($sm) {
                 return new \Sisdo\Service\MoneyDonationService($sm);
+            },
+            'AdressService' => function ($sm) {
+                return new \Sisdo\Service\AdressService($sm);
             },
         ),
     ),

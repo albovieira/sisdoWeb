@@ -16,6 +16,18 @@ class ProductDao extends DaoAbstract
 {
     protected $entityName = 'Sisdo\\Entity\\Product';
 
+    public function findProductActive(){
+        $qb = $this->getQueryBuilder();
+        $qb->where($this->alias.DaoAbstract::TABLE_COLUMN_SEPARATOR. 'status = :status')
+            ->setParameters(
+                array(
+                    'status' => StatusProdutoConst::FLAG_ATIVO
+                )
+            );
+
+        return $qb->getQuery()->getResult();
+    }
+
     public function findProductsByUser($userId){
         $qb = $this->getQueryBuilder();
         $qb->where($this->alias.DaoAbstract::TABLE_COLUMN_SEPARATOR. 'institutionUser = :id')
