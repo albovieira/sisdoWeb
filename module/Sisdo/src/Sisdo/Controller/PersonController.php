@@ -24,6 +24,12 @@ class PersonController extends ActionControllerAbstract
         );
     }
 
+    public function paginaAction(){
+
+
+        return new ViewModel();
+    }
+
     /**
      * Retorna o titulo da pagina (especializar)
      *

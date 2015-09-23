@@ -25,13 +25,20 @@ $userInstitution = $institution->getUserId();
         <p><?php echo $institution->getAbout() ?></p>
         <h4>Produtos Ativos</h4>
         <?php
-            /** @var \Sisdo\Entity\Product $produto */
+        /** @var \Sisdo\Entity\Product $produto */
         foreach($this->produtos as $produto){
             echo <<<DOC
-                                           <div class='col-sm-3'>
-                                                <p>{$produto->getTitle()}</p>
-                                                <p>{$produto->getQuantity()}</p>
-                                           </div>
+
+              <div class="col-sm-4">
+                <div class="thumbnail">
+                  <div class="caption">
+                    <h3>{$produto->getTitle()}</h3>
+                        <p>{$produto->getDescription()}</p>
+                    <p><a href="#" class="btn btn-primary">Acao</a> <a href="#" class="btn">Acao</a></p>
+                  </div>
+                </div>
+              </li>
+            </div>
 DOC;
         }
 

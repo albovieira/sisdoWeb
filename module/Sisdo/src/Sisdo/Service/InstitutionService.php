@@ -29,36 +29,6 @@ class InstitutionService extends ServiceAbstract
 {
     const URL_GET_DADOS = '/instituicao/getDados';
 
-
-    public function getInstitutionById($id){
-        /** @var \Sisdo\Dao\InstitutionDao $dao */
-        $dao = $this->getFromServiceLocator(InstitutionConst::DAO);
-
-        $dao->getEntity($id);
-        return $dao->getEntity($id);
-
-    }
-
-    public function getInstitutionsByTerm($term){
-
-        /** @var \Sisdo\Dao\InstitutionDao $dao */
-        $dao = $this->getFromServiceLocator(InstitutionConst::DAO);
-
-        return $dao->findNameInstitutionByTerm($term);
-
-    }
-
-    public function getInstitutionsByUFofUser()
-    {
-        /** @var \Sisdo\Dao\InstitutionDao $dao */
-        $dao = $this->getFromServiceLocator(InstitutionConst::DAO);
-
-        /** @var User $userLogado */
-        $userLogado = $this->getUserLogado();
-
-        return $dao->findInstitutionsByUF($userLogado->getAdress()->getUf());
-    }
-
     public function salvar(EntityAbstract $obj){
 
         $dao = '';
@@ -182,6 +152,39 @@ class InstitutionService extends ServiceAbstract
     }
 
 
+    public function getInstitutionById($id){
+        /** @var \Sisdo\Dao\InstitutionDao $dao */
+        $dao = $this->getFromServiceLocator(InstitutionConst::DAO);
+
+        $dao->getEntity($id);
+        return $dao->getEntity($id);
+
+    }
+
+    public function getInstitutionsByTerm($term){
+
+        /** @var \Sisdo\Dao\InstitutionDao $dao */
+        $dao = $this->getFromServiceLocator(InstitutionConst::DAO);
+        return $dao->findNameInstitutionByTerm($term);
+    }
+
+    public function getInstitutionByName($name){
+
+        /** @var \Sisdo\Dao\InstitutionDao $dao */
+        $dao = $this->getFromServiceLocator(InstitutionConst::DAO);
+        return $dao->findInstitutionByName($name);
+    }
+
+    public function getInstitutionsByUFofUser()
+    {
+        /** @var \Sisdo\Dao\InstitutionDao $dao */
+        $dao = $this->getFromServiceLocator(InstitutionConst::DAO);
+
+        /** @var User $userLogado */
+        $userLogado = $this->getUserLogado();
+
+        return $dao->findInstitutionsByUF($userLogado->getAdress()->getUf());
+    }
 
 
 }

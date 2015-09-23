@@ -20,6 +20,15 @@ class InstitutionDao extends DaoAbstract
         $this->getCompleteQueryBuilder()->getQuery()->getArrayResult();
     }
 
+    public function findInstitutionByName($name){
+        $qb = $this->getQueryBuilder()
+            ->where($this->alias . DaoAbstract::TABLE_COLUMN_SEPARATOR . "fancyName LIKE  '%{$name}%'")
+            ->orderBy($this->alias . DaoAbstract::TABLE_COLUMN_SEPARATOR . 'fancyName', 'asc');
+
+        return $qb->getQuery()->getResult();
+
+    }
+
     public function findNameInstitutionByTerm($term){
         $qb = $this->createQueryBuilder()
             ->select($this->alias . DaoAbstract::TABLE_COLUMN_SEPARATOR . 'id',

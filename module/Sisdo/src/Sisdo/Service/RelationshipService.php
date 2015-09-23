@@ -91,7 +91,7 @@ class RelationshipService extends ServiceAbstract
             $botaoEditar = new JqGridButton();
             $botaoEditar->setTitle('Ver Mais');
             $botaoEditar->setClass('btn btn-primary btn-xs');
-            $botaoEditar->setUrl('/relacionamento/ver-usuario/' . $relationship->getPersonUserId()->getId());
+            $botaoEditar->setUrl('/pessoa/pagina/' . $relationship->getPersonUserId()->getId());
             $botaoEditar->setIcon('glyphicon glyphicon-eye-open');
 
             $temp[JqGridConst::ACAO] = "<div class='agrupa-botoes'>" . $botaoEditar->render() . "</div>";

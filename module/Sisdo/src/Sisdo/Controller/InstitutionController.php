@@ -154,7 +154,12 @@ class InstitutionController extends ActionControllerAbstract
         $serviceAdress = $this->getFromServiceLocator(AdressConst::SERVICE);
         $institutionForm = new InstitutionSearchForm(null,$serviceAdress);
 
-        $institutions = $service->getInstitutionsByUFofUser();
+        if($this->getRequest()->isPost()) {
+            $post = $this->getRequest()->getPost('fancyNames');
+            $institutions = $service->getInstitutionByName($post);
+        }else{
+            $institutions = $service->getInstitutionsByUFofUser();
+        }
 
         return new ViewModel(
             array(
