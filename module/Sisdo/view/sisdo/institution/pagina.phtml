@@ -10,10 +10,19 @@ $userInstitution = $institution->getUserId();
     <div class="profile-userpic">
         <img src="<?php echo $institution->getPicture(); ?>" class='img-responsive'>
         <div>
-            <p><?php echo $institution->getFancyName(); ?></p>
-            <p><?php echo $userInstitution->getEmail(); ?></p>
-            <p><?php echo $institution->getCnpj(); ?></p>
-            <p><?php echo \Sisdo\Entity\RamoInstituicao::getRamoById($institution->getBranch()); ?></p>
+            <p><strong>Instituicao: </strong><?php echo $institution->getFancyName(); ?></p>
+            <p><strong>Email: </strong><?php echo $userInstitution->getEmail(); ?></p>
+            <p><strong>CNPJ: </strong><?php echo $institution->getCnpj(); ?></p>
+            <p><strong>Ramo: </strong><?php echo \Sisdo\Entity\RamoInstituicao::getRamoById($institution->getBranch()); ?></p>
+
+
+            <?php
+                /** @var \Sisdo\Entity\Adress $endereco */
+                $endereco = $this->endereco;
+            ?>
+            <p><strong>Endereço: </strong><?php echo "{$endereco->getStreet()} Bairro {$endereco->getNeighborhood()} {$endereco->getCity()} {$endereco->getUf()}"; ?></p>
+
+            <p><a href="#" class="btn btn-success"><i class="fa fa-money"></i> Doações Financeiras</a></p>
 
         </div>
     </div>
@@ -21,9 +30,11 @@ $userInstitution = $institution->getUserId();
 
 <div class="col-sm-9">
     <div>
-        <h4>Sobre</h4>
+        <h4><strong>Sobre</strong></h4>
+        <hr>
         <p><?php echo $institution->getAbout() ?></p>
-        <h4>Produtos Ativos</h4>
+        <h4><strong>Produtos Ativos</strong></h4>
+        <hr>
         <?php
         /** @var \Sisdo\Entity\Product $produto */
         foreach($this->produtos as $produto){
@@ -32,9 +43,9 @@ $userInstitution = $institution->getUserId();
               <div class="col-sm-4">
                 <div class="thumbnail">
                   <div class="caption">
-                    <h3>{$produto->getTitle()}</h3>
+                    <h5><strong>{$produto->getTitle()}</strong></h5>
                         <p>{$produto->getDescription()}</p>
-                    <p><a href="#" class="btn btn-primary">Acao</a> <a href="#" class="btn">Acao</a></p>
+                    <p><a href="/transacao/doar/{$produto->getIdProduto()}" class="btn btn-primary">Doar</a></p>
                   </div>
                 </div>
               </li>

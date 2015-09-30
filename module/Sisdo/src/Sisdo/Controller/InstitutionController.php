@@ -15,6 +15,8 @@ use Application\Custom\ActionControllerAbstract;
 use Sisdo\Constants\AdressConst;
 use Sisdo\Constants\InstitutionConst;
 use Sisdo\Constants\ProductConst;
+use Sisdo\Entity\Institution;
+use Sisdo\Entity\Product;
 use Sisdo\Filter\AdressFilter;
 use Sisdo\Filter\ContactFilter;
 use Sisdo\Filter\InstitutionFilter;
@@ -175,16 +177,21 @@ class InstitutionController extends ActionControllerAbstract
         $service = $this->getFromServiceLocator(InstitutionConst::SERVICE);
 
         $id = $this->params()->fromRoute('id');
+
+        /** @var Institution $institution */
         $institution = $service->getInstitutionById($id);
 
         /** @var ProductService $serviceProduct */
         $serviceProduct = $this->getFromServiceLocator(ProductConst::SERVICE);
+        /** @var Product $produtosAtivos */
         $produtosAtivos = $serviceProduct->getProdutosAtivos();
 
+        $endereco = $institution->getUserId()->getAdress();
         return new ViewModel(
             array(
                 'institution' => $institution,
-                'produtos' => $produtosAtivos
+                'produtos' => $produtosAtivos,
+                'endereco' => $endereco
             )
         );
 

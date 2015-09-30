@@ -165,7 +165,7 @@ class Product extends EntityAbstract
     }
 
     /**
-     * @return \Sisdo\Entity\Institution
+     * @return \Application\Entity\User
      */
     public function getInstitutionUser()
     {
@@ -173,7 +173,7 @@ class Product extends EntityAbstract
     }
 
     /**
-     * @param \Sisdo\Entity\Institution $institutionUser
+     * @param \Application\Entity\User $institutionUser
      */
     public function setInstitutionUser($institutionUser)
     {

@@ -8,19 +8,31 @@
 
 namespace Application\Helper;
 
+use Application\Constants\UsuarioConst;
+use Application\Entity\User;
+use Zend\Di\ServiceLocator;
+use Zend\ServiceManager\ServiceLocatorAwareInterface;
+use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\View\Helper\AbstractHelper;
 
 
-class MenuLateralHelper extends AbstractHelper
+class MenuLateralHelper extends AbstractHelper implements ServiceLocatorAwareInterface
 {
-    public function getItemAtivo($link)
-    {
 
-    }
+    /**
+     * @var ServiceLocator
+     */
+    private $serviceLocator;
 
     public function getMenuInstitution()
     {
 
+        $helperServiceLocator = $this->getServiceLocator();
+        $serviceLocator = $helperServiceLocator->getServiceLocator();
+
+        /** @var User $userLogado */
+        $userLogado = $serviceLocator->get(UsuarioConst::ZFCUSER_AUTH_SERVICE)->getIdentity();
+        $foto = $userLogado->getInstituicao()->getPicture();
         return <<<DOC
         <div class="column col-sm-2 col-xs-1 sidebar-offcanvas" id="sidebar">
 
@@ -28,8 +40,11 @@ class MenuLateralHelper extends AbstractHelper
                     <li><a href="#" data-toggle="offcanvas" class="visible-xs text-center"><i class="glyphicon glyphicon-chevron-right"></i></a></li>
                 </ul>
 
+                <div class='profile-institution'>
+                    <img class='' src='{$foto}' />
+                </div>
                 <ul class="nav hidden-xs" id="lg-menu">
-                    <li class="active"><a href="/"><i class="glyphicon glyphicon-list-alt"></i> Principal</a></li>
+                    <li><a href="/"><i class="glyphicon glyphicon-list-alt"></i> Principal</a></li>
                     <li><a href="/instituicao"><i class="fa fa-user"></i> Meus Dados</a></li>
                     <li><a href="/produto"><i class="glyphicon glyphicon-gift"></i> Doacoes Produtos/Servicos</a></li>
                     <li><a href="/doacao-financeira"><i class="fa fa-money"></i> Doacoes em dinheiro</a></li>
@@ -77,6 +92,26 @@ DOC;
         </div>
 DOC;
 
+    }
+
+    /**
+     * Set service locator.
+     *
+     * @param ServiceLocatorInterface $serviceLocator
+     */
+    public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
+    {
+        $this->serviceLocator = $serviceLocator;
+    }
+
+    /**
+     * Get service locator.
+     *
+     * @return ServiceLocatorInterface
+     */
+    public function getServiceLocator()
+    {
+        return $this->serviceLocator;
     }
 
 }

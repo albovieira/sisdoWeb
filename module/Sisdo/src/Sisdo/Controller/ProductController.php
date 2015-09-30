@@ -152,11 +152,7 @@ class ProductController extends ActionControllerAbstract
         return $this->redirect()->toRoute('produto');
     }
 
-
-    /* Daq em diante somente para pessoas */
-
-    public function donationAction()
-    {
+    public function getDoacoesPessoaAction(){
         /** @var ProductService $service */
         $service = $this->getFromServiceLocator(ProductConst::SERVICE);
 

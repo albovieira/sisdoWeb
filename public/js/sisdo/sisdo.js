@@ -60,7 +60,6 @@ $(document).ready(function(){/* off-canvas sidebar toggle */
         if (linkItemMenu == window.location.pathname) {
             $('#lg-menu li').removeClass('active');
             $(this).parent().addClass('active');
-
         }
 
     });

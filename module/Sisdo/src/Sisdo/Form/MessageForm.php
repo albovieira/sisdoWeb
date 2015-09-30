@@ -90,8 +90,11 @@ class MessageForm extends Form
         $this->add(array(
             'name' => MessageConst::FLD_MENSAGEM,
             'attributes' => array(
-                'type' => 'text',
+                'type' => 'textarea',
                 'class' => '',
+                'rows' => '4',
+                'cols' => '400',
+                'max-row' => 200
             ),
             'options' => array(
                 'label' => MessageConst::LBL_MENSAGEM,
@@ -104,14 +107,14 @@ class MessageForm extends Form
             'type' => 'button',
             'attributes' => array(
                 'type' => 'submit',
-                'value' => 'Salvar',
+                'value' => 'Enviar',
                 'id' => 'salvar_' . $this->getName(),
-                'class' => 'btn-primary btn-white width-25 btn',
+                'class' => 'btn-success btn-white width-25 btn',
                 'style' => '',
             ),
             'options' => array(
-                'label' => 'Salvar',
-                'glyphicon' => 'glyphicon glyphicon-floppy-disk blue',
+                'label' => 'Enviar',
+                'glyphicon' => 'glyphicon glyphicon-envelope blue',
             ),
 
         ));

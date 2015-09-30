@@ -2,22 +2,22 @@
 
 namespace Sisdo\Form;
 
-use Application\Constants\GrupoConst as Grupo;
-use Application\Constants\ProdutoConst;
+use Application\Constants\FormConst;
+use Application\Custom\ServiceAbstract;
 use Application\Entity\User;
-use GerenciaEstoque\Entity\Produto;
 use Sisdo\Constants\TransactionConst;
+use Sisdo\Entity\ShippingMethod;
 use Sisdo\Entity\Transaction;
 use Zend\Form\Form;
 use Zend\Stdlib\Hydrator\ClassMethods as ClassMethodsHydrator;
 
 /**
- * Class TransactionForm.
+ * Class TransactionUserForm.
  */
-class TransactionForm extends Form
+class TransactionUserForm extends Form
 {
 
-    public function __construct($url = null, User $userLogado = null, $isDisabled=true)
+    public function __construct(ServiceAbstract $service,User $userLogado = null, $isDisabled=true,$produto)
     {
 
         parent::__construct('transaction_form');
@@ -30,7 +30,7 @@ class TransactionForm extends Form
 
         $this->setAttributes(array(
             'method' => 'post',
-            'action' => $url,
+           // 'action' => '/transaction/doar',
         ));
 
         $this->add(array(
@@ -49,7 +49,6 @@ class TransactionForm extends Form
             'attributes' => array(
                 'type' => 'hidden',
                 'class' => '',
-                'value' => !is_null($userLogado) ? $userLogado->getId() : '',
             ),
             'options' => array(
                 'label' => TransactionConst::LBL_INSTITUTION_USER_ID,
@@ -59,10 +58,9 @@ class TransactionForm extends Form
         $this->add(array(
             'name' => TransactionConst::FLD_PERSON_USER,
             'attributes' => array(
-                'type' => 'text',
+                'type' => 'hidden',
                 'class' => '',
-                'disabled' => $disabled,
-
+                'value' => !is_null($userLogado) ? $userLogado->getId() : '',
             ),
             'options' => array(
                 'label' => TransactionConst::LBL_PERSON_USER_ID,
@@ -72,7 +70,7 @@ class TransactionForm extends Form
         $this->add(array(
             'name' => TransactionConst::FLD_START_DATE,
             'attributes' => array(
-                'type' => 'text',
+                'type' => 'Date',
                 'class' => '',
                 'disabled' => $disabled,
             ),
@@ -84,7 +82,7 @@ class TransactionForm extends Form
         $this->add(array(
             'name' => TransactionConst::FLD_END_DATE,
             'attributes' => array(
-                'type' => 'text',
+                'type' => 'Date',
                 'class' => '',
                 'disabled' => $disabled,
             ),
@@ -93,12 +91,13 @@ class TransactionForm extends Form
             ),
         ));
 
+
         $this->add(array(
             'name' => TransactionConst::FLD_PRODUTO,
             'attributes' => array(
-                'type' => 'text',
+                'type' => 'hidden',
                 'class' => '',
-                'disabled' => $disabled,
+                'value' => $produto
             ),
             'options' => array(
                 'label' => TransactionConst::LBL_PRODUTO,
@@ -108,7 +107,7 @@ class TransactionForm extends Form
         $this->add(array(
             'name' => TransactionConst::FLD_QUANTIFY,
             'attributes' => array(
-                'type' => 'text',
+                'type' => 'number',
                 'class' => '',
                 'disabled' => $disabled,
             ),
@@ -119,15 +118,13 @@ class TransactionForm extends Form
 
         $this->add(array(
             'name' => TransactionConst::FLD_SHIPPING_METHOD,
-            'attributes' => array(
-                'type' => 'text',
-                'class' => '',
-                'disabled' => $disabled,
-
-            ),
+            'type' => 'Zend\Form\Element\Select',
             'options' => array(
+                'empty_option' => FormConst::SELECT_OPTION_SELECIONE,
                 'label' => TransactionConst::LBL_SHIPPING_METHOD,
-            ),
+                'value_options' => ShippingMethod::getArray(),
+                'disable_inarray_validator' => true,
+            )
         ));
 
         $this->add(array(
@@ -143,52 +140,20 @@ class TransactionForm extends Form
         ));
 
         $this->add(array(
-            'name' => 'btn_ver_mensagens',
-            'type' => 'button',
+            'name' => 'btn_salvar_doacao',
             'attributes' => array(
-                'type' => 'button',
-                'value' => 'Ver Mensagens',
-                'id' => 'ver' . $this->getName(),
-                'class' => 'btn-success btn-white width-25 btn',
-                'style' => '',
-            ),
-            'options' => array(
-                'label' => 'Ver Mensagens',
-                'glyphicon' => 'glyphicon glyphicon-eye-open',
-            ),
-
-        ));
-
-        $this->add(array(
-            'name' => 'btn_finalizar_doacao',
-            'type' => 'button',
-            'attributes' => array(
-                'value' => 'Finalizar Doacao',
-                'id' => 'btn_finalizar_doacao',
+                'value' => 'Salvar Doacao',
+                'id' => 'btn_salvar_doacao',
                 'class' => 'btn-primary btn-white width-25 btn',
                 'style' => '',
             ),
             'options' => array(
-                'label' => 'Ver Mensagens',
+                'label' => 'Salvar',
                 'glyphicon' => 'glyphicon glyphicon-floppy-disk blue',
             ),
 
         ));
 
-        $this->add(array(
-            'name' => 'btn_rejeitar',
-            'type' => 'button',
-            'attributes' => array(
-                'type' => 'reset',
-                'value' => 'Rejeitar',
-                'id' => 'cancelar_' . $this->getName(),
-                'class' => 'btn-danger btn-white margin-left-right-10px width-25 btn',
-            ),
-            'options' => array(
-                'label' => 'Rejeitar',
-                'glyphicon' => 'glyphicon glyphicon-remove red',
-            ),
-        ));
 
     }
 }

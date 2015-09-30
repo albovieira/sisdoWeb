@@ -11,11 +11,16 @@ namespace Sisdo\Controller;
 
 use Application\Constants\UsuarioConst;
 use Application\Custom\ActionControllerAbstract;
+use Sisdo\Constants\ProductConst;
 use Sisdo\Constants\TransactionConst;
+use Sisdo\Entity\Product;
 use Sisdo\Entity\ShippingMethod;
 use Sisdo\Entity\StatusTransacao;
 use Sisdo\Entity\Transaction;
+use Sisdo\Form\MessageForm;
 use Sisdo\Form\TransactionForm;
+use Sisdo\Form\TransactionUserForm;
+use Sisdo\Service\ProductService;
 use Sisdo\Service\TransactionService;
 use Zend\View\Model\JsonModel;
 use Zend\View\Model\ViewModel;
@@ -107,6 +112,35 @@ class TransactionController extends ActionControllerAbstract
         $view->setTerminal(true);
 
         return $view;
+    }
+
+    public function doarAction(){
+
+        /** @var TransactionService $service */
+        $service = $this->getFromServiceLocator(TransactionConst::SERVICE);
+
+        /** @var ProductService $serviceProduct */
+        $serviceProduct = $this->getFromServiceLocator(ProductConst::SERVICE);
+
+        var_dump($this->getRequest()->getPost());die;
+        $id = $this->params()->fromRoute('id');
+
+        /** @var Product $produto */
+        $produto = $serviceProduct->getProduto($id);
+        /** @var \Application\Entity\User $userLogado*/
+        $userLogado = $this->getFromServiceLocator(UsuarioConst::ZFCUSER_AUTH_SERVICE)->getIdentity();
+
+        $form = new TransactionUserForm($service,$userLogado,false,$id);
+        $form->get(TransactionConst::FLD_INSTITUTION_USER)->setValue($produto->getInstitutionUser()->getId());
+
+        $formMessage = new MessageForm(null,$userLogado);
+
+
+        return new ViewModel(array(
+            'form' =>  $form,
+            'formMessage' =>  $formMessage,
+            'produtoAtual' =>  $produto
+        ));
     }
 
     public function finalizarTransacaoAction(){

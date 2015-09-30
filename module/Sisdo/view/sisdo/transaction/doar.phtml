@@ -1,0 +1,51 @@
+<h4><?php $instituicaoName = $this->produtoAtual->getInstitutionUser()->getInstituicao()->getFancyName(); echo $instituicaoName  ?></h4>
+<h5>Voce está doando o produto/serviço: <strong><?php echo $this->produtoAtual->getTitle() ?></strong></h5>
+<hr>
+<?php
+
+echo $this->form(null, \TwbBundle\Form\View\Helper\TwbBundleForm::LAYOUT_INLINE)->openTag($this->form);
+$this->form->prepare();
+
+?>
+
+
+<div class="row">
+<?php echo $this->formRow($this->form->get(\Sisdo\Constants\TransactionConst::FLD_ID_TRANSACTION)); ?>
+<?php echo $this->formRow($this->form->get(\Sisdo\Constants\TransactionConst::FLD_INSTITUTION_USER)); ?>
+<?php echo $this->formRow($this->form->get(\Sisdo\Constants\TransactionConst::FLD_PRODUTO)); ?>
+<?php echo $this->formRow($this->form->get(\Sisdo\Constants\TransactionConst::FLD_PERSON_USER)); ?>
+<?php echo $this->formRow($this->form->get(\Sisdo\Constants\TransactionConst::FLD_SHIPPING_METHOD)); ?>
+<?php echo $this->formRow($this->form->get(\Sisdo\Constants\TransactionConst::FLD_QUANTIFY)); ?>
+
+<?php echo $this->formRow($this->formMessage->get(\Sisdo\Constants\MessageConst::FLD_MENSAGEM)); ?>
+
+</div>
+
+<div class="row botoesacao">
+    <?php echo $this->formButton($this->form->get('btn_salvar_doacao')); ?>
+</div>
+
+<?php echo $this->form()->closeTag(); ?>
+
+
+
+
+<script>
+    $('#transaction_form').submit(function (e) {
+        e.preventDefault();
+        bootbox.confirm("Confirma a doação do produto?", function(result) {
+            if(result){
+                var data = {'dados': $('#transaction_form').serialize()};
+                sisdoAjax('/transacao/doar', 'GET', data, function (json) {
+                    if (json.retorno == 'sucesso') {
+                        showMessages('Transacao iniciada com sucesso.', 'success');
+                        //window.location.assign("/transacao/");
+                    } else {
+                        showMessages('Ocorreu um erro ao realizar a operacao.', 'danger');
+                    }
+                });
+
+            }
+        });
+    });
+</script>

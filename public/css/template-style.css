@@ -59,7 +59,7 @@ hr {
     position: absolute;
     right: 0;
     top: 0;
-    background-color:#444444;
+    background-color:cornflowerblue;
   /*
     background-image:url('/assets/example/bg_suburb.jpg');
     background-size:cover;
@@ -73,7 +73,7 @@ hr {
 
 .navbar-blue {
     border-width:0;
-    background-color: #444444;
+    background-color: steelblue;
     color:#ffffff;
     font-family:arial,sans-serif;
     top:0;
@@ -113,7 +113,6 @@ hr {
     color:#ffffff;
     background-color:transparent;
 	text-shadow:0 0 2px #000000;
-    padding-left:5px;
 }
 #sidebar .nav li>a:hover {
     background-color:#393939;
@@ -177,7 +176,7 @@ h1,h2,h3 {
    background-color:#fff;
 }
 .badge:hover, .badge-inverse{
-   background-color:#3B5999;
+   background-color:steelblue;
    color:#fff;
 }
     
@@ -221,10 +220,14 @@ small.text-muted {
   }
 
   .navbar-blue {
-	background-color:#3B5999;
+	background-color:steelblue;
     top:0;
     width:100%;
     position:relative;
+  }
+
+  .profile-institution{
+      display: none;
   }
 
 }
@@ -366,4 +369,12 @@ Licensed under MIT
     padding: 20px;
     background: #fff;
     min-height: 460px;
+}
+
+/* Menu lateral */
+.profile-institution img{
+    padding: 0px 20px;
+    width: 220px;
+    border-radius: 50%;
+    margin-bottom: 10%;
 }

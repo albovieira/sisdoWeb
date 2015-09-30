@@ -9,6 +9,7 @@ namespace Application\Helper;
  * Time: 21:46
  */
 use Application\Constants\UsuarioConst;
+use Application\Entity\User;
 use Zend\Di\ServiceLocator;
 use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
@@ -26,8 +27,8 @@ class NameUserHelper extends AbstractHelper implements ServiceLocatorAwareInterf
         $helperServiceLocator = $this->getServiceLocator();
         $serviceLocator = $helperServiceLocator->getServiceLocator();
 
+        /** @var User $userLogado */
         $userLogado = $serviceLocator->get(UsuarioConst::ZFCUSER_AUTH_SERVICE)->getIdentity();
-
         $data = [];
         if ($userLogado->getInstituicao()) {
             $data['profile'] = $userLogado->getProfile();
