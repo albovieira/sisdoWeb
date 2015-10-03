@@ -33,6 +33,25 @@ class TransactionService extends ServiceAbstract
         );
     }
 
+    public function getAllTransactionsByUser($userid){
+        /** @var TransactionDao $dao */
+        $dao = $this->getFromServiceLocator(TransactionConst::DAO);
+        return $dao->getRepository(
+            $dao->getEntityName())
+            ->findBy(array("institutionUser" => $userid)
+            );
+    }
+
+    public function getTransactionsFinalizadasByUser($userid){
+        /** @var TransactionDao $dao */
+        $dao = $this->getFromServiceLocator(TransactionConst::DAO);
+        return $dao->getRepository(
+            $dao->getEntityName())
+            ->findBy(array("institutionUser" => $userid,"status" => StatusTransacaoConst::FLAG_FINALIZADO)
+            );
+    }
+
+
     public function getTransactionById($id){
         /** @var TransactionDao $dao */
         $dao = $this->getFromServiceLocator(TransactionConst::DAO);

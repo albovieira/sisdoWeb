@@ -3,7 +3,6 @@
 <?php $quantDoacoesFinanceiras = $this->doacoesFinanceiras ?>
 <?php $seguidores = $this->relacao ?>
 
-
 <div class="row">
     <div class="col-lg-3 col-xs-6">
         <!-- small box -->
@@ -36,7 +35,7 @@
         <!-- small box -->
         <div class="small-box bg-green">
             <div class="inner">
-                <h3>53<sup style="font-size: 20px">%</sup></h3>
+                <h3><?php echo $this->porcentagemTransacoes ?><sup style="font-size: 20px">%</sup></h3>
                 <p>Transações Finalizadas</p>
             </div>
             <div class="icon">

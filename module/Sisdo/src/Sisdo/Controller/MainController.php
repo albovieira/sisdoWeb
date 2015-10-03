@@ -40,6 +40,8 @@ class MainController extends ActionControllerAbstract
         /** @var TransactionService $serviceTransaction */
         $serviceTransaction = $this->getFromServiceLocator(TransactionConst::SERVICE);
         $transacoesPendentes = count($serviceTransaction->getTransactionsByUser($userid));
+        $quantTransacoesFinalizadas = count($serviceTransaction->getTransactionsFinalizadasByUser($userid));
+        $quantTodasTransacoes = count($serviceTransaction->getAllTransactionsByUser($userid));
 
         /** @var ProductService $serviceProduct */
         $serviceProduct = $this->getFromServiceLocator(ProductConst::SERVICE);
@@ -53,12 +55,15 @@ class MainController extends ActionControllerAbstract
         $serviceRelationship = $this->getFromServiceLocator(RelationshipConst::SERVICE);
         $relacao = $serviceRelationship->getRelationshipInstitutionUser();
 
+        $porcentagem = round($quantTransacoesFinalizadas/$quantTodasTransacoes  * 100);
+
         return new ViewModel(
             array(
                 'transacoesPendentes' => $transacoesPendentes,
                 'doacoes' => $doacoes,
                 'doacoesFinanceiras' => $doacoesFinanceiras,
-                'relacao' => $relacao
+                'relacao' => $relacao,
+                'porcentagemTransacoes' => $porcentagem
             )
         );
     }
