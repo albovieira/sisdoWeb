@@ -170,7 +170,7 @@ class JqGridTable
 
         return <<<EOF
 
-        <div class='teste' style="{$this->top}">
+        <div style="{$this->top}">
             <table id="jqGrid"></table>
             <div id="jqGridPager"></div>
         </div>

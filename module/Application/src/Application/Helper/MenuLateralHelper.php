@@ -34,35 +34,20 @@ class MenuLateralHelper extends AbstractHelper implements ServiceLocatorAwareInt
         $userLogado = $serviceLocator->get(UsuarioConst::ZFCUSER_AUTH_SERVICE)->getIdentity();
         $foto = $userLogado->getInstituicao()->getPicture();
         return <<<DOC
-        <div class="column col-sm-2 col-xs-1 sidebar-offcanvas" id="sidebar">
+        <ul class="sidebar-menu">
+                <!--<li class="header">Menu</li>-->
+                <li><a href="/"><i class="glyphicon glyphicon-list-alt"></i> Principal</a></li>
+                <li><a href="/instituicao"><i class="fa fa-user"></i> Meus Dados</a></li>
+                <li><a href="/produto"><i class="glyphicon glyphicon-gift"></i> Doacoes Produtos/Servicos</a></li>
+                <li><a href="/doacao-financeira"><i class="fa fa-money"></i> Doacoes em dinheiro</a></li>
+                <li><a href="/transacao"><i class="fa fa-exchange"></i> Transacoes</a></li>
+                <li><a href="/relacionamento"><i class="fa fa-users"></i> Relacionamentos</a></li>
 
-                <ul class="nav">
-                    <li><a href="#" data-toggle="offcanvas" class="visible-xs text-center"><i class="glyphicon glyphicon-chevron-right"></i></a></li>
+                <ul class="treeview-menu">
+                    <li class="active"><a href="index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
+                    <li><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
                 </ul>
-
-                <div class='profile-institution'>
-                    <img class='' src='{$foto}' />
-                </div>
-                <ul class="nav hidden-xs" id="lg-menu">
-                    <li><a href="/"><i class="glyphicon glyphicon-list-alt"></i> Principal</a></li>
-                    <li><a href="/instituicao"><i class="fa fa-user"></i> Meus Dados</a></li>
-                    <li><a href="/produto"><i class="glyphicon glyphicon-gift"></i> Doacoes Produtos/Servicos</a></li>
-                    <li><a href="/doacao-financeira"><i class="fa fa-money"></i> Doacoes em dinheiro</a></li>
-                    <li><a href="/transacao"><i class="fa fa-exchange"></i> Transacoes</a></li>
-                    <li><a href="/relacionamento"><i class="fa fa-users"></i> Relacionamentos</a></li>
-                </ul>
-
-                <!-- tiny only nav-->
-                <ul class="nav visible-xs" id="xs-menu">
-                    <li><a href="/" class="text-center"><i class="glyphicon glyphicon-list-alt"></i></a></li>
-                    <li><a href="/instituicao" class="text-center"><i class="fa fa-user"></i></a></li>
-                    <li><a href="/produto" class="text-center"><i class="glyphicon glyphicon-gift"></i></a></li>
-                    <li><a href="/doacao-financeira"><i class="fa fa-money"></i></a></li>
-                    <li><a href="/transacao" class="text-center"><i class="fa fa-exchange"></i></a></li>
-                    <li><a href="/relacionamento" class="text-center"><i class="fa fa-users"></i></a></li>
-                </ul>
-
-        </div>
+        </ul>
 DOC;
 
     }
