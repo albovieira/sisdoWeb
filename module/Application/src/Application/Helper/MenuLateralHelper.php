@@ -32,22 +32,18 @@ class MenuLateralHelper extends AbstractHelper implements ServiceLocatorAwareInt
 
         /** @var User $userLogado */
         $userLogado = $serviceLocator->get(UsuarioConst::ZFCUSER_AUTH_SERVICE)->getIdentity();
-        $foto = $userLogado->getInstituicao()->getPicture();
+       // $foto = $userLogado->getInstituicao()->getPicture();
         return <<<DOC
         <ul class="sidebar-menu">
                 <!--<li class="header">Menu</li>-->
-                <li><a href="/"><i class="glyphicon glyphicon-list-alt"></i> Principal</a></li>
-                <li><a href="/instituicao"><i class="fa fa-user"></i> Meus Dados</a></li>
-                <li><a href="/produto"><i class="glyphicon glyphicon-gift"></i> Doacoes Produtos/Servicos</a></li>
-                <li><a href="/doacao-financeira"><i class="fa fa-money"></i> Doacoes em dinheiro</a></li>
-                <li><a href="/transacao"><i class="fa fa-exchange"></i> Transacoes</a></li>
-                <li><a href="/relacionamento"><i class="fa fa-users"></i> Relacionamentos</a></li>
-
-                <ul class="treeview-menu">
-                    <li class="active"><a href="index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
-                    <li><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
-                </ul>
+                <li><a href="/"><i class="glyphicon glyphicon-list-alt"></i> <span>Principal</span></a></li>
+                <li><a href="/instituicao"><i class="fa fa-user"></i><span>Meus Dados</a></span></li>
+                <li><a href="/produto"><i class="glyphicon glyphicon-gift"></i><span> Doacoes Produtos/Servicos<span></span></a></li>
+                <li><a href="/doacao-financeira"><i class="fa fa-money"></i> <span>Doacoes em dinheiro</span></a></li>
+                <li><a href="/transacao"><i class="fa fa-exchange"></i> <span>Transacoes</span></a></li>
+                <li><a href="/relacionamento"><i class="fa fa-users"></i> <span>Relacionamentos</span></a></li>
         </ul>
+
 DOC;
 
     }
