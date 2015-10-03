@@ -48,7 +48,7 @@ class AutenticacaoController extends UserController
             return $this->redirect()->toRoute($this->getOptions()->getLoginRedirectRoute());
         }
 
-        $this->layout('layout/unauthorized');
+        //$this->layout('layout/unauthorized');
 
         /** @var Request $request */
         $request = $this->getRequest();

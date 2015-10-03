@@ -64,7 +64,7 @@ class LoginForm extends ProvidesEventsForm
             'tabindex' => $i,
             'attributes' => array(
                 'type' => 'submit',
-                'class' => 'btn-success pull-right',
+                'class' => 'btn btn-primary btn-block btn-flat',
             ),
             'options' => array(
                 'label' => Usuario::LBL_ENTRAR,
