@@ -24,6 +24,14 @@ class TransactionService extends ServiceAbstract
 {
     const URL_GET_DADOS = '/transacao/getDados';
 
+    public function getTransactionsByUser($userid){
+        /** @var TransactionDao $dao */
+        $dao = $this->getFromServiceLocator(TransactionConst::DAO);
+        return $dao->getRepository(
+            $dao->getEntityName())
+            ->findBy(array("institutionUser" => $userid,"status" => StatusTransacaoConst::FLAG_PENDENTE_FINALIZACAO)
+        );
+    }
 
     public function getTransactionById($id){
         /** @var TransactionDao $dao */
@@ -51,7 +59,6 @@ class TransactionService extends ServiceAbstract
 
         return false;
     }
-
 
     public function getGrid(){
 

@@ -16,6 +16,7 @@ use Application\Custom\ServiceAbstract;
 use Application\Util\JqGridButton;
 use Application\Util\JqGridTable;
 use Sisdo\Constants\MoneyDonationConst;
+use Sisdo\Constants\StatusTransacaoConst;
 use Sisdo\Dao\MoneyDonationDao;
 use Sisdo\Entity\MoneyDonation;
 use Sisdo\Entity\StatusTransacao;
@@ -42,11 +43,14 @@ class MoneyDonationService extends ServiceAbstract
         return $dao->remove($moneyDonation);
     }
 
-    public function getProduto($id)
+    public function getMoneyDonation($userid)
     {
         /** @var MoneyDonationDao $dao */
         $dao = $this->getFromServiceLocator(MoneyDonationConst::DAO);
-        return $dao->getEntity($id);
+        return $dao->getRepository(
+            $dao->getEntityName())
+            ->findBy(array("idInstituitionUser" => $userid,"status" => StatusTransacaoConst::FLAG_PENDENTE_FINALIZACAO)
+        );
     }
 
     public function getGrid($isCollapse = false)

@@ -1,15 +1,21 @@
+<?php $quantTransacoesPendentes = $this->transacoesPendentes ?>
+<?php $quantdoacoesAtivas = $this->doacoes ?>
+<?php $quantDoacoesFinanceiras = $this->doacoesFinanceiras ?>
+<?php $seguidores = $this->relacao ?>
+
+
 <div class="row">
     <div class="col-lg-3 col-xs-6">
         <!-- small box -->
         <div class="small-box bg-yellow">
             <div class="inner">
-                <h3>44</h3>
+                <h3><?php echo !is_null($quantdoacoesAtivas) ?  $quantdoacoesAtivas : 0 ?></h3>
                 <p>Produtos/Serviços</p>
             </div>
             <div class="icon">
                 <i class="ion ion-person-add"></i>
             </div>
-            <a href="#" class="small-box-footer">Ver Mais <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="/produto" class="small-box-footer">Ver Mais <i class="fa fa-arrow-circle-right"></i></a>
         </div>
     </div><!-- ./col -->
 
@@ -17,13 +23,13 @@
         <!-- small box -->
         <div class="small-box bg-aqua">
             <div class="inner">
-                <h3>150</h3>
+                <h3><?php echo !is_null($quantTransacoesPendentes) ?  $quantTransacoesPendentes : 0 ?></h3>
                 <p>Transações Pendentes</p>
             </div>
             <div class="icon">
                 <i class="ion ion-bag"></i>
             </div>
-            <a href="#" class="small-box-footer">Ver Mais <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="/transacao" class="small-box-footer">Ver Mais <i class="fa fa-arrow-circle-right"></i></a>
         </div>
     </div><!-- ./col -->
     <div class="col-lg-3 col-xs-6">
@@ -44,13 +50,13 @@
         <!-- small box -->
         <div class="small-box bg-red">
             <div class="inner">
-                <h3>65</h3>
-                <p>Doações Financeiras</p>
+                <h3><?php echo !is_null($quantDoacoesFinanceiras) ? $quantDoacoesFinanceiras : 0 ?></h3>
+                <p>Doações Financeiras Pendentes</p>
             </div>
             <div class="icon">
                 <i class="ion ion-cash"></i>
             </div>
-            <a href="#" class="small-box-footer">Ver Mais<i class="fa fa-arrow-circle-right"></i></a>
+            <a href="/doacao-financeira" class="small-box-footer">Ver Mais<i class="fa fa-arrow-circle-right"></i></a>
         </div>
     </div><!-- ./col -->
 
@@ -124,59 +130,30 @@
             <!-- USERS LIST -->
             <div class="box box-danger">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Latest Members</h3>
+                    <h3 class="box-title">Seguidores</h3>
                     <div class="box-tools pull-right">
-                        <span class="label label-danger">8 New Members</span>
                         <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                         <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
                     </div>
                 </div><!-- /.box-header -->
                 <div class="box-body no-padding">
                     <ul class="users-list clearfix">
+                    <?php
+                    /** @var \Sisdo\Entity\Relationship $seguidor */
+                    foreach($seguidores as $seguidor){
+                        echo <<<DOC
                         <li>
-                            <img src="/img/user1-128x128.jpg" alt="User Image">
-                            <a class="users-list-name" href="#">Alexander Pierce</a>
+                            <img src="{$seguidor->getPersonUserId()->getPerson()->getPicture()}" alt="User Image">
+                            <a class="users-list-name" href="/pessoa/pagina/{$seguidor->getPersonUserId()->getPerson()->getId()}">{$seguidor->getPersonUserId()->getPerson()->getName()}</a>
                             <span class="users-list-date">Today</span>
                         </li>
-                        <li>
-                            <img src="/img/user8-128x128.jpg" alt="User Image">
-                            <a class="users-list-name" href="#">Norman</a>
-                            <span class="users-list-date">Yesterday</span>
-                        </li>
-                        <li>
-                            <img src="/img/user7-128x128.jpg" alt="User Image">
-                            <a class="users-list-name" href="#">Jane</a>
-                            <span class="users-list-date">12 Jan</span>
-                        </li>
-                        <li>
-                            <img src="/img/user6-128x128.jpg" alt="User Image">
-                            <a class="users-list-name" href="#">John</a>
-                            <span class="users-list-date">12 Jan</span>
-                        </li>
-                        <li>
-                            <img src="/img/user2-160x160.jpg" alt="User Image">
-                            <a class="users-list-name" href="#">Alexander</a>
-                            <span class="users-list-date">13 Jan</span>
-                        </li>
-                        <li>
-                            <img src="/img/user5-128x128.jpg" alt="User Image">
-                            <a class="users-list-name" href="#">Sarah</a>
-                            <span class="users-list-date">14 Jan</span>
-                        </li>
-                        <li>
-                            <img src="/img/user4-128x128.jpg" alt="User Image">
-                            <a class="users-list-name" href="#">Nora</a>
-                            <span class="users-list-date">15 Jan</span>
-                        </li>
-                        <li>
-                            <img src="/img/user3-128x128.jpg" alt="User Image">
-                            <a class="users-list-name" href="#">Nadia</a>
-                            <span class="users-list-date">15 Jan</span>
-                        </li>
-                    </ul><!-- /.users-list -->
+DOC;
+                    }
+                ?>
+                </ul><!-- /.users-list -->
                 </div><!-- /.box-body -->
                 <div class="box-footer text-center">
-                    <a href="javascript::" class="uppercase">View All Users</a>
+                    <a href="/relationship" class="uppercase">Ver Todos</a>
                 </div><!-- /.box-footer -->
             </div><!--/.box -->
     </section><!-- right col -->

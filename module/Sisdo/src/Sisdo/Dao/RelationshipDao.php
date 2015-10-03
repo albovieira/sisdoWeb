@@ -22,7 +22,7 @@ class RelationshipDao extends DaoAbstract
         return $qb;
     }
 
-    public function listRelationship($userId){
+    public function listRelationshipPerson($userId){
         $qb = $this->getQueryBuilder();
         $qb->where($this->alias.DaoAbstract::TABLE_COLUMN_SEPARATOR. "personUserId = {$userId}");
 

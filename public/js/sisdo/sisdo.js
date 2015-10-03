@@ -42,28 +42,6 @@ $(document).ajaxStop(function () {
 
 $(document).ready(function(){/* off-canvas sidebar toggle */
 
-    $('[data-toggle=offcanvas]').click(function() {
-        $(this).toggleClass('visible-xs text-center');
-        $(this).find('i').toggleClass('glyphicon-chevron-right glyphicon-chevron-left');
-        $('.row-offcanvas').toggleClass('active');
-        $('#lg-menu').toggleClass('hidden-xs').toggleClass('visible-xs');
-        $('#xs-menu').toggleClass('visible-xs').toggleClass('hidden-xs');
-        $('#btnShow').toggle();
-    });
-
-
-
-    $('#lg-menu li a').each(function (index, value) {
-        //console.log($(this).attr('href'));
-        var linkItemMenu = $(this).attr('href');
-
-        if (linkItemMenu == window.location.pathname) {
-            $('#lg-menu li').removeClass('active');
-            $(this).parent().addClass('active');
-        }
-
-    });
-
 });
 
 $(window).on("resize", function () {

@@ -28,12 +28,17 @@ class RelationshipService extends ServiceAbstract
 {
     const URL_GET_DADOS = '/relacionamento/getDados';
 
-    public function getRelationshipByUser(){
-
+    public function getRelationshipByPersonUser(){
         /** @var RelationshipDao $dao */
         $dao = $this->getFromServiceLocator(RelationshipConst::DAO);
-        return $dao->listRelationship($this->getUserLogado()->getId());
+        return $dao->listRelationshipPerson($this->getUserLogado()->getId());
+    }
 
+    public function getRelationshipInstitutionUser(){
+        /** @var RelationshipDao $dao */
+        $dao = $this->getFromServiceLocator(RelationshipConst::DAO);
+        $qb = $dao->findRelationshipsByInstitutionUser($this->getUserLogado()->getId());
+        return $qb->getQuery()->getResult();
     }
 
     public function getGrid(){
