@@ -33,6 +33,8 @@ use Zend\View\Model\ViewModel;
 class InstitutionController extends ActionControllerAbstract
 {
 
+    protected $title = 'Instituicao';
+
     public function getTesteAction(){
         return new JsonModel(
             array('teste' => 'teste')
@@ -41,6 +43,7 @@ class InstitutionController extends ActionControllerAbstract
 
     public function indexAction()
     {
+        $this->title = array($this->title,'Meus Dados');
 
         /** @var \Application\Entity\User $instituicaoLogado */
         $instituicaoLogado = $this->getFromServiceLocator(UsuarioConst::ZFCUSER_AUTH_SERVICE)->getIdentity();
@@ -73,6 +76,7 @@ class InstitutionController extends ActionControllerAbstract
     }
 
     public function salvarAction(){
+
         /** @var InstitutionService $service */
         $service = $this->getFromServiceLocator(InstitutionConst::SERVICE);
 
@@ -97,6 +101,7 @@ class InstitutionController extends ActionControllerAbstract
     }
 
     public function salvarContatoAction(){
+
         /** @var InstitutionService $service */
         $service = $this->getFromServiceLocator(InstitutionConst::SERVICE);
 
@@ -123,6 +128,7 @@ class InstitutionController extends ActionControllerAbstract
     }
 
     public function salvarEnderecoAction(){
+
         /** @var InstitutionService $service */
         $service = $this->getFromServiceLocator(InstitutionConst::SERVICE);
 
@@ -172,6 +178,8 @@ class InstitutionController extends ActionControllerAbstract
     }
 
     public function paginaAction(){
+
+        $this->title = array($this->title,'Perfil Instituição');
 
         /** @var InstitutionService $service */
         $service = $this->getFromServiceLocator(InstitutionConst::SERVICE);
@@ -224,7 +232,7 @@ class InstitutionController extends ActionControllerAbstract
      */
     public function getTitle()
     {
-        // TODO: Implement getTitle() method.
+        return $this->title;
     }
 
     /**

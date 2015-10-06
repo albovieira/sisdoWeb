@@ -42,6 +42,7 @@ class MenuLateralHelper extends AbstractHelper implements ServiceLocatorAwareInt
                 <li><a href="/doacao-financeira"><i class="fa fa-money"></i> <span>Doacoes em dinheiro</span></a></li>
                 <li><a href="/transacao"><i class="fa fa-exchange"></i> <span>Transacoes</span></a></li>
                 <li><a href="/relacionamento"><i class="fa fa-users"></i> <span>Relacionamentos</span></a></li>
+                <li><a href="#"><i class="ion ion-document-text"></i> <span>Relatório</span></a></li>
         </ul>
 
 DOC;

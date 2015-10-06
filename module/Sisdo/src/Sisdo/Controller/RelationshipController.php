@@ -22,9 +22,11 @@ use Zend\View\Model\ViewModel;
 
 class RelationshipController extends ActionControllerAbstract
 {
+    protected $title = 'Relacionamento';
+
     public function indexAction()
     {
-
+        $this->title = array($this->title,'Lista');
         /** @var RelationshipService $service */
         $service = $this->getFromServiceLocator(RelationshipConst::SERVICE);
         $grid = $service->getGrid();
@@ -79,6 +81,7 @@ class RelationshipController extends ActionControllerAbstract
 
     public function incluirModeloAction()
     {
+        $this->title = array($this->title,'Incluir');
         //var_dump($this->getRequest()->getPost());die;
         /** @var RelationshipService $service */
         $service = $this->getFromServiceLocator(RelationshipConst::SERVICE);
@@ -119,6 +122,7 @@ class RelationshipController extends ActionControllerAbstract
 
     public function editarModeloAction()
     {
+        $this->title = array($this->title,'Editar');
         //var_dump($this->getRequest()->getPost());die;
         /** @var RelationshipService $service */
         $service = $this->getFromServiceLocator(RelationshipConst::SERVICE);
@@ -160,6 +164,9 @@ class RelationshipController extends ActionControllerAbstract
     }
 
     public function verModeloAction(){
+
+        $this->title = array($this->title,'Ver Modelo');
+
         /** @var RelationshipService $service */
         $service = $this->getFromServiceLocator(RelationshipConst::SERVICE);
         $grid = $service->getGridTemplate();
@@ -201,7 +208,7 @@ class RelationshipController extends ActionControllerAbstract
      */
     public function getTitle()
     {
-        // TODO: Implement getTitle() method.
+        return $this->title;
     }
 
     /**

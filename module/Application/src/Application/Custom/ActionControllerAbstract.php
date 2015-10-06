@@ -29,8 +29,7 @@ abstract class ActionControllerAbstract extends AbstractActionController
 
     /**
      * Seta o titulo da página, o qual é renderizado em tempo de execução no layout.
-     *
-     * @param string $title
+     *     * @param string $title
      */
     public function setTitle($title)
     {
@@ -50,9 +49,9 @@ abstract class ActionControllerAbstract extends AbstractActionController
     public function montarTitle($title)
     {
         if (is_array($title)) {
-            $title = implode("<span class='separadorAcoes'><i class='fa fa-angle-right'></i></span>", $title);
+            $title = implode("<span class='separadorAcoes'> <i class='fa fa-angle-right'></i></span><small>", $title);
         }
-
+        $title .= "</small>";
         return $title;
     }
 
@@ -73,10 +72,21 @@ abstract class ActionControllerAbstract extends AbstractActionController
         return '';
     }
 
+
     /**
      * @return mixed
      */
-    abstract public function getBreadcrumb();
+    public function getBreadcrumb()
+    {
+        die('s');
+        //var_dump($this->getTitle());;die;
+        $rt = array($this->getTitle());
+        //$rt = array_merge($rt,array($this->getTitle()));
+        //if($this->subTitle) {
+        //    $rt = array_merge($rt,array($this->subTitle));
+        ///}
+        return $rt;
+    }
 
     /**
      * Renderiza saida Html do breadcrumb (especializar)
@@ -89,7 +99,11 @@ abstract class ActionControllerAbstract extends AbstractActionController
         $breadInicio .= '<a href="/">' . 'Home' . '</a>';
         $breadInicio = array($breadInicio);
 
-        $breadcrumb = $this->getBreadcrumb();
+        $breadcrumb = '';
+
+        if(is_array($this->getTitle())){
+            $breadcrumb = $this->getTitle();
+        }
 
         if (!empty($breadcrumb)) {
             return array_merge($breadInicio, $breadcrumb);

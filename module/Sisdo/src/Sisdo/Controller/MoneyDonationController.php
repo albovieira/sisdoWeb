@@ -17,6 +17,9 @@ use Zend\View\Model\ViewModel;
 
 class MoneyDonationController extends ActionControllerAbstract
 {
+
+    protected $title = array('Doação Financeira','Lista');
+
     public function indexAction()
     {
         /** @var MoneyDonationService $service */
@@ -64,7 +67,7 @@ class MoneyDonationController extends ActionControllerAbstract
      */
     public function getTitle()
     {
-        // TODO: Implement getTitle() method.
+        return $this->title;
     }
 
     /**

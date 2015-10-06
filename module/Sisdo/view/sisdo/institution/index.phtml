@@ -5,93 +5,101 @@
     }
 </style>
 
-<ul class="nav nav-tabs">
-    <li class="active"><a data-toggle="tab" href="#home">Instituicao</a></li>
-    <li><a data-toggle="tab" href="#menu1">Contato</a></li>
-    <li><a data-toggle="tab" href="#menu2">Endereco</a></li>
-</ul>
 
-<div class="tab-content">
-    <div id="home" class="tab-pane fade in active">
-        <div class="ajust-left">
-            <?php
+
+<div class="col-md-12">
+    <div class="nav-tabs-custom">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#activity" data-toggle="tab" aria-expanded="true">Instituição</a></li>
+            <li class=""><a href="#timeline" data-toggle="tab" aria-expanded="false">Contato</a></li>
+            <li class=""><a href="#settings" data-toggle="tab" aria-expanded="false">Endereço</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="activity">
+                <div class="ajust-left" >
+                <?php
                 echo $this->form(null, \TwbBundle\Form\View\Helper\TwbBundleForm::LAYOUT_HORIZONTAL)->openTag($this->formInstitution);
                 $this->formInstitution->prepare();
-            ?>
-            <div class="form-group">
-                <?php echo $this->formRow($this->formInstitution->get(\Sisdo\Constants\InstitutionConst::FLD_ID_INSTITUTION)); ?>
-                <?php echo $this->formRow($this->formInstitution->get(\Sisdo\Constants\InstitutionConst::FLD_USER_ID)); ?>
-                <?php echo $this->formRow($this->formInstitution->get(\Sisdo\Constants\InstitutionConst::FLD_CORPORATE_NAME)); ?>
-                <?php echo $this->formRow($this->formInstitution->get(\Sisdo\Constants\InstitutionConst::FLD_FANCY_NAME)); ?>
-                <?php echo $this->formRow($this->formInstitution->get(\Sisdo\Constants\InstitutionConst::FLD_BRANCH)); ?>
-                <?php echo $this->formRow($this->formInstitution->get(\Sisdo\Constants\InstitutionConst::FLD_CNPJ)); ?>
-                <?php echo $this->formRow($this->formInstitution->get(\Sisdo\Constants\InstitutionConst::FLD_ABOUT)); ?>
-            </div>
-
-            <div class="row botoesacao">
-                <?php echo $this->formButton($this->formInstitution->get('btn_salvar')); ?>
-                <?php echo $this->formButton($this->formInstitution->get('btn_cancelar')); ?>
-            </div>
-            <?php echo $this->form()->closeTag(); ?>
-        </div>
-    </div>
-    <div id="menu1" class="tab-pane fade">
-        <div class="ajust-left">
-            <?php
-            echo $this->form(null, \TwbBundle\Form\View\Helper\TwbBundleForm::LAYOUT_HORIZONTAL)->openTag($this->formContact);
-            $this->formContact->prepare();
-            ?>
-            <div class="form-group">
-                <?php echo $this->formRow($this->formContact->get(\Sisdo\Constants\ContactConst::FLD_ID_CONTACT)); ?>
-                <?php echo $this->formRow($this->formContact->get(\Sisdo\Constants\ContactConst::FLD_USER_ID)); ?>
-                <?php echo $this->formRow($this->formContact->get(\Sisdo\Constants\ContactConst::FLD_EMAIL)); ?>
-                <?php echo $this->formRow($this->formContact->get(\Sisdo\Constants\ContactConst::FLD_TEL)); ?>
-            </div>
-
-            <div class="row botoesacao">
-                <?php echo $this->formButton($this->formContact->get('btn_salvar')); ?>
-                <?php echo $this->formButton($this->formContact->get('btn_cancelar')); ?>
-            </div>
-            <?php echo $this->form()->closeTag(); ?>
-        </div>
-    </div>
-    <div id="menu2" class="tab-pane fade">
-        <div class="ajust-left">
-            <?php
-            echo $this->form(null, \TwbBundle\Form\View\Helper\TwbBundleForm::LAYOUT_HORIZONTAL)->openTag($this->formAdress);
-            $this->formAdress->prepare();
-            ?>
-            <div class="form-group">
-                <?php echo $this->formRow($this->formAdress->get(\Sisdo\Constants\AdressConst::FLD_ID_ADRESS)); ?>
-                <?php echo $this->formRow($this->formAdress->get(\Sisdo\Constants\AdressConst::FLD_COUNTRY)); ?>
-
-                <div class="form-group ">
-                    <label>Cep</label>
-                    <?= $this->formLabel
-                    ($this->formAdress->get(\Sisdo\Constants\AdressConst::FLD_ZIP_CODE)) ?>
-                    <div class="input-group">
-                        <?php echo $this->formInput($this->formAdress->get(\Sisdo\Constants\AdressConst::FLD_ZIP_CODE)) ?>
-                        <span class="input-group-addon" id="btn-busca-cep">
-                            <i class="fa fa-search"></i>
-                        </span>
-                    </div>
+                ?>
+                <div class="form-group">
+                    <?php echo $this->formRow($this->formInstitution->get(\Sisdo\Constants\InstitutionConst::FLD_ID_INSTITUTION)); ?>
+                    <?php echo $this->formRow($this->formInstitution->get(\Sisdo\Constants\InstitutionConst::FLD_USER_ID)); ?>
+                    <?php echo $this->formRow($this->formInstitution->get(\Sisdo\Constants\InstitutionConst::FLD_CORPORATE_NAME)); ?>
+                    <?php echo $this->formRow($this->formInstitution->get(\Sisdo\Constants\InstitutionConst::FLD_FANCY_NAME)); ?>
+                    <?php echo $this->formRow($this->formInstitution->get(\Sisdo\Constants\InstitutionConst::FLD_BRANCH)); ?>
+                    <?php echo $this->formRow($this->formInstitution->get(\Sisdo\Constants\InstitutionConst::FLD_CNPJ)); ?>
+                    <?php echo $this->formRow($this->formInstitution->get(\Sisdo\Constants\InstitutionConst::FLD_ABOUT)); ?>
                 </div>
 
-                <?php echo $this->formRow($this->formAdress->get(\Sisdo\Constants\AdressConst::FLD_UF)); ?>
-                <?php echo $this->formRow($this->formAdress->get(\Sisdo\Constants\AdressConst::FLD_CITY)); ?>
-                <?php echo $this->formRow($this->formAdress->get(\Sisdo\Constants\AdressConst::FLD_NEIGHBORHOOD)); ?>
-                <?php echo $this->formRow($this->formAdress->get(\Sisdo\Constants\AdressConst::FLD_STREET_TYPE)); ?>
-                <?php echo $this->formRow($this->formAdress->get(\Sisdo\Constants\AdressConst::FLD_STREET)); ?>
-                <?php echo $this->formRow($this->formAdress->get(\Sisdo\Constants\AdressConst::FLD_USER_ID)); ?>
-            </div>
+                <div class="row botoesacao">
+                    <?php echo $this->formButton($this->formInstitution->get('btn_salvar')); ?>
+                    <?php echo $this->formButton($this->formInstitution->get('btn_cancelar')); ?>
+                </div>
 
-            <div class="row botoesacao">
-                <?php echo $this->formButton($this->formAdress->get('btn_salvar')); ?>
-                <?php echo $this->formButton($this->formAdress->get('btn_cancelar')); ?>
-            </div>
-            <?php echo $this->form()->closeTag(); ?>
-        </div>
-    </div>
+                <?php echo $this->form()->closeTag(); ?>
+                </div>
+            </div><!-- /.tab-pane -->
+            <div class="tab-pane" id="timeline">
+                <div class="ajust-left">
+                <?php
+                echo $this->form(null, \TwbBundle\Form\View\Helper\TwbBundleForm::LAYOUT_HORIZONTAL)->openTag($this->formContact);
+                $this->formContact->prepare();
+                ?>
+                <div class="form-group">
+                    <?php echo $this->formRow($this->formContact->get(\Sisdo\Constants\ContactConst::FLD_ID_CONTACT)); ?>
+                    <?php echo $this->formRow($this->formContact->get(\Sisdo\Constants\ContactConst::FLD_USER_ID)); ?>
+                    <?php echo $this->formRow($this->formContact->get(\Sisdo\Constants\ContactConst::FLD_EMAIL)); ?>
+                    <?php echo $this->formRow($this->formContact->get(\Sisdo\Constants\ContactConst::FLD_TEL)); ?>
+                </div>
+
+                <div class="row botoesacao">
+                    <?php echo $this->formButton($this->formContact->get('btn_salvar')); ?>
+                    <?php echo $this->formButton($this->formContact->get('btn_cancelar')); ?>
+                </div>
+                <?php echo $this->form()->closeTag(); ?>
+                </div>
+            </div><!-- /.tab-pane -->
+
+            <div class="tab-pane" id="settings">
+                <div class="ajust-left">
+                    <?php
+                    echo $this->form(null, \TwbBundle\Form\View\Helper\TwbBundleForm::LAYOUT_HORIZONTAL)->openTag($this->formAdress);
+                    $this->formAdress->prepare();
+                    ?>
+                    <div class="form-group">
+                        <?php echo $this->formRow($this->formAdress->get(\Sisdo\Constants\AdressConst::FLD_ID_ADRESS)); ?>
+                        <?php echo $this->formRow($this->formAdress->get(\Sisdo\Constants\AdressConst::FLD_COUNTRY)); ?>
+
+                        <div class="form-group ">
+                            <label>Cep</label>
+                            <?= $this->formLabel
+                            ($this->formAdress->get(\Sisdo\Constants\AdressConst::FLD_ZIP_CODE)) ?>
+                            <div class="input-group">
+                                <?php echo $this->formInput($this->formAdress->get(\Sisdo\Constants\AdressConst::FLD_ZIP_CODE)) ?>
+                                <span class="input-group-addon" id="btn-busca-cep">
+                            <i class="fa fa-search"></i>
+                        </span>
+                            </div>
+                        </div>
+
+                        <?php echo $this->formRow($this->formAdress->get(\Sisdo\Constants\AdressConst::FLD_UF)); ?>
+                        <?php echo $this->formRow($this->formAdress->get(\Sisdo\Constants\AdressConst::FLD_CITY)); ?>
+                        <?php echo $this->formRow($this->formAdress->get(\Sisdo\Constants\AdressConst::FLD_NEIGHBORHOOD)); ?>
+                        <?php echo $this->formRow($this->formAdress->get(\Sisdo\Constants\AdressConst::FLD_STREET_TYPE)); ?>
+                        <?php echo $this->formRow($this->formAdress->get(\Sisdo\Constants\AdressConst::FLD_STREET)); ?>
+                        <?php echo $this->formRow($this->formAdress->get(\Sisdo\Constants\AdressConst::FLD_USER_ID)); ?>
+                    </div>
+
+                    <div class="row botoesacao">
+                        <?php echo $this->formButton($this->formAdress->get('btn_salvar')); ?>
+                        <?php echo $this->formButton($this->formAdress->get('btn_cancelar')); ?>
+                    </div>
+                    <?php echo $this->form()->closeTag(); ?>
+                    </div>
+                </div>
+            </div><!-- /.tab-pane -->
+        </div><!-- /.tab-content -->
+    </div><!-- /.nav-tabs-custom -->
 </div>
 
 

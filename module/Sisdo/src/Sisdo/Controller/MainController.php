@@ -27,6 +27,9 @@ use Zend\View\Model\ViewModel;
 
 class MainController extends ActionControllerAbstract
 {
+
+    protected $title = 'Principal';
+
     public function indexAction()
     {
         /** @var User $usuarioLogado */
@@ -97,7 +100,7 @@ class MainController extends ActionControllerAbstract
      */
     public function getTitle()
     {
-        // TODO: Implement getTitle() method.
+        return $this->title;
     }
 
     /**

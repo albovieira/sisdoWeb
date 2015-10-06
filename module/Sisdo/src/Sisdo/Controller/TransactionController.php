@@ -29,8 +29,11 @@ class TransactionController extends ActionControllerAbstract
 {
     const DATA_INVALIDA = '-0001';
 
+    protected $title = 'Transações';
+
     public function indexAction()
     {
+        $this->title = array($this->title,'Lista' );
         /** @var TransactionService $service */
         $service = $this->getFromServiceLocator(TransactionConst::SERVICE);
         $grid = $service->getGrid();
@@ -52,6 +55,8 @@ class TransactionController extends ActionControllerAbstract
     }
 
     public function confirmarRecebimentoAction(){
+
+        $this->title = array($this->title,'Confirma Recebimento');
 
         /** @var TransactionService $service */
         $service = $this->getFromServiceLocator(TransactionConst::SERVICE);
@@ -201,7 +206,7 @@ class TransactionController extends ActionControllerAbstract
      */
     public function getTitle()
     {
-
+        return $this->title;
     }
 
     /**

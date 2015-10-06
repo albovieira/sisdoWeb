@@ -21,8 +21,12 @@ use Zend\View\Model\ViewModel;
 
 class ProductController extends ActionControllerAbstract
 {
+    protected $title = 'Doações';
+
     public function indexAction()
     {
+        $this->title = array($this->title,'Lista');
+
         /** @var ProductService $service */
         $service = $this->getFromServiceLocator(ProductConst::SERVICE);
         $grid = $service->getGrid();
@@ -44,6 +48,8 @@ class ProductController extends ActionControllerAbstract
     }
 
     public function incluirAction(){
+
+        $this->title = array($this->title,'Incluir');
 
         /** @var ProductService $service */
         $service = $this->getFromServiceLocator(ProductConst::SERVICE);
@@ -89,6 +95,8 @@ class ProductController extends ActionControllerAbstract
     }
 
     public function editarAction(){
+
+        $this->title = array($this->title,'Editar');
 
         /** @var ProductService $service */
         $service = $this->getFromServiceLocator(ProductConst::SERVICE);
@@ -165,7 +173,7 @@ class ProductController extends ActionControllerAbstract
      */
     public function getTitle()
     {
-        // TODO: Implement getTitle() method.
+        return $this->title;
     }
 
     /**

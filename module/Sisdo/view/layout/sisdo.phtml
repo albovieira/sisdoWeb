@@ -230,7 +230,7 @@ $user = $this->nameUser();
                             <!-- Menu Footer-->
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a href="/instituicao" class="btn btn-default btn-flat">Perfil</a>
+                                    <a href="/instituicao/pagina/<?php echo $user['id'] ?>" class="btn btn-default btn-flat">Perfil</a>
                                 </div>
                                 <div class="pull-right">
                                     <a href="/user/logout" class="btn btn-default btn-flat">Logout</a>
@@ -290,13 +290,10 @@ $user = $this->nameUser();
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                Dashboard
-                <small>Control panel</small>
+                <?php echo $this->title ?>
             </h1>
-            <ol class="breadcrumb">
-                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                <li class="active">Dashboard</li>
-            </ol>
+            <?php echo $this->partial("partials/breadcrumb.phtml", array('layout' => $this->layout())); ?>
+
         </section>
 
         <!-- Main content -->

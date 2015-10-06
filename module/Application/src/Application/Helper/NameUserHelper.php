@@ -33,6 +33,7 @@ class NameUserHelper extends AbstractHelper implements ServiceLocatorAwareInterf
         if ($userLogado->getInstituicao()) {
             $data['profile'] = $userLogado->getProfile();
             $data['name'] = $userLogado->getInstituicao()->getFancyName();
+            $data['id'] = $userLogado->getInstituicao()->getId();
             $data['picture'] = $userLogado->getInstituicao()->getPicture();
             $data['dateMember'] = $userLogado->getDate()->format('d/m/Y');
         } else {
