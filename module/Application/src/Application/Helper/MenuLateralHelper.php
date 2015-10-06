@@ -52,26 +52,13 @@ DOC;
     public function getMenuPerson()
     {
         return <<<DOC
-        <div class="column col-sm-2 col-xs-1 sidebar-offcanvas" id="sidebar">
+        <ul class="sidebar-menu">
+                <!--<li class="header">Menu</li>-->
+                <li class="active"><a href="/"><i class="fa fa-user"></i> <span>Principal</span></a></li>
+                <li><a href="/instituicao/pesquisar"><i class="fa fa-users"></i> <span>Buscar Instituicoes</span></a></li>
+                <li><a href="#"><i class="glyphicon glyphicon-gift"></i> <span>Minhas doacoes</span></a></li>
 
-                <ul class="nav">
-                    <li><a href="#" data-toggle="offcanvas" class="visible-xs text-center"><i class="glyphicon glyphicon-chevron-right"></i></a></li>
-                </ul>
-
-                <ul class="nav hidden-xs" id="lg-menu">
-                    <li class="active"><a href="/"><i class="fa fa-user"></i> Principal</a></li>
-                    <li><a href="/instituicao/pesquisar"><i class="fa fa-users"></i> Buscar Instituicoes</a></li>
-                    <li><a href="#"><i class="glyphicon glyphicon-gift"></i> Minhas doacoes</a></li>
-                </ul>
-
-                <!-- tiny only nav-->
-                <ul class="nav visible-xs" id="xs-menu">
-                    <li><a href="/" class="text-center"><i class="fa fa-user"></i></a></li>
-                    <li><a href="/instituicao/pesquisar" class="text-center"><i class="fa fa-users"></i></a></li>
-                    <li><a href="/" class="text-center"><i class="glyphicon glyphicon-gift"></i></a></li>
-                </ul>
-
-        </div>
+        </ul>
 DOC;
 
     }

@@ -15,6 +15,7 @@ use Application\Custom\ActionControllerAbstract;
 use Sisdo\Constants\AdressConst;
 use Sisdo\Constants\InstitutionConst;
 use Sisdo\Constants\ProductConst;
+use Sisdo\Constants\RelationshipConst;
 use Sisdo\Entity\Institution;
 use Sisdo\Entity\Product;
 use Sisdo\Filter\AdressFilter;
@@ -27,13 +28,14 @@ use Sisdo\Form\InstitutionSearchForm;
 use Sisdo\Service\AdressService;
 use Sisdo\Service\InstitutionService;
 use Sisdo\Service\ProductService;
+use Sisdo\Service\RelationshipService;
 use Zend\View\Model\JsonModel;
 use Zend\View\Model\ViewModel;
 
 class InstitutionController extends ActionControllerAbstract
 {
 
-    protected $title = 'Instituicao';
+    protected $title = 'Instituição';
 
     public function getTesteAction(){
         return new JsonModel(
@@ -188,6 +190,7 @@ class InstitutionController extends ActionControllerAbstract
 
         /** @var Institution $institution */
         $institution = $service->getInstitutionById($id);
+        $institution = reset($institution);
 
         /** @var ProductService $serviceProduct */
         $serviceProduct = $this->getFromServiceLocator(ProductConst::SERVICE);
@@ -195,11 +198,17 @@ class InstitutionController extends ActionControllerAbstract
         $produtosAtivos = $serviceProduct->getProdutosAtivos();
 
         $endereco = $institution->getUserId()->getAdress();
+
+        /** @var RelationshipService $serviceRelationship */
+        $serviceRelationship = $this->getFromServiceLocator(RelationshipConst::SERVICE);
+        $seguindo = $serviceRelationship->isSeguindo($id);
+
         return new ViewModel(
             array(
                 'institution' => $institution,
                 'produtos' => $produtosAtivos,
-                'endereco' => $endereco
+                'endereco' => $endereco,
+                'seguindo' => $seguindo
             )
         );
 

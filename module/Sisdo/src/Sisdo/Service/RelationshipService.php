@@ -41,6 +41,20 @@ class RelationshipService extends ServiceAbstract
         return $qb->getQuery()->getResult();
     }
 
+    public function isSeguindo($institutionUser){
+        /** @var RelationshipDao $dao */
+        $dao = $this->getFromServiceLocator(RelationshipConst::DAO);
+        $retorno = $dao->getRepository(
+                $dao->getEntityName())
+                ->findBy(array("institutionUserId" => $institutionUser,"personUserId" => $this->getUserLogado()->getId()));
+
+        if($retorno){
+            return true;
+        }
+        return false;
+
+    }
+
     public function getGrid(){
 
         $jqgrid = new JqGridTable();
