@@ -35,7 +35,6 @@ class MoneyDonationController extends ActionControllerAbstract
 
     public function getDadosAction()
     {
-
         /** @var MoneyDonationService $service */
         $service = $this->getFromServiceLocator(MoneyDonationConst::SERVICE);
         $grid = $service->getGridDados();
@@ -49,14 +48,25 @@ class MoneyDonationController extends ActionControllerAbstract
 
     }
 
-    public function editarAction()
+    public function getDadosRelatorioAction()
     {
+        /** @var MoneyDonationService $service */
+        $service = $this->getFromServiceLocator(MoneyDonationConst::SERVICE);
+        $grid = $service->getGridDados(true);
 
-
+        return new JsonModel($grid);
     }
 
-    public function excluirAction()
-    {
+    public function relatorioAction(){
+        /** @var MoneyDonationService $service */
+        $service = $this->getFromServiceLocator(MoneyDonationConst::SERVICE);
+
+        $url = '/doacao-financeira/getDadosRelatorio';
+        $grid = $service->getGrid(false,$url);
+
+        return new ViewModel(
+            array('grid' => $grid)
+        );
 
     }
 

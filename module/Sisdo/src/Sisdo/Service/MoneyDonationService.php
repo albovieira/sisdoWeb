@@ -53,7 +53,7 @@ class MoneyDonationService extends ServiceAbstract
         );
     }
 
-    public function getGrid($isCollapse = false)
+    public function getGrid($isCollapse = false, $url = false)
     {
 
         $jqgrid = new JqGridTable();
@@ -71,14 +71,16 @@ class MoneyDonationService extends ServiceAbstract
         $jqgrid->addColunas(array(JqGridConst::LABEL =>
             'Acao', JqGridConst::NAME => 'acao', JqGridConst::CLASSCSS => 'text-center'));
 
-        $jqgrid->setUrl(self::URL_GET_DADOS);
-        $jqgrid->setTitle('Doacoes pendente de confirmacao');
+        $jqgrid->setUrl(!$url ? self::URL_GET_DADOS : $url);
 
+        $title = $url ? 'Doações Finalizadas no periodo' : 'Doacoes pendente de confirmacao';
+        $jqgrid->setTitle($title);
+        $jqgrid->setTop(10);
         $jqgrid->setCollapse($isCollapse);
         return $jqgrid->renderJs();
     }
 
-    public function getGridDados()
+    public function getGridDados($isFinalizados = false)
     {
 
         /** @var MoneyDonationDao $dao */
@@ -87,7 +89,7 @@ class MoneyDonationService extends ServiceAbstract
         /** @var \Application\Entity\User $instituicaoLogado */
         $instituicaoLogado = $this->getFromServiceLocator(UsuarioConst::ZFCUSER_AUTH_SERVICE)->getIdentity();
 
-        $qb = $dao->findMoneyDonationPendente($instituicaoLogado->getId());
+        $qb = $dao->findMoneyDonation($instituicaoLogado->getId(), $isFinalizados);
 
         $jqgrid = new JqGridTable();
         $jqgrid->setAlias('m');

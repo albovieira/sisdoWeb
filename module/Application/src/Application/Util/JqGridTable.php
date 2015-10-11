@@ -169,8 +169,8 @@ class JqGridTable
         $height = $this->height ? $this->height : 'auto';
 
         return <<<EOF
-
-        <div style="{$this->top}">
+        <style>.ui-jqgrid {margin-top:{$this->top} !important}</style>
+        <div>
             <table id="jqGrid"></table>
             <div id="jqGridPager"></div>
         </div>

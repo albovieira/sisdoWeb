@@ -214,13 +214,18 @@ class InstitutionController extends ActionControllerAbstract
 
     }
 
+    public function getTestesAction(){
+        return new JsonModel(array(
+            'teste' => 'item1'
+        ));
+    }
+
     public function getInstituctionAutoCompleteAction(){
 
         /** @var InstitutionService $service */
         $service = $this->getFromServiceLocator(InstitutionConst::SERVICE);
 
         $term = $this->params()->fromQuery('term');
-        //var_dump($this->getRequest());die;
         $instituicoes = $service->getInstitutionsByTerm($term);
 
         $namesInstituicao = [];

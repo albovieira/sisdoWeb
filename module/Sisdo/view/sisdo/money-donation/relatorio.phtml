@@ -1,0 +1,90 @@
+<div class="box box-danger">
+    <div class="box-body">
+        <!-- Date dd/mm/yyyy -->
+        <div class="col-sm-6">
+        <div class="form-group">
+            <label>Data Início</label>
+            <div class="input-group">
+                <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                </div>
+                <input type="text" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask="">
+            </div><!-- /.input group -->
+        </div><!-- /.form group -->
+        </div>
+
+        <div class="col-sm-6">
+        <!-- Date mm/dd/yyyy -->
+        <div class="form-group">
+            <label>Data Fim:</label>
+            <div class="input-group">
+                <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                </div>
+                <input type="text" class="form-control" data-inputmask="'alias': 'mm/dd/yyyy'" data-mask="">
+            </div><!-- /.input group -->
+        </div><!-- /.form group -->
+        </div><!-- /.form group -->
+
+        <div class="col-sm-4">
+            <button class="btn btn-flat btn-primary">Gerar Relatório</button>
+        </div>
+
+
+        </div><!-- /.box-body -->
+</div>
+
+
+
+
+<!-- Main content -->
+<section class="invoice">
+    <!-- title row -->
+    <div class="row">
+        <div class="col-xs-12">
+            <h2 class="page-header">
+                <i class="fa fa-globe"></i> Instituicao
+                <small class="pull-right">Date: 2/10/2014</small>
+            </h2>
+        </div><!-- /.col -->
+    </div>
+    <!-- info row -->
+
+    <!-- Table row -->
+    <div class="row">
+        <div class="col-xs-12 table-responsive">
+           <?php echo $this->grid ?>
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+
+    <div class="row">
+        <!-- accepted payments column -->
+        <div class="col-xs-6">
+            <p class="lead">Métodos de Pagamentos aceitos:</p>
+            <img src="/img/credit/visa.png" alt="Visa">
+            <img src="/img/credit/mastercard.png" alt="Mastercard">
+            <img src="/img/credit/american-express.png" alt="American Express">
+            <img src="/img/credit/paypal2.png" alt="Paypal">
+        </div><!-- /.col -->
+        <div class="col-xs-6">
+            <p class="lead">Total do Período:</p>
+            <div class="table-responsive">
+                <table class="table">
+                    <tr>
+                        <th>Total:</th>
+                        <td>$265.24</td>
+                    </tr>
+                </table>
+            </div>
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+
+    <!-- this row will not appear when printing -->
+    <div class="row no-print">
+        <div class="col-xs-12">
+            <a href="invoice-print.html" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> Imprimir</a>
+            <button class="btn btn-success pull-right"><i class="fa fa-file-excel-o"></i> Gerar Excel</button>
+            <button class="btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-download"></i> Gerar PDF</button>
+        </div>
+    </div>
+</section><!-- /.content -->

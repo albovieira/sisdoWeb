@@ -38,11 +38,49 @@ class MenuLateralHelper extends AbstractHelper implements ServiceLocatorAwareInt
                 <!--<li class="header">Menu</li>-->
                 <li><a href="/"><i class="glyphicon glyphicon-list-alt"></i> <span>Principal</span></a></li>
                 <li><a href="/instituicao"><i class="fa fa-user"></i><span>Meus Dados</a></span></li>
-                <li><a href="/produto"><i class="glyphicon glyphicon-gift"></i><span> Doacoes Produtos/Servicos<span></span></a></li>
-                <li><a href="/doacao-financeira"><i class="fa fa-money"></i> <span>Doacoes em dinheiro</span></a></li>
-                <li><a href="/transacao"><i class="fa fa-exchange"></i> <span>Transacoes</span></a></li>
+                <li class="treeview">
+                  <a href="">
+                    <i class="glyphicon glyphicon-gift"></i> <span>Doações</span> <i class="fa fa-angle-left pull-right"></i>
+                  </a>
+                  <ul class="treeview-menu" style="display: none;">
+                    <li><a href="/produto"><i class="fa fa-circle-o"></i> Doações Ativas</a></li>
+                    <li><a href="/produto/gerenciar"><i class="fa fa-circle-o"></i> Gerenciar Doações</a></li>
+                  </ul>
+                </li>
+
+                <li class="treeview">
+                  <a href="">
+                    <i class="fa fa-money"></i> <span>Doações em dinheiro</span> <i class="fa fa-angle-left pull-right"></i>
+                  </a>
+                  <ul class="treeview-menu" style="display: none;">
+                    <li><a href="/doacao-financeira/cadastrar-forma-pagamento"><i class="fa fa-circle-o"></i> Métodos de Pagamento</a></li>
+                    <li><a href="/doacao-financeira"><i class="fa fa-circle-o"></i> Doações Pendentes</a></li>
+                    <li><a href="/doacao-financeira/finalizada"><i class="fa fa-circle-o"></i> Doaçõe Finalizadas</a></li>
+                  </ul>
+                </li>
+
+                <li class="treeview">
+                  <a href="/transacao">
+                    <i class="fa fa-exchange"></i> <span>Transações</span> <i class="fa fa-angle-left pull-right"></i>
+                  </a>
+                  <ul class="treeview-menu" style="display: none;">
+                    <li><a href="/transacao"><i class="fa fa-circle-o"></i> Transações Pendentes</a></li>
+                    <li><a href="/transacao/finalizada"><i class="fa fa-circle-o"></i> Transações Finalizadas</a></li>
+                  </ul>
+                </li>
                 <li><a href="/relacionamento"><i class="fa fa-users"></i> <span>Relacionamentos</span></a></li>
-                <li><a href="#"><i class="ion ion-document-text"></i> <span>Relatório</span></a></li>
+
+                <li class="treeview">
+                  <a href="#">
+                    <i class="ion ion-document-text"></i> <span>Relatório</span> <i class="fa fa-angle-left pull-right"></i>
+                  </a>
+                  <ul class="treeview-menu" style="display: none;">
+                    <li><a href="/doacao-financeira/relatorio"><i class="fa fa-circle-o"></i> Doações Financeiras</a></li>
+                    <li><a href="/produto/relatorio"><i class="fa fa-circle-o"></i> Doações Produtos/Serviços</a></li>
+                    <li><a href="/transacoes/relatorio"><i class="fa fa-circle-o"></i> Transações</a></li>
+                  </ul>
+                </li>
+
         </ul>
 
 DOC;

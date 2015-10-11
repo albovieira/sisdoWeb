@@ -28,19 +28,40 @@ $this->formSearch->prepare();
         // $userInstituicao = $instituicao->getUserId();
 
         echo <<<DOC
-        <div class="col-sm-3">
-            <div class="thumbnail">
-              <img src="{$instituicao->getPicture()}" data-holder-rendered="true" style="height: 200px; width: 100%; display: block;">
-              <div class="caption">
-                <h4>{$instituicao->getFancyName()}</h4>
-                <p>{$instituicao->getAbout()}</p>
-                 <p>
-                    <a href="#" class="btn btn-primary" role="button">Seguir</a>
-                    <a href="/instituicao/pagina/{$instituicao->getUserId()->getId()}" class="btn btn-default" role="button">Ver Mais</a>
-                </p>
-              </div>
+
+        <div class="col-md-4">
+              <!-- Widget: user widget style 1 -->
+              <div class="box box-widget widget-user">
+                <!-- Add the bg color to the header using any of the bg-* classes -->
+                <div class="widget-user-header bg-aqua-active">
+                  <h3 class="widget-user-username">{$instituicao->getFancyName()}</h3>
+                </div>
+                <div class="widget-user-image">
+                    <img style='width:90px' class='img-circle' src="{$instituicao->getPicture()}" data-holder-rendered="true" style="height: 200px; width: 100%; display: block;">
+                </div>
+                <div class="box-footer">
+                  <div class="row">
+                    <div class="col-sm-4 border-right">
+                      <div class="description-block">
+                        <h5 class="description-header">3,200</h5>
+                        <span class="description-text">Seguidores</span>
+                      </div><!-- /.description-block -->
+                    </div><!-- /.col -->
+                    <div class="col-sm-4 border-right">
+                      <div class="description-block">
+                        <button class="btn btn-primary description-text">Seguir</button>
+                      </div><!-- /.description-block -->
+                    </div><!-- /.col -->
+                    <div class="col-sm-4">
+                      <div class="description-block">
+                        <a href='/instituicao/pagina/{$instituicao->getUserId()->getId()}' class="btn btn-default description-text">Ver Mais</a>
+                      </div><!-- /.description-block -->
+                    </div><!-- /.col -->
+                  </div><!-- /.row -->
+                </div>
+              </div><!-- /.widget-user -->
             </div>
-        </div>
+
 
 DOC;
     }
