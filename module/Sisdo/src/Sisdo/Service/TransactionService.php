@@ -19,6 +19,7 @@ use Sisdo\Constants\TransactionConst;
 use Sisdo\Dao\TransactionDao;
 use Sisdo\Entity\StatusTransacao;
 use Sisdo\Entity\Transaction;
+use Sisdo\Entity\Unidade;
 
 class TransactionService extends ServiceAbstract
 {
@@ -129,7 +130,7 @@ class TransactionService extends ServiceAbstract
             $temp[TransactionConst::FLD_PRODUTO] = $transaction->getProduct()->getTitle();
             $temp[TransactionConst::FLD_PERSON_USER] = $transaction->getPersonUser()->getPerson()->getName();
             $temp[TransactionConst::FLD_STATUS] = StatusTransacao::getStatusByFlag($transaction->getStatus());
-            $temp[TransactionConst::FLD_QUANTIFY] = $transaction->getQuantity();
+            $temp[TransactionConst::FLD_QUANTIFY] = $transaction->getQuantity() . ' ('. Unidade::getUnidadeBySigla($transaction->getProduct()->getUnity()) . ')';
             $temp[TransactionConst::FLD_START_DATE] = $transaction->getStartDate()->format('d/m/Y');
 
             $ano = $transaction->getEndDate()->format('Y');
