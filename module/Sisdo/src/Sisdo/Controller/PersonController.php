@@ -10,6 +10,7 @@
 namespace Sisdo\Controller;
 
 use Application\Custom\ActionControllerAbstract;
+use Zend\View\Model\JsonModel;
 use Zend\View\Model\ViewModel;
 
 class PersonController extends ActionControllerAbstract
@@ -48,5 +49,8 @@ class PersonController extends ActionControllerAbstract
         // TODO: Implement getBreadcrumb() method.
     }
 
+    public function getTestes(){
+        return new JsonModel('ts');
+    }
 
 }

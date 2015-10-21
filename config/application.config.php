@@ -15,6 +15,7 @@ return array(
         //'ZfcRbac',
         'ZfcUserDoctrineORM',
         'TwbBundle',
+        'SisdoWebService',
         'Sisdo',
         'Application',
     ),

@@ -4,8 +4,8 @@ namespace Application\Controller;
 
 use Application\Constants\AccessControlConst as Acl;
 use Application\Constants\MensagensConst;
-use Application\Constants\RotasConst;
 use Application\Constants\RotasConst as Rotas;
+use Application\Constants\RotasConst;
 use Application\Constants\UsuarioConst as Usuario;
 use Application\Custom\ActionControllerAbstract;
 use Application\Form\UsuarioForm;
@@ -307,6 +307,5 @@ class UsuarioController extends ActionControllerAbstract
     {
         // TODO: Implement getBreadcrumb() method.
     }
-
 
 }

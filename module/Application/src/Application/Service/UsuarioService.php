@@ -304,7 +304,7 @@ class UsuarioService extends ServiceAbstract
     {
         /** @var AutenticacaoService $service */
         $service = $this->getFromServiceLocator(self::ZFCUSER_USER_SERVICE);
-        return $service->getUserMapper()->findByUsername($login);
+        return $service->getUserMapper()->findByEmail($login);
     }
 
     /**
