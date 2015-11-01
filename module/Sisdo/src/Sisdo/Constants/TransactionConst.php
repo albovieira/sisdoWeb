@@ -18,7 +18,7 @@ interface TransactionConst
     const FLD_START_DATE = 'startDate';
     const LBL_START_DATE = 'Data Inicio';
 
-    const FLD_QUANTIFY = 'quantity';
+    const FLD_QUANTIFY = 'quantify';
     const LBL_QUANTIFY = 'Quantidade';
 
     const FLD_END_DATE = 'endDate';

@@ -27,48 +27,48 @@ class Institution extends EntityAbstract
      *
      * @ORM\Column(name="corporate_name", type="string", length=100, nullable=false)
      */
-    private $corporateName;
+    protected $corporateName;
 
     /**
      * @var string
      *
      * @ORM\Column(name="fancy_name", type="string", length=100, nullable=true)
      */
-    private $fancyName;
+    protected $fancyName;
 
     /**
      * @var string
      *
      * @ORM\Column(name="cnpj", type="string", length=14, nullable=false)
      */
-    private $cnpj;
+    protected $cnpj;
 
     /**
      * @var string
      *
      * @ORM\Column(name="branch", type="string", length=50, nullable=false)
      */
-    private $branch;
+    protected $branch;
 
     /**
      * @var string
      *
      * @ORM\Column(name="about", type="string", length=500, nullable=false)
      */
-    private $about;
+    protected $about;
 
     /**
      * @ORM\OneToOne(targetEntity="Application\Entity\User")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="user_id")
      **/
-    private $userId;
+    protected $userId;
 
     /**
      * @var string
      *
      * @ORM\Column(name="picture", type="string", length=200, nullable=false)
      */
-    private $picture;
+    protected $picture;
 
     /**
      * @return int

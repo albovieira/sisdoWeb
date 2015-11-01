@@ -31,4 +31,7 @@ interface InstitutionConst
     const FLD_USER_ID = 'userId';
     const LBL_USER_ID = 'Id usuario';
 
+    const FLD_PICTURE = 'picture';
+    const LBL_PICTURE = 'Foto';
+
 }

@@ -27,46 +27,6 @@ class ProductService extends ServiceAbstract
 {
     const URL_GET_DADOS = '/produto/getDados';
 
-    public function salvar(Product $produto){
-
-        //var_dump();die;
-
-        /** @var \Sisdo\Dao\ProductDao $dao */
-        $dao = $this->getFromServiceLocator(ProductConst::DAO);
-
-        $produto->setDate(new \DateTime($produto->getDate()));
-
-        /** @var \Sisdo\Dao\ProductTypeDao $dao */
-        $daoProductType = $this->getFromServiceLocator(ProductTypeConst::DAO);
-        $productType = $daoProductType->getEntity($produto->getProductType());
-
-        $produto->setProductType($productType);
-        $dao->save($produto);
-
-        return $produto;
-    }
-
-    public function excluir($produtoid)
-    {
-        /** @var \Sisdo\Dao\ProductDao $dao */
-        $dao = $this->getFromServiceLocator(ProductConst::DAO);
-        $produto = $dao->getEntity($produtoid);
-        return $dao->remove($produto);
-    }
-
-    public function getProduto($id)
-    {
-        /** @var ProductDao $dao */
-        $dao = $this->getFromServiceLocator(ProductConst::DAO);
-        return $dao->getEntity($id);
-    }
-
-    public function getProdutosAtivos(){
-        /** @var ProductDao $dao */
-        $dao = $this->getFromServiceLocator(ProductConst::DAO);
-        return $dao->findProductActive();
-    }
-
     public function getGrid($isCollapse = false){
 
         $jqgrid = new JqGridTable();
@@ -102,7 +62,6 @@ class ProductService extends ServiceAbstract
 
         /** @var TransactionDao $daoTransaction */
         $daoTransaction = $this->getFromServiceLocator(TransactionConst::DAO);
-
 
         /** @var \Application\Entity\User $instituicaoLogado */
         $instituicaoLogado = $this->getFromServiceLocator(UsuarioConst::ZFCUSER_AUTH_SERVICE)->getIdentity();
@@ -168,6 +127,46 @@ class ProductService extends ServiceAbstract
         /** @var ProductTypeDao $dao */
         $dao = $this->getFromServiceLocator(ProductTypeConst::DAO);
         return $dao->findProductTypeAsArray();
+    }
+
+    public function salvar(Product $produto){
+
+
+        /** @var \Sisdo\Dao\ProductDao $dao */
+        $dao = $this->getFromServiceLocator(ProductConst::DAO);
+
+        $produto->setDate(new \DateTime($produto->getDate()));
+
+        /** @var \Sisdo\Dao\ProductTypeDao $dao */
+        $daoProductType = $this->getFromServiceLocator(ProductTypeConst::DAO);
+        $productType = $daoProductType->getEntity($produto->getProductType());
+
+        $produto->setProductType($productType);
+        $dao->save($produto);
+
+        return $produto;
+    }
+
+    public function excluir($produtoid)
+    {
+        /** @var \Sisdo\Dao\ProductDao $dao */
+        $dao = $this->getFromServiceLocator(ProductConst::DAO);
+        $produto = $dao->getEntity($produtoid);
+        return $dao->remove($produto);
+    }
+
+    public function getProduto($id)
+    {
+        /** @var ProductDao $dao */
+        $dao = $this->getFromServiceLocator(ProductConst::DAO);
+        return $dao->getEntity($id);
+    }
+
+    public function getProdutosAtivos($id = null){
+        /** @var ProductDao $dao */
+        $dao = $this->getFromServiceLocator(ProductConst::DAO);
+
+        return $retorno = $id != null ? $dao->findProductsByUser($id)->getQuery()->getResult() : $dao->findProductActive();
     }
 
 

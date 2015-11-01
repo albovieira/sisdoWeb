@@ -14,6 +14,7 @@ use Application\Constants\UsuarioConst;
 use Application\Custom\ServiceAbstract;
 use Application\Util\JqGridButton;
 use Application\Util\JqGridTable;
+use Sisdo\Constants\ProductConst;
 use Sisdo\Constants\StatusTransacaoConst;
 use Sisdo\Constants\TransactionConst;
 use Sisdo\Dao\TransactionDao;
@@ -24,61 +25,6 @@ use Sisdo\Entity\Unidade;
 class TransactionService extends ServiceAbstract
 {
     const URL_GET_DADOS = '/transacao/getDados';
-
-    public function getTransactionsByUser($userid){
-        /** @var TransactionDao $dao */
-        $dao = $this->getFromServiceLocator(TransactionConst::DAO);
-        return $dao->getRepository(
-            $dao->getEntityName())
-            ->findBy(array("institutionUser" => $userid,"status" => StatusTransacaoConst::FLAG_PENDENTE_FINALIZACAO)
-        );
-    }
-
-    public function getAllTransactionsByUser($userid){
-        /** @var TransactionDao $dao */
-        $dao = $this->getFromServiceLocator(TransactionConst::DAO);
-        return $dao->getRepository(
-            $dao->getEntityName())
-            ->findBy(array("institutionUser" => $userid)
-            );
-    }
-
-    public function getTransactionsFinalizadasByUser($userid){
-        /** @var TransactionDao $dao */
-        $dao = $this->getFromServiceLocator(TransactionConst::DAO);
-        return $dao->getRepository(
-            $dao->getEntityName())
-            ->findBy(array("institutionUser" => $userid,"status" => StatusTransacaoConst::FLAG_FINALIZADO)
-            );
-    }
-
-
-    public function getTransactionById($id){
-        /** @var TransactionDao $dao */
-        $dao = $this->getFromServiceLocator(TransactionConst::DAO);
-        return $dao->getEntity($id);
-    }
-
-    public function finalizaTransacao($id){
-
-        /** @var TransactionDao $dao */
-        $dao = $this->getFromServiceLocator(TransactionConst::DAO);
-
-        /** @var Transaction $transacao */
-        $transacao = $this->getTransactionById($id);
-
-        if($transacao->getStatus() == StatusTransacaoConst::FLAG_PENDENTE_FINALIZACAO){
-            $transacao->setStatus(StatusTransacaoConst::FLAG_FINALIZADO);
-            $transacao->setEndDate(new \DateTime('now'));
-
-            $dao->save($transacao);
-
-            return true;
-        }
-
-
-        return false;
-    }
 
     public function getGrid(){
 
@@ -162,8 +108,6 @@ class TransactionService extends ServiceAbstract
             $botaoCancelar->setClass('btn btn-danger btn-xs');
             $botaoCancelar->setUrl('/transacao/cancelar-recebimento/' . $transaction->getId());
             $botaoCancelar->setIcon('glyphicon glyphicon-ban-circle');
-            //$botaoExcluir->getOnClick();
-
 
             $temp[JqGridConst::ACAO] = "<div class='agrupa-botoes'>". $botaoVer->render() . $botaoConfirmar->render() . $botaoCancelar->render() .
                 "</div>";
@@ -173,6 +117,86 @@ class TransactionService extends ServiceAbstract
         $rows[JqGridConst::PARAM_REGISTROS] = $dados;
 
         return $rows;
+    }
+
+    public function salvar($transacao){
+
+        /** @var TransactionDao $dao */
+        $dao = $this->getFromServiceLocator(TransactionConst::DAO);
+
+
+        if(isset($transacao[TransactionConst::FLD_ID_TRANSACTION])){
+
+        }else{
+            /** @var Transaction $transacaoObj */
+            $transacaoObj = $dao->getEntity();
+            $dataIni = new \DateTime('now');
+            $transacaoObj->setStartDate($dataIni);
+            $transacaoObj->setQuantity($transacao[TransactionConst::FLD_QUANTIFY]);
+            $transacaoObj->setStatus(StatusTransacaoConst::FLAG_PENDENTE_FINALIZACAO);
+            $transacaoObj->setProduct($this->getFromServiceLocator(ProductConst::DAO)->getEntity($transacao[TransactionConst::FLD_PRODUTO]));
+            $transacaoObj->setInstitutionUser($this->getFromServiceLocator(UsuarioConst::SERVICE)->findById($transacao[TransactionConst::FLD_INSTITUTION_USER]));
+            $transacaoObj->setPersonUser($this->getFromServiceLocator(UsuarioConst::SERVICE)->findById($transacao[TransactionConst::FLD_PERSON_USER]));
+            $transacaoObj->setShippingMethod($transacao[TransactionConst::FLD_SHIPPING_METHOD]);
+
+            return $dao->save($transacaoObj);
+        }
+        return false;
+
+    }
+
+    public function finalizaTransacao($id){
+
+        /** @var TransactionDao $dao */
+        $dao = $this->getFromServiceLocator(TransactionConst::DAO);
+
+        /** @var Transaction $transacao */
+        $transacao = $this->getTransactionById($id);
+
+        if($transacao->getStatus() == StatusTransacaoConst::FLAG_PENDENTE_FINALIZACAO){
+            $transacao->setStatus(StatusTransacaoConst::FLAG_FINALIZADO);
+            $transacao->setEndDate(new \DateTime('now'));
+
+            $dao->save($transacao);
+
+            return true;
+        }
+        return false;
+    }
+
+
+    public function getTransactionsByUser($userid){
+        /** @var TransactionDao $dao */
+        $dao = $this->getFromServiceLocator(TransactionConst::DAO);
+        return $dao->getRepository(
+            $dao->getEntityName())
+            ->findBy(array("institutionUser" => $userid,"status" => StatusTransacaoConst::FLAG_PENDENTE_FINALIZACAO)
+            );
+    }
+
+    public function getAllTransactionsByUser($userid){
+        /** @var TransactionDao $dao */
+        $dao = $this->getFromServiceLocator(TransactionConst::DAO);
+        return $dao->getRepository(
+            $dao->getEntityName())
+            ->findBy(array("institutionUser" => $userid)
+            );
+    }
+
+    public function getTransactionsFinalizadasByUser($userid){
+        /** @var TransactionDao $dao */
+        $dao = $this->getFromServiceLocator(TransactionConst::DAO);
+        return $dao->getRepository(
+            $dao->getEntityName())
+            ->findBy(array("institutionUser" => $userid,"status" => StatusTransacaoConst::FLAG_FINALIZADO)
+            );
+    }
+
+
+    public function getTransactionById($id){
+        /** @var TransactionDao $dao */
+        $dao = $this->getFromServiceLocator(TransactionConst::DAO);
+        return $dao->getEntity($id);
     }
 
 

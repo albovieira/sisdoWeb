@@ -201,7 +201,7 @@ class Transaction extends EntityAbstract
     }
 
     /**
-     * @return \Application\Entity\Product
+     * @return \Sisdo\Entity\Product
      */
     public function getProduct()
     {
@@ -209,7 +209,7 @@ class Transaction extends EntityAbstract
     }
 
     /**
-     * @param \Application\Entity\Product $product
+     * @param \Sisdo\Entity\Product $product
      */
     public function setProduct($product)
     {
@@ -217,7 +217,7 @@ class Transaction extends EntityAbstract
     }
 
     /**
-     * @return \Application\Entity\Institution
+     * @return \Application\Entity\User
      */
     public function getInstitutionUser()
     {
@@ -225,7 +225,7 @@ class Transaction extends EntityAbstract
     }
 
     /**
-     * @param \Application\Entity\Institution $institutionUser
+     * @param \Application\Entity\User $institutionUser
      */
     public function setInstitutionUser($institutionUser)
     {
@@ -233,7 +233,7 @@ class Transaction extends EntityAbstract
     }
 
     /**
-     * @return \Application\Entity\Person
+     * @return \Application\Entity\User
      */
     public function getPersonUser()
     {
@@ -241,7 +241,7 @@ class Transaction extends EntityAbstract
     }
 
     /**
-     * @param \Application\Entity\Person $personUser
+     * @param \Application\Entity\User $personUser
      */
     public function setPersonUser($personUser)
     {

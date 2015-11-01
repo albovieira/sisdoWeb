@@ -215,16 +215,6 @@ class InstitutionController extends ActionControllerAbstract
 
     }
 
-    public function getTestesAction(){
-
-
-        $post = $this->getRequest()->getPost('nome');
-        var_dump($post);die;
-        return new JsonModel(array(
-            'teste' => 'item1'
-        ));
-    }
-
     public function getInstituctionAutoCompleteAction(){
 
         /** @var InstitutionService $service */

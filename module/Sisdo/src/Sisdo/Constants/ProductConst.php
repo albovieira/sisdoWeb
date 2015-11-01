@@ -14,7 +14,7 @@ interface ProductConst
     const LBL_ID_PRODUTO = 'Id';
 
     const FLD_TIPO = 'productType';
-    const LBL_TIPO = 'Tipo';
+    const LBL_TIPO = 'Categoria';
 
     const FLD_TITLE = 'title';
     const LBL_TITLE = 'Titulo';

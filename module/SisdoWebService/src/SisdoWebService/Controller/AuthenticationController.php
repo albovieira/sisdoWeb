@@ -13,8 +13,6 @@ use Application\Constants\UsuarioConst;
 use Application\Custom\ActionControllerAbstract;
 use Application\Entity\User;
 use Application\Service\UsuarioService;
-use Sisdo\Entity\Adress;
-use Sisdo\Entity\Person;
 use Zend\View\Model\JsonModel;
 
 class AuthenticationController extends ActionControllerAbstract
@@ -29,7 +27,7 @@ class AuthenticationController extends ActionControllerAbstract
         $post = $this->getRequest()->getPost();
 
         /** @var User $usuario */
-        $usuario = $service->findByLogin($post['email']);
+        $usuario = $service->findByLogin($post[UsuarioConst::FLD_EMAIL]);
 
         /*
         $bcrypt = new Bcrypt();
@@ -41,22 +39,19 @@ class AuthenticationController extends ActionControllerAbstract
         }
         */
 
-        /** @var Person $pessoa */
-        //$pessoa = $usuario->getPerson();
-
-        /** @var Adress $adress */
-        //$adress = $usuario->getAdress();
-
         if($usuario){
             $token = 'identificado';
         }else{
             $token = 'nidentificado';
-
+            return new JsonModel(array($token));
         }
 
         return new JsonModel(
             array(
-                'token' => $token
+                'token' => $token,
+                'id' => $usuario->getId(),
+                'login' => $usuario->getEmail(),
+                'nome' => $usuario->getPerson()->getName()
             )
         );
     }

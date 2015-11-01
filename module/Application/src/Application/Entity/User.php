@@ -114,7 +114,7 @@ class User extends EntityAbstract implements UserInterface
 
 
     /**
-     * @return mixed
+     * @return \Sisdo\Entity\Person
      */
     public function getPerson()
     {
@@ -122,7 +122,7 @@ class User extends EntityAbstract implements UserInterface
     }
 
     /**
-     * @param mixed $person
+     * @param \Sisdo\Entity\Person $person
      */
     public function setPerson($person)
     {
@@ -130,7 +130,7 @@ class User extends EntityAbstract implements UserInterface
     }
 
     /**
-     * @return mixed
+     * @return \Sisdo\Entity\Institution
      */
     public function getInstituicao()
     {
@@ -138,12 +138,13 @@ class User extends EntityAbstract implements UserInterface
     }
 
     /**
-     * @param mixed $instituicao
+     * @param \Sisdo\Entity\Institution $instituicao
      */
     public function setInstituicao($instituicao)
     {
         $this->instituicao = $instituicao;
     }
+
 
 
 

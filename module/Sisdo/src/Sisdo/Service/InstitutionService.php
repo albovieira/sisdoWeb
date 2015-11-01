@@ -175,6 +175,14 @@ class InstitutionService extends ServiceAbstract
         return $dao->findInstitutionByName($name);
     }
 
+    public function getAllInstitutions(){
+
+        /** @var \Sisdo\Dao\InstitutionDao $dao */
+        $dao = $this->getFromServiceLocator(InstitutionConst::DAO);
+        return $dao->getRepository()->findAll();
+    }
+
+
     public function getInstitutionsByUFofUser()
     {
         /** @var \Sisdo\Dao\InstitutionDao $dao */

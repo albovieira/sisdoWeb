@@ -46,6 +46,56 @@ return array(
                 ),
             ),
 
+            'institution-api' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/institution-api[/][:action][/:id]',
+                    'constraints' => array(
+                        'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id' => '[0-9]+',
+                    ),
+                    'defaults' => array(
+                        '__NAMESPACE__' => 'SisdoWebService\Controller',
+                        'controller' => 'Institution',
+                        'action' => 'index',
+                    ),
+                ),
+            ),
+
+            'product-api' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/product-api[/][:action][/:id]',
+                    'constraints' => array(
+                        'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id' => '[0-9]+',
+                    ),
+                    'defaults' => array(
+                        '__NAMESPACE__' => 'SisdoWebService\Controller',
+                        'controller' => 'Product',
+                        'action' => 'index',
+                    ),
+                ),
+            ),
+            'transaction-api' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/transaction-api[/][:action][/:id]',
+                    'constraints' => array(
+                        'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id' => '[0-9]+',
+                    ),
+                    'defaults' => array(
+                        '__NAMESPACE__' => 'SisdoWebService\Controller',
+                        'controller' => 'Transaction',
+                        'action' => 'index',
+                    ),
+                ),
+            ),
+
 
             // The following is a route to simplify getting started creating
             // new controllers and actions without needing to create a new
@@ -86,70 +136,6 @@ return array(
         ),
         'factories' => array(
             'translator' => 'Zend\Mvc\Service\TranslatorServiceFactory',
-
-            //Daos
-            'ProductDao' => function ($sm) {
-                return new \Sisdo\Dao\ProductDao($sm->get('Doctrine\ORM\EntityManager'), $sm);
-            },
-            'InstitutionDao' => function ($sm) {
-                return new \Sisdo\Dao\InstitutionDao($sm->get('Doctrine\ORM\EntityManager'), $sm);
-            },
-            'ContactDao' => function ($sm) {
-                return new \Sisdo\Dao\ContactDao($sm->get('Doctrine\ORM\EntityManager'), $sm);
-            },
-            'AdressDao' => function ($sm) {
-                return new \Sisdo\Dao\AdressDao($sm->get('Doctrine\ORM\EntityManager'), $sm);
-            },
-            'RelationshipDao' => function ($sm) {
-                return new \Sisdo\Dao\RelationshipDao($sm->get('Doctrine\ORM\EntityManager'), $sm);
-            },
-            'TransactionDao' => function ($sm) {
-                return new \Sisdo\Dao\TransactionDao($sm->get('Doctrine\ORM\EntityManager'), $sm);
-            },
-            'TemplateEmailDao' => function ($sm) {
-                return new \Sisdo\Dao\TemplateEmailDao($sm->get('Doctrine\ORM\EntityManager'), $sm);
-            },
-            'ProductTypeDao' => function ($sm) {
-                return new \Sisdo\Dao\ProductTypeDao($sm->get('Doctrine\ORM\EntityManager'), $sm);
-            },
-            'PersonDao' => function ($sm) {
-                return new \Sisdo\Dao\PersonDao($sm->get('Doctrine\ORM\EntityManager'), $sm);
-            },
-            'MoneyDonationDao' => function ($sm) {
-                return new \Sisdo\Dao\MoneyDonationDao($sm->get('Doctrine\ORM\EntityManager'), $sm);
-            },
-            'StateDao' => function ($sm) {
-                return new \Sisdo\Dao\StateDao($sm->get('Doctrine\ORM\EntityManager'), $sm);
-            },
-            'CityDao' => function ($sm) {
-                return new \Sisdo\Dao\CityDao($sm->get('Doctrine\ORM\EntityManager'), $sm);
-            },
-
-            //Services
-            'UsuarioService' => function ($sm) {
-                return new \Application\Service\UsuarioService($sm);
-            },
-            'ProductService' => function ($sm) {
-                return new \Sisdo\Service\ProductService($sm);
-            },
-            'InstitutionService' => function ($sm) {
-                return new \Sisdo\Service\InstitutionService($sm);
-            },
-            'RelationshipService' => function ($sm) {
-                return new \Sisdo\Service\RelationshipService($sm);
-            },
-            'TransactionService' => function ($sm) {
-                return new \Sisdo\Service\TransactionService($sm);
-            },
-            'PersonService' => function ($sm) {
-                return new \Sisdo\Service\PersonService($sm);
-            },
-            'MoneyDonationService' => function ($sm) {
-                return new \Sisdo\Service\MoneyDonationService($sm);
-            },
-            'AdressService' => function ($sm) {
-                return new \Sisdo\Service\AdressService($sm);
-            },
         ),
     ),
     'translator' => array(
@@ -165,6 +151,9 @@ return array(
     'controllers' => array(
         'invokables' => array(
             'SisdoWebService\Controller\Autenticacao' => 'SisdoWebService\Controller\AuthenticationController',
+            'SisdoWebService\Controller\Institution' => 'SisdoWebService\Controller\InstitutionController',
+            'SisdoWebService\Controller\Product' => 'SisdoWebService\Controller\ProductController',
+            'SisdoWebService\Controller\Transaction' => 'SisdoWebService\Controller\TransactionController',
         ),
     ),
     'view_manager' => array(
