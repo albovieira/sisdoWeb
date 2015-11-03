@@ -3,6 +3,7 @@
 namespace Sisdo\Entity;
 
 use Application\Custom\EntityAbstract;
+use Application\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -86,7 +87,7 @@ class Message extends EntityAbstract
     }
 
     /**
-     * @return int
+     * @return Transaction
      */
     public function getIdTransacao()
     {
@@ -94,15 +95,17 @@ class Message extends EntityAbstract
     }
 
     /**
-     * @param int $idTransacao
+     * @param mixed Transaction
      */
     public function setIdTransacao($idTransacao)
     {
         $this->idTransacao = $idTransacao;
     }
 
+
+
     /**
-     * @return string
+     * @return User
      */
     public function getIdUser()
     {
@@ -110,7 +113,7 @@ class Message extends EntityAbstract
     }
 
     /**
-     * @param string $idUser
+     * @param User $idUser
      */
     public function setIdUser($idUser)
     {

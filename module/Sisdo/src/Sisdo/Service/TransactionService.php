@@ -14,10 +14,12 @@ use Application\Constants\UsuarioConst;
 use Application\Custom\ServiceAbstract;
 use Application\Util\JqGridButton;
 use Application\Util\JqGridTable;
+use Sisdo\Constants\MessageConst;
 use Sisdo\Constants\ProductConst;
 use Sisdo\Constants\StatusTransacaoConst;
 use Sisdo\Constants\TransactionConst;
 use Sisdo\Dao\TransactionDao;
+use Sisdo\Entity\Message;
 use Sisdo\Entity\StatusTransacao;
 use Sisdo\Entity\Transaction;
 use Sisdo\Entity\Unidade;
@@ -119,12 +121,31 @@ class TransactionService extends ServiceAbstract
         return $rows;
     }
 
+    public function salvarMsg($mensagem){
+        /** @var TransactionDao $dao */
+        $dao = $this->getFromServiceLocator(TransactionConst::DAO);
+
+        if(isset($mensagem[MessageConst::FLD_TRANSACAO])){
+            /** @var Transaction $transacao */
+            $transacao = $dao->getEntity($mensagem[MessageConst::FLD_TRANSACAO]);
+            $mensagemObj = new Message();
+            $mensagemObj->setDate(new \DateTime('now'));
+            $mensagemObj->setIdTransacao($transacao);
+            $mensagemObj->setIdUser($transacao->getPersonUser());
+            $mensagemObj->setMessage($mensagem[MessageConst::FLD_MENSAGEM]);
+            // criar um metod add message
+            $transacao->addMessage($mensagemObj);
+
+            return $dao->save($transacao);
+
+        }
+        return false;
+
+    }
     public function salvar($transacao){
 
         /** @var TransactionDao $dao */
         $dao = $this->getFromServiceLocator(TransactionConst::DAO);
-
-
         if(isset($transacao[TransactionConst::FLD_ID_TRANSACTION])){
 
         }else{
@@ -165,12 +186,15 @@ class TransactionService extends ServiceAbstract
     }
 
 
-    public function getTransactionsByUser($userid){
+    public function getTransactionsByUser($userid, $isInstituicao = true){
+
+        $param = $isInstituicao ? "institutionUser" : "personUser";
+
         /** @var TransactionDao $dao */
         $dao = $this->getFromServiceLocator(TransactionConst::DAO);
         return $dao->getRepository(
             $dao->getEntityName())
-            ->findBy(array("institutionUser" => $userid,"status" => StatusTransacaoConst::FLAG_PENDENTE_FINALIZACAO)
+            ->findBy(array($param => $userid,"status" => StatusTransacaoConst::FLAG_PENDENTE_FINALIZACAO)
             );
     }
 
@@ -179,7 +203,7 @@ class TransactionService extends ServiceAbstract
         $dao = $this->getFromServiceLocator(TransactionConst::DAO);
         return $dao->getRepository(
             $dao->getEntityName())
-            ->findBy(array("institutionUser" => $userid)
+            ->findBy(array("personUser" => $userid)
             );
     }
 

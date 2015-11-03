@@ -38,4 +38,7 @@ interface TransactionConst
 
     const FLD_PERSON_USER = 'personUser';
     const LBL_PERSON_USER_ID = 'Pessoa';
+
+    const FLD_MESSAGE = 'messages';
+    const LBL_MESSAGE = 'Mensagens';
 }

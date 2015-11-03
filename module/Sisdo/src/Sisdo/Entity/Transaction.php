@@ -89,7 +89,7 @@ class Transaction extends EntityAbstract
 
 
     /**
-     * @ORM\OneToMany(targetEntity="Sisdo\Entity\Message", mappedBy="idTransacao")
+     * @ORM\OneToMany(targetEntity="Sisdo\Entity\Message",cascade="all", mappedBy="idTransacao")
      **/
     private $messages;
 
@@ -104,7 +104,7 @@ class Transaction extends EntityAbstract
 
 
     /**
-     * @return mixed
+     * @return Message
      */
     public function getMessages()
     {
@@ -112,12 +112,61 @@ class Transaction extends EntityAbstract
     }
 
     /**
+     * Add Message
+     *
+     * @param \Sisdo\Entity\Message $messages
+     * @return Message
+     */
+    public function addMessages(ArrayCollection $messages)
+    {
+        /** @var Message $inspecao */
+        foreach ($messages as $message) {
+            $this->addMessage($message);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Add inspecao
+     *
+     * @param \Sisdo\Entity\Message $message
+     * @return Message
+     */
+    public function addMessage(\Sisdo\Entity\Message $message)
+    {
+        if (!$this->messages->contains($message)) {
+            $this->messages->add($message);
+        }
+        return $this;
+    }
+
+    /**
+     * Remove Processo da lista
+     *
+     * @param ArrayCollection $inspecoes
+     */
+   /* public function removeInspecoes(ArrayCollection $inspecoes)
+    {
+        foreach ($inspecoes as $inspecao) {
+            if ($this->inspecoes->contains($inspecao)) {
+                $this->inspecoes->removeElement($inspecao);
+                $inspecao->removeProcesso($this);
+            }
+        }
+
+        return $this;
+
+    }*/
+    
+    
+    /**
      * @param mixed $messages
      */
-    public function setMessages($messages)
-    {
-        $this->messages = $messages;
-    }
+    //public function setMessages($messages)
+   // {
+    //    $this->messages = $messages;
+   // }
 
 
     /**

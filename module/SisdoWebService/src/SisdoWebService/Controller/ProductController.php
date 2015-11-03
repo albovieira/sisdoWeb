@@ -57,11 +57,12 @@ class ProductController extends ActionControllerAbstract
             }
         }
         else{
-            $retorno = array('Sem Doacoes Cadastrados');
+            $retorno = array('');
         }
 
         return new JsonModel($retorno);
     }
+
 
     /**
      * Retorna o titulo da pagina (especializar)

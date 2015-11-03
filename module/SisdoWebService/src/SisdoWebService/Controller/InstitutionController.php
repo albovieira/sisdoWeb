@@ -12,6 +12,7 @@ namespace SisdoWebService\Controller;
 use Application\Constants\UsuarioConst;
 use Application\Custom\ActionControllerAbstract;
 use Sisdo\Constants\InstitutionConst;
+use Sisdo\Constants\ProductConst;
 use Sisdo\Entity\Institution;
 use Sisdo\Entity\RamoInstituicao;
 use Sisdo\Service\InstitutionService;
@@ -36,6 +37,8 @@ class InstitutionController extends ActionControllerAbstract
         $instArray[UsuarioConst::FLD_EMAIL] = $instituicao->getUserId()->getEmail();
         //$instArray['telefone'] = $instituicao->getUserId()->getContact()->getTel();
 
+        $instArray['hasDonativos'] = count($this->getFromServiceLocator(ProductConst::DAO)->getRepository()->findBy(array('institutionUser' => $instituicao->getUserId()))) > 0
+        ? true : false;
 
         return new JsonModel($instArray);
 
@@ -78,6 +81,7 @@ class InstitutionController extends ActionControllerAbstract
             $namesInstituicao
         );
     }
+
 
     /**
      * Retorna o titulo da pagina (especializar)
