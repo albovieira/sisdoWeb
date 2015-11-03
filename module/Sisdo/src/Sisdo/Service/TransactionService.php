@@ -8,7 +8,6 @@ namespace Sisdo\Service;
  * Time: 00:11
  */
 
-use Application\Constants\FormConst;
 use Application\Constants\JqGridConst;
 use Application\Constants\UsuarioConst;
 use Application\Custom\ServiceAbstract;
@@ -41,8 +40,6 @@ class TransactionService extends ServiceAbstract
             TransactionConst::LBL_QUANTIFY,JqGridConst::NAME => TransactionConst::FLD_QUANTIFY));
         $jqgrid->addColunas(array(JqGridConst::LABEL  =>
             TransactionConst::LBL_START_DATE,JqGridConst::NAME => TransactionConst::FLD_START_DATE));
-        $jqgrid->addColunas(array(JqGridConst::LABEL  =>
-            TransactionConst::LBL_END_DATE,JqGridConst::NAME => TransactionConst::FLD_END_DATE));
 
         $jqgrid->addColunas(array(JqGridConst::LABEL  =>
             'Acao',JqGridConst::NAME => 'acao', JqGridConst::CLASSCSS => 'text-center'));
@@ -80,15 +77,6 @@ class TransactionService extends ServiceAbstract
             $temp[TransactionConst::FLD_STATUS] = StatusTransacao::getStatusByFlag($transaction->getStatus());
             $temp[TransactionConst::FLD_QUANTIFY] = $transaction->getQuantity() . ' ('. Unidade::getUnidadeBySigla($transaction->getProduct()->getUnity()) . ')';
             $temp[TransactionConst::FLD_START_DATE] = $transaction->getStartDate()->format('d/m/Y');
-
-            $ano = $transaction->getEndDate()->format('Y');
-            if($ano != FormConst::DATA_INVALIDA){
-                $dataEnd = $transaction->getEndDate()->format('d/m/Y');
-            }else{
-                $dataEnd = '';
-            }
-            $temp[TransactionConst::FLD_END_DATE] = $dataEnd;
-
 
             $botaoVer = new JqGridButton();
             $botaoVer->setTitle('Ver transacao');
@@ -198,12 +186,13 @@ class TransactionService extends ServiceAbstract
             );
     }
 
-    public function getAllTransactionsByUser($userid){
+    public function getAllTransactionsByUser($userid, $isInstituicao = true){
         /** @var TransactionDao $dao */
         $dao = $this->getFromServiceLocator(TransactionConst::DAO);
+        $param = $isInstituicao ? "institutionUser" : "personUser";
         return $dao->getRepository(
             $dao->getEntityName())
-            ->findBy(array("personUser" => $userid)
+            ->findBy(array($param => $userid)
             );
     }
 

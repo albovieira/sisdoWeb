@@ -58,8 +58,7 @@ class MainController extends ActionControllerAbstract
         $serviceRelationship = $this->getFromServiceLocator(RelationshipConst::SERVICE);
         $relacao = $serviceRelationship->getRelationshipInstitutionUser();
 
-        $porcentagem = round($quantTransacoesFinalizadas/$quantTodasTransacoes  * 100);
-
+        $porcentagem = $quantTodasTransacoes > 0 ? round($quantTransacoesFinalizadas/$quantTodasTransacoes  * 100) : 0;
         return new ViewModel(
             array(
                 'transacoesPendentes' => $transacoesPendentes,
