@@ -70,11 +70,23 @@ class InstitutionController extends ActionControllerAbstract
         $service = $this->getFromServiceLocator(InstitutionConst::SERVICE);
 
         $term = $this->params()->fromQuery('term');
+        $isCompleto = $this->params()->fromQuery('completo') != null ? $this->params()->fromQuery('completo') : false;
         $instituicoes = $service->getInstitutionsByTerm($term);
 
         $namesInstituicao = [];
-        foreach($instituicoes as $instituicao){
-            $namesInstituicao[] = $instituicao[InstitutionConst::FLD_FANCY_NAME];
+        if(!$isCompleto){
+            /** @var Institution $instituicao */
+            foreach($instituicoes as $instituicao){
+                $namesInstituicao[InstitutionConst::FLD_FANCY_NAME] = $instituicao->getFancyName();
+            }
+        }else{
+            /** @var Institution $instituicao */
+            foreach($instituicoes as $instituicao){
+                $namesInstituicao[$instituicao->getUserId()->getId()][InstitutionConst::FLD_USER_ID] = $instituicao->getUserId()->getId();
+                $namesInstituicao[$instituicao->getUserId()->getId()][InstitutionConst::FLD_FANCY_NAME]= $instituicao->getFancyName();
+                $namesInstituicao[$instituicao->getUserId()->getId()][InstitutionConst::FLD_BRANCH] = RamoInstituicao::getRamoById($instituicao->getBranch());
+                $namesInstituicao[$instituicao->getUserId()->getId()][InstitutionConst::FLD_PICTURE] = $instituicao->getPicture();
+            }
         }
 
         return new JsonModel(

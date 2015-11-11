@@ -18,38 +18,57 @@ $this->form->prepare();
 
 <?php echo $this->form()->closeTag(); ?>
 
-<div class="conversa panel panel-primary " style="margin-top: 40px;">
-        <div class="panel-heading">
-            <h3 class="panel-title">Conversa</h3>
+<div class="box box-primary direct-chat direct-chat-primary center-block" style=" margin-top: 2%">
+    <div class="box-header with-border">
+        <h3 class="box-title">Conversa</h3>
+        <div class="box-tools pull-right">
+            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
         </div>
-        <div class="panel-body">
-            <?php
-            if($this->userLogado->getInstituicao()){
-                foreach($this->conversa as $mensagem){
-                    if($mensagem instanceof \Sisdo\Entity\Message){
+    </div><!-- /.box-header -->
+    <div class="box-body">
 
-                        if($mensagem->getIdUser()->getInstituicao()){
-                            echo '<br>';
-                            echo '<span class="red"><strong>Enviado em :</strong>' .$mensagem->getDate()->format('d/m/Y') .'<br></span>';
-                            echo '<span class="red"><strong>Instituicao: </strong>'. $mensagem->getIdUser()->getInstituicao()->getFancyName().'<br></span>';
-                            echo '<span class="red"><strong>Mensagem:</strong> '. $mensagem->getMessage() .'<br></span>';
-                        }
-                        else if($mensagem->getIdUser()->getPerson()){
-                            echo '<br>';
-                            echo '<span><strong>Enviado em :</strong>' .$mensagem->getDate()->format('d/m/Y') .'<br></span>';
-                            echo '<span><strong>Usuario: </strong>'. $mensagem->getIdUser()->getPerson()->getName() .'<br></span>';
-                            echo '<span><strong>Mensagem:</strong> '. $mensagem->getMessage().'<br></span>';
-                        }
-
-                    }
+        <?php
+        foreach($this->conversa as $mensagem){
+            if($mensagem instanceof \Sisdo\Entity\Message) {
+                if($mensagem->getIdUser()->getInstituicao()){
+                    echo "<div class='direct-chat-msg'>
+                            <div class='direct-chat-info clearfix'>
+                                <span class='direct-chat-name pull-left'>{$mensagem->getIdUser()->getInstituicao()->getFancyName()}</span>
+                                <span class='direct-chat-timestamp pull-right'>{$mensagem->getDate()->format('d/m/Y')}</span>
+                            </div><!-- /.direct-chat-info -->
+                            <img class='direct-chat-img' src='{$mensagem->getIdUser()->getInstituicao()->getPicture()}' alt='message user image'><!-- /.direct-chat-img -->
+                            <div class='direct-chat-text'>
+                                    {$mensagem->getMessage()}
+                            </div><!-- /.direct-chat-text -->
+                </div><!-- /.direct-chat-msg -->";
+                }else{
+                    echo "<div class='direct-chat-msg right'>
+                            <div class='direct-chat-info clearfix'>
+                                <span class='direct-chat-name pull-right'>{$mensagem->getIdUser()->getPerson()->getName()}</span>
+                                <span class='direct-chat-timestamp pull-left'>{$mensagem->getDate()->format('d/m/Y')}</span>
+                            </div><!-- /.direct-chat-info -->
+                            <img class='direct-chat-img' src='{$mensagem->getIdUser()->getPerson()->getPicture()}' alt='message user image'><!-- /.direct-chat-img -->
+                            <div class='direct-chat-text'>
+                                    {$mensagem->getMessage()}
+                            </div><!-- /.direct-chat-text -->
+                </div><!-- /.direct-chat-msg -->";
                 }
             }
-            else{
-
-            }
-            ?>
-        </div>
+        }
+        ?>
+    </div>
+    <div class="box-footer">
+        <form action="#" method="post">
+            <div class="input-group">
+                <input type="text" name="message" placeholder="Mensagem" class="form-control">
+                      <span class="input-group-btn">
+                        <button type="button" class="btn btn-success btn-flat">Enviar</button>
+                      </span>
+            </div>
+        </form>
+    </div><!-- /.box-footer-->
 </div>
+
 
 <script>
     $('#vertransaction_form').click(function () {

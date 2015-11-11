@@ -11,8 +11,10 @@ namespace Sisdo\Controller;
 
 use Application\Constants\UsuarioConst;
 use Application\Custom\ActionControllerAbstract;
+use Sisdo\Constants\MessageConst;
 use Sisdo\Constants\ProductConst;
 use Sisdo\Constants\TransactionConst;
+use Sisdo\Entity\Message;
 use Sisdo\Entity\Product;
 use Sisdo\Entity\ShippingMethod;
 use Sisdo\Entity\StatusTransacao;
@@ -62,28 +64,52 @@ class TransactionController extends ActionControllerAbstract
         $service = $this->getFromServiceLocator(TransactionConst::SERVICE);
 
         $id = $this->params()->fromRoute('id');
+
         /** @var Transaction $transacao */
         $transacao = $service->getTransactionById($id);
-
-        $conversaAsArray = $transacao->getMessages()->getValues();
-
         /** @var \Application\Entity\User $userLogado*/
         $userLogado = $this->getFromServiceLocator(UsuarioConst::ZFCUSER_AUTH_SERVICE)->getIdentity();
-
         $form = new TransactionForm(null,$userLogado);
-
         $this->bindTransacao($transacao,$form);
+
+        $conversaAsArray = $transacao->getMessages()->getValues();
+        $formMessage = new MessageForm();
+        $formMessage->get(MessageConst::FLD_USER)->setValue($userLogado->getId());
+        $formMessage->get(MessageConst::FLD_TRANSACAO)->setValue($transacao->getId());
 
         $view = new ViewModel();
         $view->setVariables(
             array(
                 'form' => $form,
+                'formMessage' => $formMessage,
                 'transacao' => $transacao,
                 'userLogado' => $userLogado,
                 'conversa' => $conversaAsArray,
             )
         );
         return $view;
+    }
+
+    public function salvarMsgAction(){
+
+        /** @var TransactionService $service */
+        $service = $this->getFromServiceLocator(TransactionConst::SERVICE);
+        $post = $this->params()->fromPost();
+
+        /** @var Transaction $transacao */
+        $transacao = $service->salvarMsg($post);
+
+        $arr = [];
+
+        if($transacao){
+            /** @var Message $msg */
+            $msg = $transacao->getMessages()->first()->getMessage();
+            $arr[MessageConst::FLD_MENSAGEM] = $msg->getMessage();
+            $arr[MessageConst::FLD_USER] = $transacao->getInstitutionUser()->getInstituicao()->getFancyName();
+            $arr[MessageConst::FLD_DATE] = $msg->getDate()->format('d/m/Y');
+            return new JsonModel($arr);
+        }
+
     }
 
     public function visualizarAction(){
@@ -171,8 +197,9 @@ class TransactionController extends ActionControllerAbstract
         $dataStart = $transacao->getStartDate()->format('d/m/Y');
         $transacao->setStartDate($dataStart);
 
-        $ano = $transacao->getEndDate()->format('Y');
-        if($ano != self::DATA_INVALIDA){
+
+        //$ano = $transacao->getEndDate() != null ? $transacao->getEndDate()->format('Y') : '';
+        if($transacao->getEndDate()){
             $dataEnd = $transacao->getEndDate()->format('d/m/Y');
             $transacao->setEndDate($dataEnd);
         }else{

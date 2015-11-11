@@ -104,7 +104,7 @@ class Transaction extends EntityAbstract
 
 
     /**
-     * @return Message
+     * @return ArrayCollection
      */
     public function getMessages()
     {

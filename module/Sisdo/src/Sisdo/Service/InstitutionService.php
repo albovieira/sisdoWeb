@@ -165,7 +165,7 @@ class InstitutionService extends ServiceAbstract
 
         /** @var \Sisdo\Dao\InstitutionDao $dao */
         $dao = $this->getFromServiceLocator(InstitutionConst::DAO);
-        return $dao->findNameInstitutionByTerm($term);
+        return $dao->findInstitutionByName($term);
     }
 
     public function getInstitutionByName($name){

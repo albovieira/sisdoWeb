@@ -41,7 +41,6 @@ class TransactionController extends ActionControllerAbstract
             $retorno[$transacao->getId()][TransactionConst::FLD_PERSON_USER] = $transacao->getPersonUser()->getPerson()->getName();
             $retorno[$transacao->getId()][TransactionConst::FLD_INSTITUTION_USER] = $transacao->getInstitutionUser()->getInstituicao()->getFancyName();
             $retorno[$transacao->getId()][TransactionConst::FLD_STATUS] = StatusTransacao::getStatusByFlag($transacao->getStatus());
-            //$retorno[$transacao->getId()][TransactionConst::FLD_MESSAGE] = $transacao->getMessages()->getValues();
         }
 
         return new JsonModel($retorno);
@@ -65,18 +64,6 @@ class TransactionController extends ActionControllerAbstract
         $retorno[TransactionConst::FLD_INSTITUTION_USER] = $transacao->getInstitutionUser()->getInstituicao()->getFancyName();
         $retorno[TransactionConst::FLD_STATUS] = StatusTransacao::getStatusByFlag($transacao->getStatus());
 
-        /*$arrMessages = $transacao->getMessages()->getValues();
-        $newArr = [];
-        foreach($arrMessages as $mensagem){
-            $newArr[$mensagem->getId()][MessageConst::FLD_DATE] = $mensagem->getDate()->format('d/m/Y h:m:s');
-            $newArr[$mensagem->getId()][MessageConst::FLD_TRANSACAO] = $mensagem->getIdTransacao()->getId();
-            $newArr[$mensagem->getId()][MessageConst::FLD_MENSAGEM] = $mensagem->getMessage();
-            $newArr[$mensagem->getId()][MessageConst::FLD_USER] = $mensagem->getIdUser()->getId();
-            //$newArr[$mensagem->getId()][MessageConst::FLD_USER_NAME] = $mensagem->getIdUser()->get();
-        }
-        $retorno[TransactionConst::FLD_MESSAGE] = $newArr; */
-
-
         return new JsonModel($retorno);
     }
 
@@ -91,7 +78,6 @@ class TransactionController extends ActionControllerAbstract
         if($retorno instanceof Transaction){
             return new JsonModel($retorno->toArray());
         }
-
         return new JsonModel(array($retorno));
     }
 

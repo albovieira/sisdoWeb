@@ -21,7 +21,7 @@ class MessageForm extends Form
     public function __construct($url = null, $userLogado = null)
     {
 
-        parent::__construct('message_form');
+        parent::__construct('messageForm');
 
         $this
             ->setHydrator(new ClassMethodsHydrator(false))
@@ -46,29 +46,7 @@ class MessageForm extends Form
         $this->add(array(
             'name' => MessageConst::FLD_USER,
             'attributes' => array(
-                'type' => 'text',
-                'class' => '',
-            ),
-            'options' => array(
-                'label' => MessageConst::LBL_USER,
-            ),
-        ));
-
-        $this->add(array(
-            'name' => MessageConst::FLD_DATE,
-            'attributes' => array(
-                'type' => 'datetime',
-                'class' => '',
-            ),
-            'options' => array(
-                'label' => '',
-            ),
-        ));
-
-        $this->add(array(
-            'name' => MessageConst::FLD_USER,
-            'attributes' => array(
-                'type' => 'text',
+                'type' => 'hidden',
                 'class' => '',
             ),
             'options' => array(
@@ -90,11 +68,9 @@ class MessageForm extends Form
         $this->add(array(
             'name' => MessageConst::FLD_MENSAGEM,
             'attributes' => array(
-                'type' => 'textarea',
+                'type' => 'text',
                 'class' => '',
-                'rows' => '4',
-                'cols' => '400',
-                'max-row' => 200
+                'placeholder' => 'Mensagem'
             ),
             'options' => array(
                 'label' => MessageConst::LBL_MENSAGEM,
@@ -103,12 +79,12 @@ class MessageForm extends Form
 
 
         $this->add(array(
-            'name' => 'btn_salvar',
+            'name' => 'btnEnviar',
             'type' => 'button',
             'attributes' => array(
                 'type' => 'submit',
                 'value' => 'Enviar',
-                'id' => 'salvar_' . $this->getName(),
+                'id' => 'btnEnviar',
                 'class' => 'btn-success btn-white width-25 btn',
                 'style' => '',
             ),

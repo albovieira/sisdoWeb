@@ -32,14 +32,18 @@ class NameUserHelper extends AbstractHelper implements ServiceLocatorAwareInterf
         $data = [];
         if ($userLogado->getInstituicao()) {
             $data['profile'] = $userLogado->getProfile();
-            $data['name'] = $userLogado->getInstituicao()->getFancyName();
+            $data['name'] = $userLogado->getInstituicao() != null ?
+                $userLogado->getInstituicao()->getFancyName() : $userLogado->getUsername();
             $data['id'] = $userLogado->getId();
-            $data['picture'] = $userLogado->getInstituicao()->getPicture();
+            $data['picture'] = $userLogado->getInstituicao() != null ?
+                $userLogado->getInstituicao()->getPicture() : '/img/pictures/sem-imagem.jpg';
             $data['dateMember'] = $userLogado->getDate()->format('d/m/Y');
         } else {
             $data['profile'] = $userLogado->getProfile();
-            $data['picture'] = $userLogado->getPerson()->getPicture();
-            $data['name'] = $userLogado->getPerson()->getName();
+            $data['picture'] = $userLogado->getPerson() != null
+                ? $userLogado->getPerson()->getPicture() : '/img/pictures/sem-imagem.jpg';
+            $data['name'] = $userLogado->getPerson() != null ?
+                $userLogado->getPerson()->getName() : $userLogado->getUsername();
             $data['id'] = $userLogado->getId();
             $data['dateMember'] = $userLogado->getDate()->format('d/m/Y');
 

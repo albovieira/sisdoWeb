@@ -64,6 +64,13 @@ class Institution extends EntityAbstract
     protected $userId;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="user_id", type="integer")
+     */
+    protected $seqUserId;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="picture", type="string", length=200, nullable=false)

@@ -25,7 +25,7 @@ function sisdoAjax(url, type, data, callbackSuccess, targetId, extraParam) {
                 window.location.reload();
             } else {
                 //var msg = Mensagens.MERRO + '<br>' + Mensagens.MERROINSTRUCAO;
-                var msg = 'Ocorreu um erro ao tentar realizar a opera��o <br> <pre>' + jqXHR.responseText + '</pre>';
+                var msg = 'Ocorreu um erro ao tentar realizar a operaçao <br> <pre>' + jqXHR.responseText + '</pre>';
                 showMessages(msg, 'danger');
             }
         }

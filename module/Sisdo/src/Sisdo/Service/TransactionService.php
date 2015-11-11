@@ -119,9 +119,15 @@ class TransactionService extends ServiceAbstract
             $mensagemObj = new Message();
             $mensagemObj->setDate(new \DateTime('now'));
             $mensagemObj->setIdTransacao($transacao);
-            $mensagemObj->setIdUser($transacao->getPersonUser());
+
+            //deve ser corrigido
+            if($this->getUserLogado()){
+                $mensagemObj->setIdUser($transacao->getInstitutionUser());
+            }else{
+                $mensagemObj->setIdUser($transacao->getPersonUser());
+            }
+
             $mensagemObj->setMessage($mensagem[MessageConst::FLD_MENSAGEM]);
-            // criar um metod add message
             $transacao->addMessage($mensagemObj);
 
             return $dao->save($transacao);

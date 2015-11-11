@@ -13,11 +13,12 @@ $this->form->prepare();
 <?php echo $this->formRow($this->form->get(\Sisdo\Constants\TransactionConst::FLD_PERSON_USER)); ?>
 <?php echo $this->formRow($this->form->get(\Sisdo\Constants\TransactionConst::FLD_STATUS)); ?>
 <?php echo $this->formRow($this->form->get(\Sisdo\Constants\TransactionConst::FLD_SHIPPING_METHOD)); ?>
-<?php echo $this->formRow($this->form->get(\Sisdo\Constants\TransactionConst::FLD_QUANTIFY)); ?>
+<?php echo $this->formRow($this->form->get(\Sisdo\Constants\TransactionConst::FLD_QUANTIFY)); ?><br>
 <?php echo $this->formRow($this->form->get(\Sisdo\Constants\TransactionConst::FLD_START_DATE)); ?>
 <?php echo $this->formRow($this->form->get(\Sisdo\Constants\TransactionConst::FLD_END_DATE)); ?>
 
-<div class="row botoesacao">
+
+<div class="row botoesacao center-block">
     <?php echo $this->formButton($this->form->get('btn_ver_mensagens')); ?>
     <?php echo $this->formButton($this->form->get('btn_finalizar_doacao')); ?>
     <?php echo $this->formButton($this->form->get('btn_rejeitar')); ?>
@@ -25,94 +26,64 @@ $this->form->prepare();
 
 <?php echo $this->form()->closeTag(); ?>
 
-<div class="conversa panel panel-primary " style="margin-top: 40px;">
-        <div class="panel-heading">
-            <h3 class="panel-title">Conversa</h3>
+
+<div class="box box-primary direct-chat direct-chat-primary center-block" style=" margin-top: 2%">
+    <div class="box-header with-border">
+        <h3 class="box-title">Conversa</h3>
+        <div class="box-tools pull-right">
+            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
         </div>
-        <div class="panel-body">
-            <?php
-            if($this->userLogado->getInstituicao()){
-                foreach($this->conversa as $mensagem){
-                    if($mensagem instanceof \Sisdo\Entity\Message){
+    </div><!-- /.box-header -->
+    <div class="box-body">
 
-                        if($mensagem->getIdUser()->getInstituicao()){
-                            echo '<br>';
-                            echo '<span class="red"><strong>Enviado em :</strong>' .$mensagem->getDate()->format('d/m/Y') .'<br></span>';
-                            echo '<span class="red"><strong>Instituicao: </strong>'. $mensagem->getIdUser()->getInstituicao()->getFancyName().'<br></span>';
-                            echo '<span class="red"><strong>Mensagem:</strong> '. $mensagem->getMessage() .'<br></span>';
-                        }
-                        else if($mensagem->getIdUser()->getPerson()){
-                            echo '<br>';
-                            echo '<span><strong>Enviado em :</strong>' .$mensagem->getDate()->format('d/m/Y') .'<br></span>';
-                            echo '<span><strong>Usuario: </strong>'. $mensagem->getIdUser()->getPerson()->getName() .'<br></span>';
-                            echo '<span><strong>Mensagem:</strong> '. $mensagem->getMessage().'<br></span>';
-                        }
-
-                    }
-                }
-            }
-            else{
-
-            }
-            ?>
-        </div>
+<?php
+foreach($this->conversa as $mensagem){
+    if($mensagem instanceof \Sisdo\Entity\Message) {
+        if($mensagem->getIdUser()->getInstituicao()){
+            echo "<div class='direct-chat-msg'>
+                            <div class='direct-chat-info clearfix'>
+                                <span class='direct-chat-name pull-left'>{$mensagem->getIdUser()->getInstituicao()->getFancyName()}</span>
+                                <span class='direct-chat-timestamp pull-right'>{$mensagem->getDate()->format('d/m/Y')}</span>
+                            </div><!-- /.direct-chat-info -->
+                            <img class='direct-chat-img' src='{$mensagem->getIdUser()->getInstituicao()->getPicture()}' alt='message user image'><!-- /.direct-chat-img -->
+                            <div class='direct-chat-text'>
+                                    {$mensagem->getMessage()}
+                            </div><!-- /.direct-chat-text -->
+                </div><!-- /.direct-chat-msg -->";
+        }else{
+            echo "<div class='direct-chat-msg right'>
+                            <div class='direct-chat-info clearfix'>
+                                <span class='direct-chat-name pull-right'>{$mensagem->getIdUser()->getPerson()->getName()}</span>
+                                <span class='direct-chat-timestamp pull-left'>{$mensagem->getDate()->format('d/m/Y')}</span>
+                            </div><!-- /.direct-chat-info -->
+                            <img class='direct-chat-img' src='{$mensagem->getIdUser()->getPerson()->getPicture()}' alt='message user image'><!-- /.direct-chat-img -->
+                            <div class='direct-chat-text'>
+                                    {$mensagem->getMessage()}
+                            </div><!-- /.direct-chat-text -->
+                </div><!-- /.direct-chat-msg -->";
+        }
+    }
+}
+?>
 </div>
 
 
 
-<script>
-    $('#btn_finalizar_doacao').click(function () {
+    <div class="box-footer">
+        <?php echo $this->form(null, \TwbBundle\Form\View\Helper\TwbBundleForm::LAYOUT_HORIZONTAL)->openTag($this->formMessage);
+        $this->formMessage->prepare(); ?>
+            <div class="input-group">
+                <?php echo $this->formElement($this->formMessage->get(\Sisdo\Constants\MessageConst::FLD_USER)); ?>
+                <?php echo $this->formElement($this->formMessage->get(\Sisdo\Constants\MessageConst::FLD_TRANSACAO)); ?>
 
-        bootbox.dialog({
-            message:
-                '<label>Observacao</label><textarea class="form-control" rows="2" cols="2"></textarea>'+
-                '<input id="input-id" type="number" class="rating" min=0 max=5 step=0.5 data-size="xs" >',
-            title: "Finalizar Doacao",
-            buttons: {
-                success: {
-                    label: "Confirmar",
-                    className: "btn-primary",
-                    callback: function() {
-                        var data = {'id': $('input[name="id"]').val()};
-                        sisdoAjax('/transacao/finalizar-transacao', 'GET', data, function (json) {
-                            if (json.retorno == 'sucesso') {
-                                showMessages('Transacao finalizaca com sucesso.', 'success');
-                                window.location.assign("/transacao/");
-                            } else {
-                                showMessages('Ocorreu um erro ao realizar a operacao.', 'danger');
-                            }
-                        });
-                    }
-                }
-
-            }
-        });
-
-        // initialize with defaults
-        $("#input-id").rating();
-
-        // with plugin options
-        $("#input-id").rating({'size':'lg'});
-
-/*
-        bootbox.confirm("Deseja finalizar a transacao? Fazendo isso voce confirma o recebimento do produto.", function(result) {
+                <?php echo $this->formElement($this->formMessage->get(\Sisdo\Constants\MessageConst::FLD_MENSAGEM)); ?>
+                  <span class="input-group-btn">
+                        <?php echo $this->formButton($this->formMessage->get('btnEnviar')); ?>
+                  </span>
+            </div>
+            <?php echo $this->form()->closeTag(); ?>
+    </div><!-- /.box-footer-->
+</div>
 
 
-
-            if(result){
-                var data = {'id': $('input[name="id"]').val()};
-                sisdoAjax('/transacao/finalizar-transacao', 'GET', data, function (json) {
-                    if (json.retorno == 'sucesso') {
-                        showMessages('Transacao finalizaca com sucesso.', 'success');
-                        window.location.assign("/transacao/");
-                    } else {
-                        showMessages('Ocorreu um erro ao realizar a operacao.', 'danger');
-                    }
-                });
-
-            }
-        });*/
-    });
-
-
-</script>
+<script src="/js/sisdo/transacao.js"></script>
