@@ -45,7 +45,7 @@ var transacao = {
             e.preventDefault();
             var data = $('form#messageForm').serialize();
             sisdoAjax('/transacao/salvar-msg', 'POST', data, function (json) {
-
+                console.log(json);
                 var html =
                 "<div class='direct-chat-msg'>"+
                     "<div class='direct-chat-info clearfix'>"+

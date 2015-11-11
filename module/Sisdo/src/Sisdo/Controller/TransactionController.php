@@ -103,12 +103,14 @@ class TransactionController extends ActionControllerAbstract
 
         if($transacao){
             /** @var Message $msg */
-            $msg = $transacao->getMessages()->first()->getMessage();
+            $msg = $transacao->getMessages()->last();
             $arr[MessageConst::FLD_MENSAGEM] = $msg->getMessage();
             $arr[MessageConst::FLD_USER] = $transacao->getInstitutionUser()->getInstituicao()->getFancyName();
             $arr[MessageConst::FLD_DATE] = $msg->getDate()->format('d/m/Y');
             return new JsonModel($arr);
         }
+
+        return new JsonModel(array('falha'));
 
     }
 
