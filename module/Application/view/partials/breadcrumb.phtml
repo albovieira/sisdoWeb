@@ -1,0 +1,12 @@
+<ol class="breadcrumb">
+    <?php $i = 1; ?>
+    <?php $breadcrumb = isset($this->layout->breadcrumb) ? $this->layout->breadcrumb : array(); ?>
+    <?php foreach ($breadcrumb as $item) { ?>
+        <?php $class = $i == sizeof($this->layout->breadcrumb) ? 'active' : ''; ?>
+        <li class="<?php echo $class; ?>">
+            <?php echo $item; ?>
+        </li>
+        <?php $i++; ?>
+    <?php } ?>
+
+</ol>
