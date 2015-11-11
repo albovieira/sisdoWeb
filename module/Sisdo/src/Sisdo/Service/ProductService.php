@@ -162,11 +162,11 @@ class ProductService extends ServiceAbstract
         return $dao->getEntity($id);
     }
 
-    public function getProdutosAtivos($id = null){
+    public function getProdutosAtivos($id){
         /** @var ProductDao $dao */
         $dao = $this->getFromServiceLocator(ProductConst::DAO);
 
-        return $retorno = $id != null ? $dao->findProductsByUser($id)->getQuery()->getResult() : $dao->findProductActive();
+        return $dao->findProductsByUser($id)->getQuery()->getResult() ;
     }
 
 

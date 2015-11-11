@@ -48,7 +48,7 @@ class MainController extends ActionControllerAbstract
 
         /** @var ProductService $serviceProduct */
         $serviceProduct = $this->getFromServiceLocator(ProductConst::SERVICE);
-        $doacoes = count($serviceProduct->getProdutosAtivos());
+        $doacoes = count($serviceProduct->getProdutosAtivos($userid));
 
         /** @var MoneyDonationService $serviceMoney */
         $serviceMoney = $this->getFromServiceLocator(MoneyDonationConst::SERVICE);

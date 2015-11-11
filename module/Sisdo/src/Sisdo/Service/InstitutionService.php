@@ -31,10 +31,10 @@ class InstitutionService extends ServiceAbstract
 
     public function salvar(EntityAbstract $obj){
 
-        $dao = '';
         if ($obj instanceof Institution) {
             /** @var \Sisdo\Dao\InstitutionDao $dao */
             $dao = $this->getFromServiceLocator(InstitutionConst::DAO);
+            $obj->setPicture('/img/pictures/sem-imagem.jpg');
         }
         else if($obj instanceof Adress){
             /** @var \Sisdo\Dao\AdressDao $dao */
@@ -50,6 +50,7 @@ class InstitutionService extends ServiceAbstract
 
         $userLogado = $this->getUserLogado();
         $obj->setUserId($userLogado);
+        $obj->setSeqUserId($obj->getUserId()->getId());
 
         if($obj->getId()){
             $em = $dao->getEntityManager();

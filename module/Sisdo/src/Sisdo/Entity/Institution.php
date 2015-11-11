@@ -190,6 +190,24 @@ class Institution extends EntityAbstract
     }
 
     /**
+     * @return int
+     */
+    public function getSeqUserId()
+    {
+        return $this->seqUserId;
+    }
+
+    /**
+     * @param int $seqUserId
+     */
+    public function setSeqUserId($seqUserId)
+    {
+        $this->seqUserId = $seqUserId;
+    }
+
+
+
+    /**
      * @return string
      */
     public function getPicture()

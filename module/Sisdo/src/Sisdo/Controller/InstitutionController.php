@@ -196,7 +196,7 @@ class InstitutionController extends ActionControllerAbstract
         $serviceProduct = $this->getFromServiceLocator(ProductConst::SERVICE);
 
         /** @var Product $produtosAtivos */
-        $produtosAtivos = $serviceProduct->getProdutosAtivos();
+        $produtosAtivos = $serviceProduct->getProdutosAtivos($id);
 
         $endereco = $institution->getUserId()->getAdress();
 
