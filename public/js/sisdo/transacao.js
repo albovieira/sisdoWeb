@@ -2,7 +2,6 @@ var transacao = {
 
     init: function () {
         this.bindFinalizarDoacao();
-        this.bindRating();
         this.submitMsg();
     },
 
@@ -10,30 +9,35 @@ var transacao = {
         $('#btn_finalizar_doacao').click(function () {
 
             bootbox.dialog({
-                message: '<label>Observacao</label><textarea class="form-control" rows="2" cols="2"></textarea>' +
-                '<input id="input-id" type="number" class="rating" min=0 max=5 step=0.5 data-size="xs" >',
                 title: "Finalizar Doacao",
+                message: '<label>Observacao</label><textarea id="obs-txt" class="form-control" rows="2" cols="2"></textarea>' +
+                '<input id="input-id" type="number" class="rating" min=0 max=5 step=0.5 data-size="xs" >',
                 buttons: {
                     success: {
                         label: "Confirmar",
                         className: "btn-primary",
                         callback: function () {
-                            var data = {'id': $('input[name="id"]').val()};
-                            sisdoAjax('/transacao/finalizar-transacao', 'GET', data, function (json) {
+
+                            var fnSuccess = function (json) {
                                 if (json.retorno == 'sucesso') {
                                     showMessages('Transacao finalizaca com sucesso.', 'success');
                                     window.location.assign("/transacao/");
                                 } else {
                                     showMessages('Ocorreu um erro ao realizar a operacao.', 'danger');
                                 }
-                            });
+                            };
+
+                            var data = {
+                                'id': $('input[name="id"]').val(),
+                                'rating': $('#input-id').val(),
+                                'observacao': $('#obs-txt').val()
+                            };
+                            sisdoAjax('/transacao/finalizar-transacao', 'POST', data, fnSuccess);
                         }
                     }
                 }
             });
 
-            $("#input-id").rating();
-            // with plugin options
             $("#input-id").rating({'size':'lg'});
 
         });
@@ -62,10 +66,6 @@ var transacao = {
 
         });
     },
-
-    bindRating: function () {
-    }
-
 
     /*
      bootbox.confirm("Deseja finalizar a transacao? Fazendo isso voce confirma o recebimento do produto.", function(result) {

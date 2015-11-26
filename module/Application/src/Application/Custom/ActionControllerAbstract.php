@@ -195,7 +195,17 @@ abstract class ActionControllerAbstract extends AbstractActionController
      */
     protected function isPost()
     {
-        return $_SERVER['REQUEST_METHOD'] === 'POST';
+        return $this->getRequest()->isPost();
+    }
+
+    /**
+     * Recupera o Post
+     *
+     * @return bool
+     */
+    protected function getPost($post)
+    {
+        return $this->params()->fromPost($post);
     }
 
     /**

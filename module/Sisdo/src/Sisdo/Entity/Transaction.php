@@ -94,6 +94,13 @@ class Transaction extends EntityAbstract
     private $messages;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="observation", type="string", nullable=true)
+     */
+    private $observacao;
+
+    /**
      * Transaction constructor.
      * @param $messages
      */
@@ -140,34 +147,6 @@ class Transaction extends EntityAbstract
         }
         return $this;
     }
-
-    /**
-     * Remove Processo da lista
-     *
-     * @param ArrayCollection $inspecoes
-     */
-   /* public function removeInspecoes(ArrayCollection $inspecoes)
-    {
-        foreach ($inspecoes as $inspecao) {
-            if ($this->inspecoes->contains($inspecao)) {
-                $this->inspecoes->removeElement($inspecao);
-                $inspecao->removeProcesso($this);
-            }
-        }
-
-        return $this;
-
-    }*/
-    
-    
-    /**
-     * @param mixed $messages
-     */
-    //public function setMessages($messages)
-   // {
-    //    $this->messages = $messages;
-   // }
-
 
     /**
      * @return int
@@ -311,6 +290,22 @@ class Transaction extends EntityAbstract
     public function setShippingMethod($shippingMethod)
     {
         $this->shippingMethod = $shippingMethod;
+    }
+
+    /**
+     * @return string
+     */
+    public function getObservacao()
+    {
+        return $this->observacao;
+    }
+
+    /**
+     * @param string $observacao
+     */
+    public function setObservacao($observacao)
+    {
+        $this->observacao = $observacao;
     }
 
 

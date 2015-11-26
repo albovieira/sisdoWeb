@@ -41,4 +41,8 @@ interface TransactionConst
 
     const FLD_MESSAGE = 'messages';
     const LBL_MESSAGE = 'Mensagens';
+
+    const FLD_OBSERVACAO = 'observacao';
+    const LBL_OBSERVACAO = 'Observação';
+
 }

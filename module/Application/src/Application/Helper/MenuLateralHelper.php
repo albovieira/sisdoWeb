@@ -65,7 +65,7 @@ class MenuLateralHelper extends AbstractHelper implements ServiceLocatorAwareInt
                   </a>
                   <ul class="treeview-menu" style="display: none;">
                     <li><a href="/transacao"><i class="fa fa-circle-o"></i> Transações Pendentes</a></li>
-                    <li><a href="/transacao/finalizada"><i class="fa fa-circle-o"></i> Transações Finalizadas</a></li>
+                    <li><a href="/transacao/finalizadas"><i class="fa fa-circle-o"></i> Transações Finalizadas</a></li>
                   </ul>
                 </li>
                 <li><a href="/relacionamento"><i class="fa fa-users"></i> <span>Relacionamentos</span></a></li>

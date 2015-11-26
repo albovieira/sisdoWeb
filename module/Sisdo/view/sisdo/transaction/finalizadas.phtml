@@ -1,0 +1,13 @@
+<div class="col-sm-12">
+<?php
+echo $this->botoesHelper($this->botoesHelper);
+echo  $this->grid;
+
+$modal = new \Application\Helper\ModalHelper();
+$modal->setId('modal_transacao');
+$modal->setTitle('Visualizar transacao');
+//$modal->setContent('');
+echo $modal->renderModal();
+
+?>
+</div>

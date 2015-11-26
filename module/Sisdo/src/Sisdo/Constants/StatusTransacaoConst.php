@@ -15,4 +15,8 @@ interface StatusTransacaoConst
 
     const FLAG_CANCELADO = 3;
     const LBL_CANCELADO = 'Cancelado';
+
+    const LABEL_FINALIZADOS = 'Finalizadas';
+    const LABEL_PENDENTES = 'Pendentes';
+
 }

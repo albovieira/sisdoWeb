@@ -13,6 +13,7 @@ use Application\Constants\UsuarioConst;
 use Application\Custom\ActionControllerAbstract;
 use Sisdo\Constants\MessageConst;
 use Sisdo\Constants\ProductConst;
+use Sisdo\Constants\StatusTransacaoConst;
 use Sisdo\Constants\TransactionConst;
 use Sisdo\Entity\Message;
 use Sisdo\Entity\Product;
@@ -30,7 +31,6 @@ use Zend\View\Model\ViewModel;
 class TransactionController extends ActionControllerAbstract
 {
     const DATA_INVALIDA = '-0001';
-
     protected $title = 'Transações';
 
     public function indexAction()
@@ -47,11 +47,27 @@ class TransactionController extends ActionControllerAbstract
         );
     }
 
+    public function finalizadasAction()
+    {
+        $this->title = array($this->title,'Lista' );
+        /** @var TransactionService $service */
+        $service = $this->getFromServiceLocator(TransactionConst::SERVICE);
+        $grid = $service->getGrid(StatusTransacaoConst::FLAG_FINALIZADO);
+        return new ViewModel(
+            array(
+                'grid' => $grid,
+                'botoesHelper' => $this->getBotoesHelper()
+            )
+        );
+    }
+
     public function getDadosAction(){
 
         /** @var TransactionService $service */
         $service = $this->getFromServiceLocator(TransactionConst::SERVICE);
-        $grid = $service->getGridDados();
+
+        $id = $this->params()->fromQuery('status');
+        $grid = $service->getGridDados($id);
 
         return new JsonModel($grid);
     }
@@ -155,7 +171,6 @@ class TransactionController extends ActionControllerAbstract
         /** @var ProductService $serviceProduct */
         $serviceProduct = $this->getFromServiceLocator(ProductConst::SERVICE);
 
-        var_dump($this->getRequest()->getPost());die;
         $id = $this->params()->fromRoute('id');
 
         /** @var Product $produto */
@@ -180,10 +195,10 @@ class TransactionController extends ActionControllerAbstract
         /** @var TransactionService $service */
         $service = $this->getFromServiceLocator(TransactionConst::SERVICE);
 
-        $id = $this->getRequest()->getQuery('id');
+        $post = $this->params()->fromPost();
 
         /** @var Transaction $transacao */
-        $isFinalizado = $service->finalizaTransacao($id);
+        $isFinalizado = !isset($post) ? false : $service->finalizaTransacao($post);
 
         if($isFinalizado){
             $retorno = 'sucesso';
@@ -198,7 +213,6 @@ class TransactionController extends ActionControllerAbstract
 
         $dataStart = $transacao->getStartDate()->format('d/m/Y');
         $transacao->setStartDate($dataStart);
-
 
         //$ano = $transacao->getEndDate() != null ? $transacao->getEndDate()->format('Y') : '';
         if($transacao->getEndDate()){

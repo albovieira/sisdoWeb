@@ -19,6 +19,7 @@ use Sisdo\Constants\StatusTransacaoConst;
 use Sisdo\Constants\TransactionConst;
 use Sisdo\Dao\TransactionDao;
 use Sisdo\Entity\Message;
+use Sisdo\Entity\Rating;
 use Sisdo\Entity\StatusTransacao;
 use Sisdo\Entity\Transaction;
 use Sisdo\Entity\Unidade;
@@ -27,7 +28,7 @@ class TransactionService extends ServiceAbstract
 {
     const URL_GET_DADOS = '/transacao/getDados';
 
-    public function getGrid(){
+    public function getGrid($status = StatusTransacaoConst::FLAG_PENDENTE_FINALIZACAO){
 
         $jqgrid = new JqGridTable();
         $jqgrid->addColunas(array(JqGridConst::LABEL  =>
@@ -44,13 +45,15 @@ class TransactionService extends ServiceAbstract
         $jqgrid->addColunas(array(JqGridConst::LABEL  =>
             'Acao',JqGridConst::NAME => 'acao', JqGridConst::CLASSCSS => 'text-center'));
 
-        $jqgrid->setUrl(self::URL_GET_DADOS);
-        $jqgrid->setTitle('Transacoes Pendentes');
+        $jqgrid->setUrl(self::URL_GET_DADOS . '?status='.$status);
+
+        $lblStatus = $status == StatusTransacaoConst::FLAG_FINALIZADO ? StatusTransacaoConst::LABEL_FINALIZADOS : StatusTransacaoConst::LABEL_PENDENTES;
+        $jqgrid->setTitle('Transacoes ' . $lblStatus);
 
         return $jqgrid->renderJs();
     }
 
-    public function getGridDados(){
+    public function getGridDados($status = null){
 
         /** @var TransactionDao $dao */
         $dao = $this->getFromServiceLocator(TransactionConst::DAO);
@@ -58,7 +61,7 @@ class TransactionService extends ServiceAbstract
         /** @var \Application\Entity\User $instituicaoLogado */
         $instituicaoLogado = $this->getFromServiceLocator(UsuarioConst::ZFCUSER_AUTH_SERVICE)->getIdentity();
 
-        $qb = $dao->findTransactionsPendentes($instituicaoLogado->getId());
+        $qb = $dao->findTransactions($instituicaoLogado->getId(), $status);
 
         $jqgrid = new JqGridTable();
         $jqgrid->setAlias('r');
@@ -160,19 +163,35 @@ class TransactionService extends ServiceAbstract
 
     }
 
-    public function finalizaTransacao($id){
+    public function finalizaTransacao($post){
 
         /** @var TransactionDao $dao */
         $dao = $this->getFromServiceLocator(TransactionConst::DAO);
 
         /** @var Transaction $transacao */
-        $transacao = $this->getTransactionById($id);
+        $transacao = $this->getTransactionById($post[TransactionConst::FLD_ID_TRANSACTION]);
+
 
         if($transacao->getStatus() == StatusTransacaoConst::FLAG_PENDENTE_FINALIZACAO){
             $transacao->setStatus(StatusTransacaoConst::FLAG_FINALIZADO);
             $transacao->setEndDate(new \DateTime('now'));
 
+            if(isset($post[TransactionConst::FLD_OBSERVACAO])){
+                $transacao->setObservacao($post[TransactionConst::FLD_OBSERVACAO]);
+            }
+
             $dao->save($transacao);
+
+            if(isset($post['rating'])){
+                $rating = new Rating();
+                $rating->setInstitutionUser($transacao->getInstitutionUser());
+                $rating->setPersonUser($transacao->getPersonUser());
+                $rating->setRating($post['rating']);
+                $rating->setTransacao($transacao);
+
+                $dao->save($rating);
+            }
+
 
             return true;
         }
