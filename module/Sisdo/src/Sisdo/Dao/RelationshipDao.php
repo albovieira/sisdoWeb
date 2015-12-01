@@ -29,4 +29,16 @@ class RelationshipDao extends DaoAbstract
         return $qb->getQuery()->getResult();
     }
 
+    public function findRelationship($userId,$instituitioId){
+
+        return
+            $this->getRepository()
+            ->findBy(
+                array(
+                    "personUserId" => $userId,
+                    "institutionUserId" => $instituitioId
+                )
+            );
+    }
+
 }

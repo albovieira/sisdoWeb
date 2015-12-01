@@ -60,7 +60,9 @@ abstract class ActionControllerAbstract extends AbstractActionController
      *
      * @return mixed
      */
-    abstract public function getTitle();
+     public function getTitle(){
+         return '';
+     }
 
     /**
      * Retorna a descricao da pagina (especializar)
@@ -203,9 +205,9 @@ abstract class ActionControllerAbstract extends AbstractActionController
      *
      * @return bool
      */
-    protected function getPost($post)
+    protected function getPost($post = null)
     {
-        return $this->params()->fromPost($post);
+        return $post != null ? $this->params()->fromPost($post) : $this->params()->fromPost();
     }
 
     /**

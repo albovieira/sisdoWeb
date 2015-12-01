@@ -48,6 +48,7 @@ class MenuLateralHelper extends AbstractHelper implements ServiceLocatorAwareInt
                   </ul>
                 </li>
 
+                <!--
                 <li class="treeview">
                   <a href="">
                     <i class="fa fa-money"></i> <span>Doações em dinheiro</span> <i class="fa fa-angle-left pull-right"></i>
@@ -57,7 +58,7 @@ class MenuLateralHelper extends AbstractHelper implements ServiceLocatorAwareInt
                     <li><a href="/doacao-financeira"><i class="fa fa-circle-o"></i> Doações Pendentes</a></li>
                     <li><a href="/doacao-financeira/finalizada"><i class="fa fa-circle-o"></i> Doaçõe Finalizadas</a></li>
                   </ul>
-                </li>
+                </li> -->
 
                 <li class="treeview">
                   <a href="/transacao">
@@ -70,6 +71,7 @@ class MenuLateralHelper extends AbstractHelper implements ServiceLocatorAwareInt
                 </li>
                 <li><a href="/relacionamento"><i class="fa fa-users"></i> <span>Relacionamentos</span></a></li>
 
+                <!--
                 <li class="treeview">
                   <a href="#">
                     <i class="ion ion-document-text"></i> <span>Relatório</span> <i class="fa fa-angle-left pull-right"></i>
@@ -79,7 +81,7 @@ class MenuLateralHelper extends AbstractHelper implements ServiceLocatorAwareInt
                     <li><a href="/produto/relatorio"><i class="fa fa-circle-o"></i> Doações Produtos/Serviços</a></li>
                     <li><a href="/transacoes/relatorio"><i class="fa fa-circle-o"></i> Transações</a></li>
                   </ul>
-                </li>
+                </li> -->
 
         </ul>
 

@@ -11,6 +11,8 @@ namespace Sisdo\Service;
 use Application\Constants\JqGridConst;
 use Application\Constants\UsuarioConst;
 use Application\Custom\ServiceAbstract;
+use Application\Dao\ZfcUsuario;
+use Application\Entity\User;
 use Application\Util\EmailUtil\EmailUtil;
 use Application\Util\JqGridButton;
 use Application\Util\JqGridTable;
@@ -41,18 +43,52 @@ class RelationshipService extends ServiceAbstract
         return $qb->getQuery()->getResult();
     }
 
-    public function isSeguindo($institutionUser){
+    public function isSeguindo($institutionUser, $userId = null){
         /** @var RelationshipDao $dao */
         $dao = $this->getFromServiceLocator(RelationshipConst::DAO);
-        $retorno = $dao->getRepository(
-                $dao->getEntityName())
-                ->findBy(array("institutionUserId" => $institutionUser,"personUserId" => $this->getUserLogado()->getId()));
+
+        $personUser = $userId != null ? $userId : $this->getUserLogado()->getId();
+
+        $retorno = $dao->findRelationship($personUser,$institutionUser);
 
         if($retorno){
             return true;
         }
         return false;
 
+    }
+
+    public function getRelationship($user,$institution){
+        /** @var RelationshipDao $dao */
+        $dao = $this->getFromServiceLocator(RelationshipConst::DAO);
+        return $dao->findRelationship($user,$institution);
+    }
+
+    public function seguir($post){
+
+        /** @var RelationshipDao $dao */
+        $dao = $this->getFromServiceLocator(RelationshipConst::DAO);
+
+        /** @var ZfcUsuario $usuarioDao */
+        $usuarioDao = $this->getFromServiceLocator('zfcuser_user_mapper');
+
+        /** @var Relationship $relationship */
+        if($relationship = $dao->findRelationship($post['user'], $post['instituicao'])){
+            $dao->remove(reset($relationship));
+            $status = false;
+        }else{
+            /** @var User $person */
+            $person = $usuarioDao->findById($post['user']);
+            /** @var User institution */
+            $institution = $usuarioDao->findById($post['instituicao']);
+
+            $relationship = new Relationship();
+            $relationship->setPersonUserId($person);
+            $relationship->setInstitutionUserId($institution);
+            $dao->save($relationship);
+            $status = true;
+        }
+        return $status;
     }
 
     public function getGrid(){
@@ -143,7 +179,6 @@ class RelationshipService extends ServiceAbstract
         /** @var TemplateEmailDao $dao */
         $dao = $this->getFromServiceLocator(TemplateEmailConst::DAO);
 
-
         /** @var \Application\Entity\User $instituicaoLogado */
         $instituicaoLogado = $this->getFromServiceLocator(UsuarioConst::ZFCUSER_AUTH_SERVICE)->getIdentity();
 
@@ -174,8 +209,6 @@ class RelationshipService extends ServiceAbstract
             $botaoExcluir->setClass('btn btn-danger btn-xs');
             $botaoExcluir->setUrl('/relacionamento/excluir-modelo/' . $template->getId());
             $botaoExcluir->setIcon('glyphicon glyphicon-trash');
-            //$botaoExcluir->getOnClick();
-
 
             $temp[JqGridConst::ACAO] = "<div class='agrupa-botoes'>" . $botaoEditar->render() . $botaoExcluir->render() .
                 "</div>";
@@ -240,6 +273,4 @@ DOC;
 
         return true;
     }
-
-
 }

@@ -96,6 +96,22 @@ return array(
                 ),
             ),
 
+            'relationship-api' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/relationship-api[/][:action][/:id]',
+                    'constraints' => array(
+                        'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id' => '[0-9]+',
+                    ),
+                    'defaults' => array(
+                        '__NAMESPACE__' => 'SisdoWebService\Controller',
+                        'controller' => 'Relationship',
+                        'action' => 'index',
+                    ),
+                ),
+            ),
 
             // The following is a route to simplify getting started creating
             // new controllers and actions without needing to create a new
@@ -139,7 +155,7 @@ return array(
         ),
     ),
     'translator' => array(
-        'locale' => 'en_US',
+        'locale' => 'pt_BR',
         'translation_file_patterns' => array(
             array(
                 'type'     => 'gettext',
@@ -154,6 +170,7 @@ return array(
             'SisdoWebService\Controller\Institution' => 'SisdoWebService\Controller\InstitutionController',
             'SisdoWebService\Controller\Product' => 'SisdoWebService\Controller\ProductController',
             'SisdoWebService\Controller\Transaction' => 'SisdoWebService\Controller\TransactionController',
+            'SisdoWebService\Controller\Relationship' => 'SisdoWebService\Controller\RelationshipController',
         ),
     ),
     'view_manager' => array(
